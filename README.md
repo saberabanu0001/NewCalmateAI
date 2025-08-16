@@ -40,28 +40,27 @@ bash
 **cd NewCalmateAI
 
 Step 2: Create a Virtual Environment
-**python3 -m venv venv
+- **python3 -m venv venv
 
 Step 3: Activate the Virtual Environment
 macOS / Linux
-**source venv/bin/activate
+- **source venv/bin/activate
 
 Windows
-**venv\Scripts\activate
+- **venv\Scripts\activate
 
 Step 4: Install Dependencies
-**pip install -r requirements.txt
+- **pip install -r requirements.txt
 
 Step 5: Configure Environment Variables
 
 Create a .env file in the root directory and add:
-
-FLASK_SECRET_KEY='your_secret_key'
-GROQ_API_KEY='your_groq_api_key'
-GEMINI_API_KEY='your_gemini_api_key'
+- **FLASK_SECRET_KEY='your_secret_key'
+- **GROQ_API_KEY='your_groq_api_key'
+- **GEMINI_API_KEY='your_gemini_api_key'
 
 Step 6: Run the Application
-flask run
+- **flask run
 
 
 Now, open your browser and go to:
