@@ -32,46 +32,41 @@
 - Python **3.8+**  
 - `pip` (Python package installer)  
 
+## 📦 Installation & Setup
+
 ### Step 1: Clone the Repository
 ```bash
 git clone https://github.com/saberabanu0001/NewCalmateAI.git
 cd NewCalmateAI
-
-
 Step 2: Create a Virtual Environment
-  python3 -m venv venv
 
+python3 -m venv venv
 Step 3: Activate the Virtual Environment
+macOS / Linux
 
-  macOS / Linux
-
-   source venv/bin/activate
-
-
+source venv/bin/activate
 Windows
 
-  venv\Scripts\activate
-
+venv\Scripts\activate
 Step 4: Install Dependencies
-  pip install -r requirements.txt
 
+pip install -r requirements.txt
 Step 5: Configure Environment Variables
+Create a .env file in the root directory and add:
 
-  Create a .env file in the root directory and add:
 
 FLASK_SECRET_KEY='your_secret_key'
 GROQ_API_KEY='your_groq_api_key'
 GEMINI_API_KEY='your_gemini_api_key'
-
 Step 6: Run the Application
-  flask run
 
-
+flask run
 Now, open your browser and go to:
 👉 http://127.0.0.1:5000/
 
 👩‍💻 Author
-
 Sabera Banu – Initial development and design of CalmMateAI 💡
+
+
 
 ✨ CalmMateAI is built with love, empathy, and the mission of supporting mental well-being through technology.
