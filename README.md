@@ -36,24 +36,21 @@
 
 ### Step 1: Clone the Repository
 bash
-git clone https://github.com/saberabanu0001/NewCalmateAI.git
-cd NewCalmateAI
+**git clone https://github.com/saberabanu0001/NewCalmateAI.git
+**cd NewCalmateAI
+
 Step 2: Create a Virtual Environment
-python3 -m venv venv
+**python3 -m venv venv
 
 Step 3: Activate the Virtual Environment
-
 macOS / Linux
-
-source venv/bin/activate
-
+**source venv/bin/activate
 
 Windows
-
-venv\Scripts\activate
+**venv\Scripts\activate
 
 Step 4: Install Dependencies
-pip install -r requirements.txt
+**pip install -r requirements.txt
 
 Step 5: Configure Environment Variables
 
