@@ -1,0 +1,104 @@
+/* style.css */
+
+/* General Body Styling */
+body {
+    font-family: 'Inter', sans-serif;
+    color: #374151; /* A nice dark gray for text */
+    background-color: #f3f4f6; /* A light gray background */
+}
+
+/* Base Styles for Cards and Panels */
+.card, .panel {
+    background-color: #ffffff; /* Pure white for clean design */
+    border-radius: 12px; /* Consistent rounded corners */
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+/* Feature Card Styling for the Dashboard */
+.feature-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1.5rem;
+    text-align: center;
+    cursor: pointer;
+    background-color: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 1rem; /* rounded-xl */
+    transition: all 0.2s ease-in-out;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.feature-card .icon-container {
+    padding: 1rem;
+    border-radius: 50%;
+    margin-bottom: 1rem;
+    background-color: #f3f4f6;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Specific button styles to match the provided image's aesthetics */
+.feature-card:nth-of-type(1) .icon-container { background-color: #e0e7ff; }
+.feature-card:nth-of-type(1) i { color: #6366f1; }
+.feature-card:nth-of-type(2) .icon-container { background-color: #fee2e2; }
+.feature-card:nth-of-type(2) i { color: #ef4444; }
+.feature-card:nth-of-type(3) .icon-container { background-color: #e9d5ff; }
+.feature-card:nth-of-type(3) i { color: #a855f7; }
+.feature-card:nth-of-type(4) .icon-container { background-color: #dcfce7; }
+.feature-card:nth-of-type(4) i { color: #22c55e; }
+
+/* Dashboard Sidebar Styling */
+aside {
+    border-right: 1px solid #e5e7eb;
+}
+
+aside ul li a {
+    transition: background-color 0.2s ease-in-out;
+}
+
+aside ul li a:hover {
+    background-color: #f3f4f6;
+}
+
+/* Main Content Area */
+main {
+    background-color: #f9fafb;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        height: auto;
+        flex-direction: row;
+        border-right: none;
+        border-top: 1px solid #e5e7eb;
+        padding: 0;
+        justify-content: space-around;
+    }
+    .sidebar nav {
+        display: flex;
+        flex-grow: 1;
+        justify-content: space-around;
+    }
+    .sidebar a {
+        flex-direction: column;
+        text-align: center;
+        padding: 0.5rem;
+    }
+    .sidebar i {
+        margin-right: 0;
+        margin-bottom: 0.25rem;
+    }
+}
