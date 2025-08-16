@@ -36,8 +36,8 @@
 
 ### Step 1: Clone the Repository
 bash
-- **git clone https://github.com/saberabanu0001/NewCalmateAI.git
-**cd NewCalmateAI
+- git clone https://github.com/saberabanu0001/NewCalmateAI.git
+- cd NewCalmateAI
 
 Step 2: Create a Virtual Environment
 - **python3 -m venv venv
