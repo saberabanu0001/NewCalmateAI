@@ -1,6 +1,6 @@
-🌿 CalmMateAI: Your Personal Well-being Companion 🚀
+#🌿 CalmMateAI: Your Personal Well-being Companion 🚀
 
-CalmMateAI is an innovative web application designed to provide a safe and supportive space for users to explore their mental well-being. Built with Flask, this application combines a friendly user interface with the power of artificial intelligence to offer empathetic conversational support, daily well-being tips, and quick access to essential resources.
+###CalmMateAI is an innovative web application designed to provide a safe and supportive space for users to explore their mental well-being. Built with Flask, this application ###combines a friendly user interface with the power of artificial intelligence to offer empathetic conversational support, daily well-being tips, and quick access to essential resources.
 
 ✨ Features
 
@@ -31,15 +31,13 @@ Data Handling: JSON
 Environment Management: venv (Python virtual environment)
 
 📦 Installation & Setup
-Prerequisites
+##Prerequisites
+##Python 3.8+
+##pip (Python package installer)
 
-Python 3.8+
-
-pip (Python package installer)
-
-Step 1: Clone the Repository
-  git clone https://github.com/saberabanu0001/NewCalmateAI.git
-  cd NewCalmateAI
+##Step 1: Clone the Repository
+  ###git clone https://github.com/saberabanu0001/NewCalmateAI.git
+  ###cd NewCalmateAI
 
 Step 2: Create a Virtual Environment
   python3 -m venv venv
