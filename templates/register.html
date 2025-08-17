@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - CalmMateAI</title>
+    <title>Register - CalmMateAI</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
@@ -15,12 +15,19 @@
             <div class="w-16 h-16 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
                 <i class="fas fa-leaf text-white text-2xl"></i>
             </div>
-            <h1 class="text-3xl font-bold text-gray-800 mb-2">Welcome Back</h1>
-            <p class="text-gray-600">Sign in to your CalmMateAI account</p>
+            <h1 class="text-3xl font-bold text-gray-800 mb-2">CalmMateAI</h1>
+            <p class="text-gray-600">Create your account to get started</p>
         </div>
 
-        <!-- Login Form -->
-        <form id="login-form" class="space-y-6">
+        <!-- Registration Form -->
+        <form id="register-form" class="space-y-6">
+            <div>
+                <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
+                <input type="text" id="name" name="name" required 
+                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors"
+                       placeholder="Enter your full name">
+            </div>
+
             <div>
                 <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
                 <input type="email" id="email" name="email" required 
@@ -32,40 +39,41 @@
                 <label for="password" class="block text-sm font-medium text-gray-700 mb-2">Password</label>
                 <input type="password" id="password" name="password" required 
                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors"
-                       placeholder="Enter your password">
+                       placeholder="Create a password">
             </div>
 
             <button type="submit" 
                     class="w-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-semibold py-3 px-4 rounded-lg hover:from-indigo-600 hover:to-purple-700 transform hover:scale-105 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                Login
+                Create Account
             </button>
         </form>
 
-        <!-- Registration Link -->
+        <!-- Login Link -->
         <div class="text-center mt-6">
             <p class="text-gray-600">
-                Don't have an account? 
-                <a href="/" class="text-indigo-600 hover:text-indigo-700 font-medium transition-colors">
-                    Register here
+                Already have an account? 
+                <a href="/login" class="text-indigo-600 hover:text-indigo-700 font-medium transition-colors">
+                    Sign in here
                 </a>
             </p>
         </div>
 
-        <!-- Error Messages -->
+        <!-- Error/Success Messages -->
         <div id="message" class="mt-4 text-center hidden"></div>
     </div>
 
     <script>
-        document.getElementById('login-form').addEventListener('submit', async (e) => {
+        document.getElementById('register-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             
             const formData = {
+                name: document.getElementById('name').value,
                 email: document.getElementById('email').value,
                 password: document.getElementById('password').value
             };
 
             try {
-                const response = await fetch('/login', {
+                const response = await fetch('/register', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -78,26 +86,26 @@
                 
                 if (data.success) {
                     messageDiv.className = 'mt-4 text-center p-3 bg-green-100 text-green-700 rounded-lg';
-                    messageDiv.textContent = 'Login successful! Redirecting...';
+                    messageDiv.textContent = data.message;
                     messageDiv.classList.remove('hidden');
                     
-                    // Redirect to dashboard after successful login
+                    // Redirect to login page after successful registration
                     setTimeout(() => {
                         window.location.href = data.redirect_url;
-                    }, 1000);
+                    }, 2000);
                 } else {
                     messageDiv.className = 'mt-4 text-center p-3 bg-red-100 text-red-700 rounded-lg';
                     messageDiv.textContent = data.message;
                     messageDiv.classList.remove('hidden');
                 }
             } catch (error) {
-                console.error('Login error:', error);
+                console.error('Registration error:', error);
                 const messageDiv = document.getElementById('message');
                 messageDiv.className = 'mt-4 text-center p-3 bg-red-100 text-red-700 rounded-lg';
-                messageDiv.textContent = 'An error occurred during login. Please try again.';
+                messageDiv.textContent = 'An error occurred during registration. Please try again.';
                 messageDiv.classList.remove('hidden');
             }
         });
     </script>
 </body>
-</html>
+</html> 

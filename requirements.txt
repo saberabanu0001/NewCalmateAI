@@ -1,6 +1,5 @@
 python-dotenv
 Flask
-Flask-Login
 langchain
 langchain-community
 langchain-groq

@@ -1,5 +1,6 @@
 # voice_input.py
 
+import os
 import speech_recognition as sr
 from pydub import AudioSegment
 

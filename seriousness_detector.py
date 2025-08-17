@@ -73,7 +73,11 @@ def get_seriousness_level(user_input, qa_chain_for_llm_check):
         
         try:
             llm_response_obj = llm_check_chain.invoke({"user_input": user_input})
-            llm_response = llm_response_obj['text'].strip().lower()
+            # Handle both old and new LangChain response formats
+            if hasattr(llm_response_obj, 'get'):
+                llm_response = llm_response_obj.get('text', '').strip().lower()
+            else:
+                llm_response = str(llm_response_obj).strip().lower()
             
             if "medium" in llm_response:
                 return "Medium"

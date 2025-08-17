@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat with AI - CalmMateAI</title>
+    <!-- Favicon link -->
+    <link rel="icon" href="https://placehold.co/32x32/1a1a1a/ffffff?text=AI">
+    <!-- Tailwind CSS CDN for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Inter Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Marked.js for Markdown parsing -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #1a1a2e; /* Dark purple/blue background */
+        }
+        .chat-container {
+            height: calc(100vh - 12rem); /* Full height minus header and input area */
+            max-height: calc(100vh - 12rem);
+        }
+        /* Custom styles for the suggestions box */
+        #suggestions-output {
+            background-color: #2a2a4e; /* Darker background for the suggestions box */
+            border-left: 4px solid;
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 0.5rem;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .seriousness-low { border-color: #34d399; } /* green-400 */
+        .seriousness-medium { border-color: #fcd34d; } /* amber-300 */
+        .seriousness-high { border-color: #f87171; } /* red-400 */
+        .seriousness-critical { border-color: #dc2626; } /* red-600 */
+    </style>
+</head>
+<body class="bg-[#1a1a2e] text-white flex flex-col items-center justify-center p-4 min-h-screen">
+    <div class="w-full max-w-4xl h-full flex flex-col">
+        <!-- Header -->
+        <header class="w-full text-center py-4 mb-4">
+            <h1 class="text-3xl font-bold text-gray-100">CalmMateAI Chat</h1>
+        </header>
+
+        <!-- Chat messages container -->
+        <div id="chat-messages" class="flex-1 overflow-y-auto p-4 space-y-4 rounded-xl mb-4 bg-[#1a1a2e]">
+            <!-- Welcome message bubble -->
+            <div class="flex items-start mb-4 space-x-3 w-full max-w-[80%] md:max-w-[60%]">
+                <div class="flex-shrink-0 w-8 h-8 rounded-full bg-purple-500 flex items-center justify-center text-sm font-bold text-white">AI</div>
+                <div class="bg-[#1e1e3e] text-gray-200 p-4 rounded-xl shadow-lg max-w-xs md:max-w-md">
+                    <p>Hello! I'm here to listen. How are you feeling today?</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Seriousness and Suggestions container -->
+        <div id="seriousness-suggestions-container" class="w-full p-4 hidden">
+            <div id="seriousness-output" class="text-sm font-semibold mb-2 text-white"></div>
+            <div id="suggestions-output" class="text-sm text-gray-200 markdown-content"></div>
+        </div>
+
+        <!-- Message input form -->
+        <div class="mt-6 w-full">
+            <form id="chat-form" class="flex space-x-3 items-center">
+                <input type="text" id="user-input" class="flex-1 p-4 rounded-full bg-[#1e1e3e] text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-purple-500 placeholder-gray-400" placeholder="Type your message here..." autocomplete="off">
+                <button type="submit" class="bg-[#5d44b5] hover:bg-[#4a3692] text-white font-semibold py-3 px-6 rounded-full shadow-lg transform hover:scale-105 transition-transform duration-300 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 00.149 1.404.996.996 0 00.824.236h14.717a1 1 0 00.957-1.12l-1.39-7.857a1 1 0 00-.863-.824l-.162-.034zM9.5 13a1.5 1.5 0 110-3 1.5 1.5 0 010 3z" />
+                    </svg>
+                </button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
