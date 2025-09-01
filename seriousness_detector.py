@@ -36,7 +36,7 @@ def get_seriousness_level(user_input, qa_chain_for_llm_check):
         re.IGNORECASE
     )
     high_keywords = re.compile(
-        r'\b(hopeless|worthless|can\'t go on|give up|no purpose|can\'t take it anymore|lost|alone|trapped|scared|crisis|panic attack|anxious|depressed|depression)\b',
+        r'\b(hopeless|worthless|can\'t go on|give up|no purpose|can\'t take it anymore|lost|alone|trapped|scared|crisis|panic attack|anxious|depressed|depression|extreme pain|severe pain|unbearable pain|debilitating pain)\b',
         re.IGNORECASE
     )
     medium_keywords = re.compile(
