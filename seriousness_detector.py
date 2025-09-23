@@ -36,7 +36,7 @@ def get_seriousness_level(user_input, qa_chain_for_llm_check):
         re.IGNORECASE
     )
     high_keywords = re.compile(
-        r'\b(hopeless|worthless|can\'t go on|give up|no purpose|can\'t take it anymore|lost|alone|trapped|scared|crisis|panic attack|anxious|depressed|depression|extreme pain|severe pain|unbearable pain|debilitating pain)\b',
+        r"\b(hopeless|worthless|can't go on|give up|no purpose|can't take it anymore|lost|alone|trapped|scared|crisis|panic attack|anxious|depressed|depression|extreme pain|severe pain|unbearable pain|debilitating pain)\b",
         re.IGNORECASE
     )
     medium_keywords = re.compile(
@@ -59,19 +59,17 @@ def get_seriousness_level(user_input, qa_chain_for_llm_check):
         return "Medium"
     
     # --- LLM-based Nuance Check ---
-    # For a more nuanced check, we can ask the LLM for its opinion.
-    # This is useful for detecting subtle signs not caught by keywords/sentiment alone.
-    if compound_score < 0: # Only check if sentiment is slightly negative
+    # Only attempt this check if an LLM chain is provided
+    if compound_score < 0 and qa_chain_for_llm_check is not None and hasattr(qa_chain_for_llm_check, 'llm'):
         llm_check_prompt = PromptTemplate.from_template(
             "The user said: '{user_input}'. "
             "Based on this, is their emotional state a 'Low' or 'Medium' level? "
             "Respond with only 'Low' or 'Medium'."
         )
         
-        # We need a temporary chain to invoke this specific prompt
-        llm_check_chain = LLMChain(llm=qa_chain_for_llm_check.llm, prompt=llm_check_prompt)
-        
         try:
+            # We need a temporary chain to invoke this specific prompt
+            llm_check_chain = LLMChain(llm=qa_chain_for_llm_check.llm, prompt=llm_check_prompt)
             llm_response_obj = llm_check_chain.invoke({"user_input": user_input})
             # Handle both old and new LangChain response formats
             if hasattr(llm_response_obj, 'get'):
