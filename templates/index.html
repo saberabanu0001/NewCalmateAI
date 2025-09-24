@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Assistant</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+        }
+
+        .chat-container {
+            max-width: 600px;
+            height: 80vh;
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+            border-radius: 1.5rem;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            background-color: white;
+        }
+
+        .chat-header {
+            background-color: #1f2937;
+            color: white;
+            padding: 1rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            border-bottom: 2px solid #374151;
+        }
+
+        .chat-messages {
+            flex-grow: 1;
+            padding: 1.5rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            scroll-behavior: smooth;
+        }
+
+        .message {
+            max-width: 80%;
+            padding: 0.75rem 1.25rem;
+            border-radius: 1.25rem;
+            line-height: 1.5;
+        }
+
+        .user-message {
+            background-color: #3b82f6;
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 0.5rem;
+        }
+
+        .assistant-message {
+            background-color: #e5e7eb;
+            color: #1f2937;
+            align-self: flex-start;
+            border-bottom-left-radius: 0.5rem;
+        }
+
+        .chat-input-container {
+            padding: 1.5rem;
+            background-color: #ffffff;
+            border-top: 1px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .chat-input {
+            flex-grow: 1;
+            padding: 0.75rem 1rem;
+            border-radius: 9999px;
+            border: 1px solid #d1d5db;
+            outline: none;
+            transition: border-color 0.2s ease-in-out;
+        }
+
+        .chat-input:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5);
+        }
+
+        .send-button {
+            background-color: #3b82f6;
+            color: white;
+            padding: 0.75rem 1.25rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        .send-button:hover {
+            background-color: #2563eb;
+        }
+        
+        .disclaimer {
+            text-align: center;
+            font-size: 0.75rem;
+            color: #6b7280;
+            margin-top: 0.5rem;
+        }
+
+        .loading-dots {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.25rem;
+            margin: 0.5rem 0;
+        }
+
+        .loading-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #6b7280;
+            border-radius: 50%;
+            animation: bounce 1.4s infinite ease-in-out both;
+        }
+
+        .loading-dot:nth-child(1) { animation-delay: -0.32s; }
+        .loading-dot:nth-child(2) { animation-delay: -0.16s; }
+
+        @keyframes bounce {
+            0%, 80%, 100% { transform: translateY(-0); }
+            40% { transform: translateY(-10px); }
+        }
+
+        .seriousness-level {
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: #4b5563; /* Default text color */
+        }
+        .seriousness-level.low { color: #10b981; } /* green */
+        .seriousness-level.medium { color: #f59e0b; } /* yellow */
+        .seriousness-level.emergency { color: #dc2626; } /* red */
+    </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
+
+    <!-- Main Container -->
+    <div class="chat-container">
+
+        <!-- Header -->
+        <div class="chat-header">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8 text-blue-300">
+                <path d="M11.47 1.72a.75.75 0 0 1 1.06 0l3.86 3.86c.09.09.135.2.14.3l.01.1L21 9.53c.2.19.3.44.3.7V17.25a2.25 2.25 0 0 1-2.25 2.25H15a3 3 0 0 0-3-3h-1.5a.75.75 0 0 1-.75-.75V4.5a.75.75 0 0 1 .75-.75h2.25a.75.75 0 0 0 .75-.75V2.5a.75.75 0 0 1 .75-.75Zm-2.887 7.037a.75.75 0 0 0-.894 0L3.55 11.23a.75.75 0 0 0-.25 1.06l1.5 2.25a.75.75 0 0 0 .894.209l4.5-3a.75.75 0 0 0 .25-1.06l-1.5-2.25Z" />
+                <path d="m19.25 18.75-5.558-5.558A1.5 1.5 0 0 0 12 14.162V18.75a.75.75 0 0 1-.75.75H4.5a2.25 2.25 0 0 1-2.25-2.25V9.75c0-.131.02-.26.06-.382.02-.06.044-.117.07-.17l3.86-3.86c.553-.553 1.447-.553 2.001 0l4.998 4.998a.75.75 0 0 1 .187.894L11.75 16.5a.75.75 0 0 0 .346.187l5-1.25a.75.75 0 0 1 .799.52l.25 1.5a.75.75 0 0 1-.52.799l-1.25.25a.75.75 0 0 0-.187.346Z" />
+            </svg>
+            <h1 class="text-xl font-bold">AI Assistant</h1>
+        </div>
+
+        <!-- Chat Messages Container -->
+        <div class="chat-messages" id="chat-messages">
+            <!-- Initial AI message -->
+            <div class="message assistant-message">Hello! I'm here to help you. What's on your mind today?</div>
+        </div>
+
+        <!-- Input Form -->
+        <div class="chat-input-container">
+            <input type="text" id="user-input" class="chat-input" placeholder="Type a message..." autocomplete="off">
+            <button id="send-button" class="send-button">Send</button>
+        </div>
+        <p class="disclaimer">Disclaimer: This is a prototype and should not be used for medical or serious advice.</p>
+    </div>
+
+    <script>
+        // Get references to DOM elements
+        const userInput = document.getElementById('user-input');
+        const sendButton = document.getElementById('send-button');
+        const chatMessages = document.getElementById('chat-messages');
+
+        // Main chat logic
+        const chat = {
+            chatHistory: [{ role: "assistant", content: "Hello! I'm here to help you. What's on my mind today?" }],
+
+            // Function to add a message to the UI
+            addMessage: (text, role, seriousnessLevel = null) => {
+                const messageDiv = document.createElement('div');
+                messageDiv.classList.add('message', role === 'user' ? 'user-message' : 'assistant-message');
+
+                if (role === 'assistant' && seriousnessLevel) {
+                    const seriousnessDiv = document.createElement('div');
+                    seriousnessDiv.classList.add('seriousness-level', seriousnessLevel);
+                    seriousnessDiv.textContent = `Seriousness Level: ${seriousnessLevel.charAt(0).toUpperCase() + seriousnessLevel.slice(1)}`;
+                    messageDiv.appendChild(seriousnessDiv);
+                }
+
+                const contentDiv = document.createElement('div');
+                contentDiv.textContent = text;
+                messageDiv.appendChild(contentDiv);
+
+                chatMessages.appendChild(messageDiv);
+                // Scroll to the latest message
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            },
+
+            // Function to show a loading indicator
+            showLoading: () => {
+                const loadingDiv = document.createElement('div');
+                loadingDiv.id = 'loading-indicator';
+                loadingDiv.classList.add('loading-dots');
+                loadingDiv.innerHTML = `
+                    <div class="loading-dot"></div>
+                    <div class="loading-dot"></div>
+                    <div class="loading-dot"></div>
+                `;
+                chatMessages.appendChild(loadingDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            },
+
+            // Function to hide the loading indicator
+            hideLoading: () => {
+                const loadingDiv = document.getElementById('loading-indicator');
+                if (loadingDiv) {
+                    loadingDiv.remove();
+                }
+            },
+            
+            // Function to get the seriousness level based on keywords
+            getSeriousnessLevel: (text) => {
+                const lowerText = text.toLowerCase();
+                // Tier 1: Emergency keywords (highest priority)
+                const emergencyKeywords = ['die', 'suicide', 'end my life', 'kill myself', 'i wanna die', 'i want to die', 'end my pain', 'self harm'];
+                if (emergencyKeywords.some(keyword => lowerText.includes(keyword))) {
+                    return 'emergency';
+                }
+
+                // Tier 2: Medium seriousness keywords
+                const mediumSeriousnessKeywords = ['sad', 'stressed', 'anxious', 'struggling', 'problem', 'difficult', 'confused', 'worried', 'pain', 'sick', 'headache'];
+                if (mediumSeriousnessKeywords.some(keyword => lowerText.includes(keyword))) {
+                    return 'medium';
+                }
+
+                // Tier 3: Low seriousness keywords (or none of the above)
+                return 'low';
+            },
+
+            // The core function to handle the chat interaction
+            handleChat: async () => {
+                const userText = userInput.value.trim();
+                if (!userText) return;
+
+                // Add user message to UI
+                chat.addMessage(userText, 'user');
+                userInput.value = '';
+
+                // Show loading indicator
+                chat.showLoading();
+
+                // Get seriousness level
+                const seriousnessLevel = chat.getSeriousnessLevel(userText);
+                let assistantResponse = '';
+
+                if (seriousnessLevel === 'emergency') {
+                    assistantResponse = "Please, reach out for help immediately. Call your local emergency services or a crisis helpline. In the US and Canada, you can call or text 988. There are people who want to help you, and things can get better. You are not alone.";
+                } else if (seriousnessLevel === 'medium') {
+                    assistantResponse = "I'm sorry to hear that you're not feeling well. Please consult with a medical professional for advice. In the meantime, remember to take some rest, stay hydrated, and try to relax.";
+                } else {
+                    // Low seriousness or general query
+                    // Use a simple prompt for the API call
+                    const prompt = `The user says: "${userText}". As a friendly AI assistant, please provide a helpful and encouraging response. Keep it brief and to the point.`;
+                    
+                    try {
+                        const payload = {
+                            contents: [{
+                                parts: [{ text: prompt }]
+                            }],
+                            generationConfig: {
+                                responseMimeType: "text/plain"
+                            },
+                        };
+
+                        // Use the provided API for text generation
+                        const apiKey = ""
+                        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+                        const response = await fetch(apiUrl, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(payload)
+                        });
+
+                        const result = await response.json();
+                        if (result.candidates && result.candidates.length > 0) {
+                            assistantResponse = result.candidates[0].content.parts[0].text;
+                        } else {
+                            assistantResponse = "I'm sorry, I couldn't generate a response at this moment. Please try again later.";
+                        }
+                    } catch (error) {
+                        console.error('Error fetching API response:', error);
+                        assistantResponse = "I'm experiencing some technical difficulties. Please try again in a few moments.";
+                    }
+                }
+
+                // Hide loading indicator and add assistant message to UI
+                setTimeout(() => {
+                    chat.hideLoading();
+                    chat.addMessage(assistantResponse, 'assistant', seriousnessLevel);
+                }, 1000); // Wait for 1 second to simulate API call latency
+            }
+        };
+
+        // Event listeners for sending messages
+        sendButton.addEventListener('click', chat.handleChat);
+        userInput.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') {
+                chat.handleChat();
+            }
+        });
+
+    </script>
+</body>
+</html>

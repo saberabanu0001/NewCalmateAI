@@ -1,0 +1,26 @@
+{
+    "Sejong University": {
+        "students": {
+            "student123": {
+                "password": "pass123",
+                "email": "student123@sejong.ac.kr"
+            },
+            "jane_doe": {
+                "password": "securepassword",
+                "email": "jane_doe@sejong.ac.kr"
+            }
+        }
+    },
+    "Seoul National University": {
+        "students": {
+            "user987": {
+                "password": "snu_pass",
+                "email": "user987@snu.ac.kr"
+            },
+            "john_smith": {
+                "password": "supersecret",
+                "email": "john_smith@snu.ac.kr"
+            }
+        }
+    }
+}

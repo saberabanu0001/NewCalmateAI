@@ -1,0 +1,63 @@
+{
+    "South Korea": {
+        "Seoul": {
+            "helplines": [
+                {
+                    "name": "Suicide Prevention Center",
+                    "number": "1393",
+                    "url": "https://www.spckorea.or.kr/"
+                },
+                {
+                    "name": "Mental Health Crisis Hotline",
+                    "number": "1577-0199"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "Mindful Clinic",
+                    "number": "+82-2-1234-5678",
+                    "url": "http://www.mindfulclinic.co.kr"
+                },
+                {
+                    "name": "Sejong Hospital Psychiatry",
+                    "number": "+82-2-9876-5432"
+                }
+            ]
+        },
+        "Busan": {
+            "helplines": [
+                {
+                    "name": "Busan Mental Health Center",
+                    "number": "1577-0199"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "Busan Wellness Clinic",
+                    "number": "+82-51-123-4567"
+                }
+            ]
+        }
+    },
+    "United States": {
+        "New York": {
+            "helplines": [
+                {
+                    "name": "NYC Well",
+                    "number": "1-888-NYC-WELL"
+                },
+                {
+                    "name": "National Suicide Prevention Lifeline",
+                    "number": "988",
+                    "url": "https://988lifeline.org/"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "NYC Behavioral Health",
+                    "number": "212-555-0100"
+                }
+            ]
+        }
+    }
+}

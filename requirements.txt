@@ -1,0 +1,8 @@
+python-dotenv
+Flask
+langchain
+langchain-community
+langchain-groq
+nltk
+SpeechRecognition
+pydub

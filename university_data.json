@@ -1,0 +1,14 @@
+{
+    "Sejong University": {
+        "counseling_center": "Sejong Wellness Center, Room 101, (02) 345-6789",
+        "emergency_contact": "Campus Security: (02) 119-911",
+        "wellness_programs": "Mindfulness workshops every Tuesday at 3 PM, Yoga classes every Friday at 10 AM.",
+        "website": "http://wellness.sejong.ac.kr"
+    },
+    "Seoul National University": {
+        "counseling_center": "Student Counseling Center, Bldg. 65, (02) 880-5555",
+        "emergency_contact": "Campus Security: (02) 880-0112",
+        "wellness_programs": "Free therapy sessions, academic stress seminars, and peer support groups.",
+        "website": "http://counseling.snu.ac.kr"
+    }
+}
