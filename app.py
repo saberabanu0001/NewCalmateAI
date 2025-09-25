@@ -239,10 +239,10 @@ def chat_api():
             }
             
             try:
-            response = requests.post(api_url, headers=headers, data=json.dumps(payload))
-            response.raise_for_status() # Raise an exception for bad status codes
-            result = response.json()
-            ai_response = result['choices'][0]['message']['content']
+                response = requests.post(api_url, headers=headers, data=json.dumps(payload))
+                response.raise_for_status() # Raise an exception for bad status codes
+                result = response.json()
+                ai_response = result['choices'][0]['message']['content']
             except Exception as _e:
                 # Fall back to contextual responses if API call fails
                 if any(word in user_message_lower for word in ['anxious', 'anxiety', 'worried', 'nervous']):

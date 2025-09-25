@@ -46,17 +46,17 @@
         <!-- Header -->
         <header class="w-full flex justify-between items-center py-4 px-5 border-b border-[var(--panel-border)] bg-[var(--panel)]">
             <a href="/dashboard" class="flex items-center gap-3 hover:opacity-80 transition-opacity">
-                <div class="w-9 h-9 rounded-full bg-indigo-500/90 text-white flex items-center justify-center font-semibold">AI</div>
+                <div class="w-9 h-9 rounded-full bg-indigo-500/90 text-white flex items-center justify-center font-semibold">AI</a>
                 <div>
                     <h1 class="text-xl md:text-2xl font-semibold">CalmMateAI</h1>
                     <p class="text-xs text-[var(--muted)]">Compassionate support, when you need it</p>
-                </div>
+                </a>
             </a>
             <div class="flex items-center gap-2">
                 <div class="hidden sm:flex items-center gap-1" aria-label="Font size controls">
                     <button id="font-dec" class="px-2 py-1 rounded-md border border-[var(--panel-border)] text-[var(--muted)] hover:bg-[var(--accent-soft)] focus-ring">A-</button>
                     <button id="font-inc" class="px-2 py-1 rounded-md border border-[var(--panel-border)] text-[var(--muted)] hover:bg-[var(--accent-soft)] focus-ring">A+</button>
-                </div>
+                </a>
                 <button id="calm-toggle" class="px-3 py-2 rounded-md border border-[var(--panel-border)] bg-[var(--chip)] text-[var(--chip-text)] hover:bg-indigo-100 focus-ring">Calm Mode</button>
                 <div class="relative">
                     <button id="menu-btn" class="px-3 py-2 rounded-md border border-[var(--panel-border)] text-[var(--muted)] hover:bg-[var(--accent-soft)] focus-ring" aria-haspopup="true" aria-expanded="false">
@@ -64,11 +64,11 @@
                     </button>
                     <div id="menu-dropdown" class="hidden absolute right-0 mt-2 w-40 bg-[var(--panel)] border border-[var(--panel-border)] rounded-md shadow-lg z-30">
                         <button id="clear-chat" type="button" role="menuitem" aria-label="Clear chat" onclick="if(confirm('Clear chat history?')){document.getElementById('chat-messages').innerHTML='';document.getElementById('quick-response-chips').style.display='flex';document.getElementById('crisis-actions').style.display='flex';document.getElementById('seriousness-suggestions-container').classList.add('hidden');}" class="w-full text-left px-3 py-2 text-sm text-rose-600 hover:bg-gray-50 focus-ring">
-                            <i class="fas fa-trash mr-2"></i>Clear Chat
+                <i class="fas fa-trash mr-2"></i>Clear Chat
                         </button>
-                    </div>
-                </div>
-            </div>
+                    </a>
+                </a>
+            </a>
         </header>
 
         <!-- Main -->
@@ -78,14 +78,13 @@
                 <div id="chat-messages" class="chat-container">
                     <!-- Welcome -->
                     <div class="flex items-start message space-x-3 w-full max-w-[75%]">
-                        <div class="flex-shrink-0 w-8 h-8 rounded-full bg-indigo-400 text-white flex items-center justify-center text-sm font-bold" aria-hidden="true">AI</div>
+                        <div class="flex-shrink-0 w-8 h-8 rounded-full bg-indigo-400 text-white flex items-center justify-center text-sm font-bold" aria-hidden="true">AI</a>
                         <div class="card p-4">
                             <p>Hello! I'm here to listen. How are you feeling today?</p>
-                            <div class="timestamp">Just now</div>
-                        </div>
-                    </div>
-                </div>
-                
+                            <div class="timestamp">Just now</a>
+                        </a>
+                    </a>
+                </a>
                 <!-- Quick Responses -->
                 <div id="quick-responses" class="px-4 py-3 bg-transparent">
                     <p class="text-sm text-[var(--muted)] mb-2">Quick responses:</p>
@@ -95,27 +94,25 @@
                         <button class="quick-response-btn pill px-3 py-1.5 text-sm" data-message="I'm stressed about work/school">😤 I'm stressed</button>
                         <button class="quick-response-btn pill px-3 py-1.5 text-sm" data-message="I need help with sleep">😴 I need help sleeping</button>
                         <button class="quick-response-btn pill px-3 py-1.5 text-sm" data-message="I'm having relationship issues">💔 Relationship issues</button>
-                        <button class="quick-response-btn pill px-3 py-1.5 text-sm" data-message="I need coping strategies">🛠️ Need coping strategies</button>
-                    </div>
-                    
-                    <!-- Crisis action buttons -->
+                    </a>
+                    <!-- Crisis action buttons moved below quick responses -->
                     <div id="crisis-actions" class="mt-4 flex flex-wrap gap-3" style="margin-bottom: 80px;">
                         <a href="tel:988" class="px-3 py-2 rounded-xl text-sm border border-rose-200 bg-rose-50 text-rose-700 hover:bg-rose-100 focus-ring">📞 Call 988</a>
-                        <a href="sms:741741&body=HOME" class="px-3 py-2 rounded-xl text-sm border border-indigo-200 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 focus-ring">💬 Text HOME to 741741</a>
+                        <a href="sms:741741&body=HOME" class="px-3 py-2 rounded-xl text-sm border border-indigo-200 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 focus-ring">💬 Quick Resources</a>
                         <a href="/emergency_contacts" class="px-3 py-2 rounded-xl text-sm border border-emerald-200 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 focus-ring">🌐 Find local help</a>
-                    </div>
-                </div>
-            </div>
-            
+                    </a>
+                </a>
+            </a>
             <!-- Sidebar -->
             <aside id="seriousness-suggestions-container" class="sidebar hidden lg:block p-4 border-l border-[var(--panel-border)] bg-[var(--panel)]" role="complementary" aria-label="Assessment & resources">
                 <div class="sticky top-4 space-y-3">
-                    <h3 class="text-lg font-semibold">Quick Resources</h3>
-                    <div id="seriousness-output" class="text-sm font-medium card p-3"></div>
-                    <div id="suggestions-output" class="text-sm card p-4 border-l-4"></div>
-                </div>
+                    <h3 class="text-lg font-semibold">Assessment & Resources</h3>
+                    <div id="seriousness-output" class="text-sm font-medium card p-3"></a>
+                    <div id="suggestions-output" class="text-sm card p-4 border-l-4"></a>
+                    <!-- Crisis actions removed from sidebar -->
+                </a>
             </aside>
-        </div>
+        </a>
 
         <!-- Input -->
         <div class="input-area">
@@ -124,18 +121,18 @@
                     <input type="text" id="user-input" class="flex-1 p-4 rounded-xl border border-[var(--panel-border)] bg-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-300" placeholder="Type your message here..." autocomplete="off" aria-label="Your message">
                     <button type="button" id="voice-btn" class="p-2 text-slate-600 hover:text-slate-900 focus-ring" aria-label="Toggle voice recording">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"></path></svg>
-                    </button>
+                </button>
                     <button type="submit" id="send-btn" class="bg-indigo-500 hover:bg-indigo-600 text-white p-2.5 rounded-lg focus-ring" aria-label="Send message">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5"></path></svg>
-                    </button>
-                </form>
-                <div id="voice-status" class="hidden mt-2 text-center">
+                </button>
+            </form>
+            <div id="voice-status" class="hidden mt-2 text-center">
                     <span class="text-sm text-[var(--muted)]">Recording...</span>
-                </div>
-                <div id="typing-indicator" class="hidden mt-2 text-[var(--muted)] text-sm" aria-live="polite">AI is typing<span id="dots">...</span></div>
-            </div>
-        </div>
-    </div>
+                </a>
+                <div id="typing-indicator" class="hidden mt-2 text-[var(--muted)] text-sm" aria-live="polite">AI is typing<span id="dots">...</span></a>
+            </a>
+        </a>
+    </a>
 
     <script src="{{ url_for('static', filename='js/chat_script.js') }}"></script>
     <script>
@@ -149,6 +146,46 @@
         if(inc)inc.addEventListener('click',()=>{baseSize=Math.min(22,baseSize+1);setSize(baseSize)});
         if(dec)dec.addEventListener('click',()=>{baseSize=Math.max(14,baseSize-1);setSize(baseSize)});
         const calmToggle=document.getElementById('calm-toggle');if(calmToggle)calmToggle.addEventListener('click',()=>{document.body.classList.toggle('bg-white')});
+        // Bind clear chat for robustness
+        function bindClear(){
+            const btn=document.getElementById('clear-chat');
+            if(!btn) return;
+            const invoke=(e)=>{e.preventDefault();e.stopPropagation(); if(window.performClearChat){ if(confirm('Are you sure you want to clear the chat history?')) window.performClearChat(); }};
+            ['click','mousedown','touchstart'].forEach(ev=>btn.addEventListener(ev,invoke,{capture:true}));
+        }
+        bindClear();
+    </script>
+    <script>
+        // Last-resort binding to ensure the menu Clear Chat always works
+        (function(){
+            function forceBind(){
+                var btn=document.getElementById('clear-chat');
+                if(!btn) { requestAnimationFrame(forceBind); return; }
+                var handler=function(e){ e.preventDefault(); e.stopPropagation(); if(window.performClearChat){ window.performClearChat(); }};
+                ['click','mousedown','touchstart'].forEach(function(ev){ btn.addEventListener(ev, handler, {capture:true}); });
+            }
+            forceBind();
+        })();
+        // Inline fallback if external JS fails
+        window.__inlineClear = function(){
+            try{
+                var cm=document.getElementById('chat-messages');
+                if(!cm) return;
+                cm.innerHTML='';
+                var w=document.createElement('div');w.className='flex items-start message space-x-3 w-full max-w-[75%]';
+                var a=document.createElement('div');a.className='flex-shrink-0 w-8 h-8 rounded-full bg-indigo-400 text-white flex items-center justify-center text-sm font-bold';a.textContent='AI';
+                var b=document.createElement('div');b.className='card p-4';
+                var p=document.createElement('p');p.textContent="Hello! I'm here to listen. How are you feeling today?";
+                var ts=document.createElement('div');ts.className='timestamp';ts.textContent=new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
+                b.appendChild(p);b.appendChild(ts);w.appendChild(a);w.appendChild(b);cm.appendChild(w);
+                var chips=document.getElementById('quick-response-chips'); if(chips) chips.style.display='flex';
+                var actions=document.getElementById('crisis-actions'); if(actions) actions.style.display='flex';
+                var qr=document.getElementById('quick-responses'); if(qr){ qr.classList.remove('hidden'); qr.style.display='block'; }
+                var side=document.getElementById('seriousness-suggestions-container'); if(side){ side.classList.add('hidden'); side.classList.remove('show'); }
+                var banner=document.getElementById('emergency-banner'); if(banner){ banner.classList.add('hidden'); }
+                var dd=document.getElementById('menu-dropdown'); if(dd) dd.classList.add('hidden');
+            }catch(e){ console.error('inline clear failed', e); }
+        };
     </script>
 </body>
 </html>
