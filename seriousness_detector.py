@@ -9,8 +9,8 @@ from langchain_groq import ChatGroq
 
 # Ensure NLTK data is downloaded
 try:
-    nltk.data.find('sentiment/vader_lexicon.zip')
-except nltk.downloader.DownloadError:
+    nltk.data.find('sentiment/vader_lexicon')
+except LookupError:
     print("Downloading NLTK VADER lexicon...")
     nltk.download('vader_lexicon')
 
@@ -62,28 +62,32 @@ def get_seriousness_level(user_input, qa_chain_for_llm_check):
     # For a more nuanced check, we can ask the LLM for its opinion.
     # This is useful for detecting subtle signs not caught by keywords/sentiment alone.
     if compound_score < 0: # Only check if sentiment is slightly negative
-        llm_check_prompt = PromptTemplate.from_template(
-            "The user said: '{user_input}'. "
-            "Based on this, is their emotional state a 'Low' or 'Medium' level? "
-            "Respond with only 'Low' or 'Medium'."
-        )
-        
-        # We need a temporary chain to invoke this specific prompt
-        llm_check_chain = LLMChain(llm=qa_chain_for_llm_check.llm, prompt=llm_check_prompt)
-        
-        try:
-            llm_response_obj = llm_check_chain.invoke({"user_input": user_input})
-            # Handle both old and new LangChain response formats
-            if hasattr(llm_response_obj, 'get'):
-                llm_response = llm_response_obj.get('text', '').strip().lower()
-            else:
-                llm_response = str(llm_response_obj).strip().lower()
-            
-            if "medium" in llm_response:
-                return "Medium"
-        except Exception as e:
-            print(f"Error during seriousness check LLM invocation: {e}")
-            # Fallback to keyword/sentiment if LLM check fails
+        if qa_chain_for_llm_check is not None:
+            llm_check_prompt = PromptTemplate.from_template(
+                "The user said: '{user_input}'. "
+                "Based on this, is their emotional state a 'Low' or 'Medium' level? "
+                "Respond with only 'Low' or 'Medium'."
+            )
+
+            try:
+                # We need a temporary chain to invoke this specific prompt
+                llm_check_chain = LLMChain(llm=qa_chain_for_llm_check.llm, prompt=llm_check_prompt)
+                llm_response_obj = llm_check_chain.invoke({"user_input": user_input})
+                # Handle both old and new LangChain response formats
+                if hasattr(llm_response_obj, 'get'):
+                    llm_response = llm_response_obj.get('text', '').strip().lower()
+                else:
+                    llm_response = str(llm_response_obj).strip().lower()
+
+                if "medium" in llm_response:
+                    return "Medium"
+            except Exception as e:
+                print(f"Error during seriousness check LLM invocation: {e}")
+                # Fallback to keyword/sentiment if LLM check fails
+                if medium_keywords.search(user_input):
+                    return "Medium"
+        else:
+            # If no LLM is available, fall back to rule-based medium detection
             if medium_keywords.search(user_input):
                 return "Medium"
 
