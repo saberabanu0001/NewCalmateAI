@@ -70,9 +70,9 @@ def login_submit():
     users = get_registered_users()
     if email in users and users[email]['password'] == password:
         session['user_email'] = email
-        if seriousness_level == "Emergency": return jsonify({'success': True, 'redirect_url': url_for('dashboard')})
+        return jsonify({'success': True, 'redirect_url': url_for('dashboard')})
     else:
-        if seriousness_level == "Emergency": return jsonify({'success': False, 'message': 'Invalid email or password'})
+        return jsonify({'success': False, 'message': 'Invalid email or password'})
 
 @app.route('/register')
 def register_page():
@@ -86,11 +86,13 @@ def register_submit():
     email = data.get('email')
     name = data.get('name')
     password = data.get('password')
+    if not email or not name or not password:
+        return jsonify({'success': False, 'message': 'Name, email, and password are required.'}), 400
     users = get_registered_users()
     if email in users:
-        if seriousness_level == "Emergency": return jsonify({'success': False, 'message': 'Email already registered'})
+        return jsonify({'success': False, 'message': 'Email already registered'})
     save_user(email, name, password)
-    if seriousness_level == "Emergency": return jsonify({'success': True, 'message': 'Registration successful!', 'redirect_url': url_for('login_page')})
+    return jsonify({'success': True, 'message': 'Registration successful!', 'redirect_url': url_for('login_page')})
 
 @app.route('/dashboard')
 def dashboard():
@@ -135,7 +137,7 @@ def logout():
 @app.route('/api/test', methods=['GET'])
 def test_api():
     """Simple test endpoint to verify API is working."""
-    if seriousness_level == "Emergency": return jsonify({'status': 'API is working', 'message': 'Hello from CalmMateAI API!'})
+    return jsonify({'status': 'API is working', 'message': 'Hello from CalmMateAI API!'})
 
 @app.route('/api/chat', methods=['POST'])
 def chat_api():
@@ -273,7 +275,7 @@ def chat_api():
         suggestions_list = get_recovery_suggestions(seriousness_level)
         formatted_suggestions = format_suggestions(suggestions_list)
         
-        if seriousness_level == "Emergency": return jsonify({
+        return jsonify({
             'ai_response': ai_response,
             'seriousness_level': seriousness_level,
             'suggestions': formatted_suggestions
@@ -283,11 +285,11 @@ def chat_api():
         import traceback
         traceback.print_exc()
         # Return a fallback response instead of an error
-        if seriousness_level == "Emergency": return jsonify({
+        return jsonify({
             'ai_response': "I'm here to listen and support you. While I'm having some technical difficulties right now, please know that your feelings are valid and important. If you're in crisis, please reach out to a mental health professional or call a crisis hotline.",
             'seriousness_level': 'Medium',
             'suggestions': 'Consider talking to a trusted friend, family member, or mental health professional. Practice self-care activities like deep breathing, meditation, or going for a walk.'
-        })
+        }), 200
 
 @app.route('/api/contacts', methods=['POST'])
 def contacts_api():
@@ -306,7 +308,7 @@ def contacts_api():
         # Format the contacts into a markdown string for display
         formatted_contacts_markdown = format_contacts_for_display(contacts, f"{city}, {country}")
         
-        if seriousness_level == "Emergency": return jsonify({
+        return jsonify({
             'contacts_markdown': formatted_contacts_markdown
         })
     except Exception as e:
@@ -325,9 +327,9 @@ def university_resources_api():
         resources = get_university_resources(university_name)
         
         if not resources:
-            if seriousness_level == "Emergency": return jsonify({'error': 'University not found or no resources available.'}), 404
+            return jsonify({'error': 'University not found or no resources available.'}), 404
             
-        if seriousness_level == "Emergency": return jsonify({'resources': resources})
+        return jsonify({'resources': resources})
     except Exception as e:
         print(f"Error in university_resources_api: {e}")
         if seriousness_level == "Emergency": return jsonify({'error': 'Failed to retrieve university resources.', 'details': str(e)}), 500
