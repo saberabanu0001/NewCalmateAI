@@ -49,6 +49,54 @@ app.config['SECRET_KEY'] = os.getenv('FLASK_SECRET_KEY')
 app.config['UPLOAD_FOLDER'] = 'uploads'
 if not os.path.exists(app.config['UPLOAD_FOLDER']):
     os.makedirs(app.config['UPLOAD_FOLDER'])
+# --- Helpers ---
+def contains_any_word(text: str, keywords: list[str]) -> bool:
+    """Return True if any keyword is present as a whole word in text."""
+    for kw in keywords:
+        pattern = rf"\\b{re.escape(kw.lower())}\\b"
+        if re.search(pattern, text):
+            return True
+    return False
+
+def generate_contextual_response(user_message_lower: str) -> str:
+    """Keyword-based compassionate responses when LLM is unavailable."""
+    if contains_any_word(user_message_lower, ['anxious', 'anxiety', 'worried', 'nervous']):
+        return ("I can hear that you're feeling anxious right now, and that's completely understandable. "
+                "Would you like to try a short grounding exercise with me, or talk about what's triggering it?")
+    if contains_any_word(user_message_lower, ['sad', 'depressed', 'down', 'lonely']):
+        return ("I'm so sorry you're feeling this way. Your feelings are valid. "
+                "If you'd like, tell me a bit more about what's been hardest lately.")
+    if contains_any_word(user_message_lower, ['stressed', 'stress', 'overwhelmed']):
+        return ("Stress can feel heavy. Let's break it down into smaller steps. "
+                "What's the one thing we can focus on for the next 15 minutes?")
+    if contains_any_word(user_message_lower, ['angry', 'anger', 'frustrated', 'mad', 'irritated']):
+        return ("Feeling angry is okay—it's a signal something matters to you. "
+                "Try the 4-7-8 breath (inhale 4, hold 7, exhale 8) for 4 rounds, then we can list the top 1-2 triggers together.")
+    if contains_any_word(user_message_lower, ['calm', 'calming', 'cope', 'coping', 'relax', 'relaxation', 'strategy', 'strategies']):
+        return ("Here are a few calming ideas: 1) 4-7-8 breathing ×4 rounds, 2) a 2-minute cold water splash on wrists, "
+                "3) write down the worry and one small next step. Which would you like to try?")
+    if contains_any_word(user_message_lower, ['sleep', 'tired', 'insomnia', 'restless']):
+        return ("Sleep struggles are tough. A quick tip: dim lights and slow, deep breathing for 2 minutes. "
+                "Would you like a short wind-down routine?")
+    if contains_any_word(user_message_lower, ['relationship', 'partner', 'boyfriend', 'girlfriend', 'marriage']):
+        return ("Relationships can be deeply tender and challenging. "
+                "Do you want to unpack what happened, or explore how you'd like to feel in this situation?")
+    if (contains_any_word(user_message_lower, ['periods', 'menstrual', 'cramps', 'pms']) and
+        not contains_any_word(user_message_lower, ['headache', 'migraine'])):
+        return ("I'm so sorry you're experiencing period pain. A heating pad and gentle stretching can help. "
+                "If pain is severe or disruptive, consider reaching out to a healthcare provider—there are treatments that help.")
+    if (contains_any_word(user_message_lower, ['headache', 'migraine']) and
+        not contains_any_word(user_message_lower, ['periods', 'menstrual'])):
+        return ("Headaches can be draining. Try resting in a dim room, hydrate, and slow breathing. "
+                "If it's severe or persistent, consider checking with a healthcare provider.")
+    if contains_any_word(user_message_lower, ['die', 'suicide', 'kill myself', 'end it all', 'want to die']):
+        return ("I'm so sorry you're feeling this way. You matter. Please reach out for immediate help: call 988 or "
+                "text HOME to 741741. If you can, let someone nearby know how you're feeling right now.")
+    # Place greeting last and with whole-word matching to avoid matching 'hi' in 'this'
+    if contains_any_word(user_message_lower, ['hi', 'hello', 'hey']):
+        return ("Hello! I'm so glad you're here. How are you feeling today? I'm ready to listen and support you.")
+    return ("I'm here to listen and support you. I can sense that you're going through something important. "
+            "Would you like to share a bit more so we can figure out a next small step together?")
 
 # --- Routes for HTML pages ---
 @app.route('/')
@@ -185,40 +233,7 @@ def chat_api():
         
         # Treat placeholder keys as not configured
         if (not api_key) or ("your_groq_api_key" in api_key.lower()) or (api_key.lower().startswith("your_")):
-            
-            if any(word in user_message_lower for word in ['anxious', 'anxiety', 'worried', 'nervous']):
-                ai_response = f"I can hear that you're feeling anxious right now, and that's completely understandable. Anxiety can feel overwhelming, but remember that these feelings are temporary. Would you like to try some deep breathing exercises together, or would you prefer to talk more about what's causing your anxiety?"
-            
-            elif any(word in user_message_lower for word in ['sad', 'depressed', 'down', 'lonely']):
-                ai_response = f"I'm so sorry you're feeling sad and lonely. It takes courage to reach out when you're feeling this way. You're not alone in this, and your feelings are completely valid. Have you been able to talk to anyone close to you about how you're feeling?"
-            
-            elif any(word in user_message_lower for word in ['stressed', 'stress', 'overwhelmed']):
-                ai_response = f"Stress can really take a toll on us, and I can sense that you're feeling overwhelmed right now. It's okay to feel this way, especially when life gets busy. What's been the biggest source of stress for you lately? Sometimes just talking about it can help lighten the load."
-            
-            elif any(word in user_message_lower for word in ['sleep', 'tired', 'insomnia']):
-                ai_response = f"Sleep issues can be really frustrating and affect everything else in our lives. I understand how challenging this can be. Have you tried establishing a bedtime routine, or is there something specific that's keeping you up at night? I'm here to listen and help you find what might work for you."
-            
-            elif any(word in user_message_lower for word in ['relationship', 'partner', 'boyfriend', 'girlfriend', 'marriage']):
-                ai_response = f"Relationship issues can be some of the most painful challenges we face. I can hear that you're going through something difficult, and I want you to know that your feelings matter. Would you like to talk more about what's happening? Sometimes just being heard can make a big difference."
-            
-            
-            elif any(word in user_message_lower for word in ['periods', 'menstrual', 'cramps', 'pms']):
-                ai_response = f"I'm so sorry you're experiencing extreme period pain. This can be incredibly difficult and debilitating. Have you tried using a heating pad, taking a warm bath, or gentle stretching? If the pain is severe or interfering with your daily activities, please consider reaching out to a healthcare provider - there are treatments that can help. You're not alone in this, and your pain is valid."
-            
-            elif any(word in user_message_lower for word in ['headache', 'migraine']) and 'periods' not in user_message_lower and 'menstrual' not in user_message_lower:
-                ai_response = f"I'm sorry you're experiencing a headache. Headaches can be really uncomfortable and affect our mood. Have you tried resting in a quiet, dark room, or taking some deep breaths? If it's severe or persistent, it might be worth checking with a healthcare provider. How long have you been feeling this way?"
-            
-            elif any(word in user_message_lower for word in ['die', 'suicide', 'kill myself', 'end it all', 'want to die']):
-                ai_response = f"I'm so sorry you're feeling this way, and I want you to know that you're not alone. These feelings are incredibly serious, and I need you to reach out for immediate help. Please call the National Suicide Prevention Lifeline at 988 or 1-800-273-8255 right now, or text HOME to 741741. You matter, and there are people who want to help you through this. Can you promise me you'll reach out to someone right now?"
-            
-            elif any(word in user_message_lower for word in ['what to do', 'help me', 'what should i do']):
-                ai_response = f"I can hear that you're feeling overwhelmed and looking for guidance. Let's take this one step at a time. Can you tell me a bit more about what's happening? Are you feeling anxious, sad, stressed, or something else? I'm here to listen and help you figure out the next steps together."
-            
-            elif any(word in user_message_lower for word in ['hi', 'hello', 'hey']):
-                ai_response = f"Hello! I'm so glad you're here. How are you feeling today? I'm ready to listen and support you with whatever's on your mind."
-            
-            else:
-                ai_response = f"I'm here to listen and support you. I can sense that you're going through something, and I want you to know that your feelings are valid and important. Would you like to tell me more about what's on your mind? I'm here to help you work through this."
+            ai_response = generate_contextual_response(user_message_lower)
         else:
             # Use Groq API
             api_url = "https://api.groq.com/openai/v1/chat/completions"
@@ -247,28 +262,7 @@ def chat_api():
                             ai_response = result['choices'][0]['message']['content']
             except Exception as _e:
                 # Fall back to contextual responses if API call fails
-                if any(word in user_message_lower for word in ['anxious', 'anxiety', 'worried', 'nervous']):
-                    ai_response = f"I can hear that you're feeling anxious right now, and that's completely understandable. Anxiety can feel overwhelming, but remember that these feelings are temporary. Would you like to try some deep breathing exercises together, or would you prefer to talk more about what's causing your anxiety?"
-                elif any(word in user_message_lower for word in ['sad', 'depressed', 'down', 'lonely']):
-                    ai_response = f"I'm so sorry you're feeling sad and lonely. It takes courage to reach out when you're feeling this way. You're not alone in this, and your feelings are completely valid. Have you been able to talk to anyone close to you about how you're feeling?"
-                elif any(word in user_message_lower for word in ['stressed', 'stress', 'overwhelmed']):
-                    ai_response = f"Stress can really take a toll on us, and I can sense that you're feeling overwhelmed right now. It's okay to feel this way, especially when life gets busy. What's been the biggest source of stress for you lately? Sometimes just talking about it can help lighten the load."
-                elif any(word in user_message_lower for word in ['sleep', 'tired', 'insomnia']):
-                    ai_response = f"Sleep issues can be really frustrating and affect everything else in our lives. I understand how challenging this can be. Have you tried establishing a bedtime routine, or is there something specific that's keeping you up at night? I'm here to listen and help you find what might work for you."
-                elif any(word in user_message_lower for word in ['relationship', 'partner', 'boyfriend', 'girlfriend', 'marriage']):
-                    ai_response = f"Relationship issues can be some of the most painful challenges we face. I can hear that you're going through something difficult, and I want you to know that your feelings matter. Would you like to talk more about what's happening? Sometimes just being heard can make a big difference."
-                elif any(word in user_message_lower for word in ['periods', 'menstrual', 'cramps', 'pms']):
-                    ai_response = f"I'm so sorry you're experiencing extreme period pain. This can be incredibly difficult and debilitating. Have you tried using a heating pad, taking a warm bath, or gentle stretching? If the pain is severe or interfering with your daily activities, please consider reaching out to a healthcare provider - there are treatments that can help. You're not alone in this, and your pain is valid."
-                elif any(word in user_message_lower for word in ['headache', 'migraine']) and 'periods' not in user_message_lower and 'menstrual' not in user_message_lower:
-                    ai_response = f"I'm sorry you're experiencing a headache. Headaches can be really uncomfortable and affect our mood. Have you tried resting in a quiet, dark room, or taking some deep breaths? If it's severe or persistent, it might be worth checking with a healthcare provider. How long have you been feeling this way?"
-                elif any(word in user_message_lower for word in ['die', 'suicide', 'kill myself', 'end it all', 'want to die']):
-                    ai_response = f"I'm so sorry you're feeling this way, and I want you to know that you're not alone. These feelings are incredibly serious, and I need you to reach out for immediate help. Please call the National Suicide Prevention Lifeline at 988 or 1-800-273-8255 right now, or text HOME to 741741. You matter, and there are people who want to help you through this. Can you promise me you'll reach out to someone right now?"
-                elif any(word in user_message_lower for word in ['what to do', 'help me', 'what should i do']):
-                    ai_response = f"I can hear that you're feeling overwhelmed and looking for guidance. Let's take this one step at a time. Can you tell me a bit more about what's happening? Are you feeling anxious, sad, stressed, or something else? I'm here to listen and help you figure out the next steps together."
-                elif any(word in user_message_lower for word in ['hi', 'hello', 'hey']):
-                    ai_response = f"Hello! I'm so glad you're here. How are you feeling today? I'm ready to listen and support you with whatever's on your mind."
-                else:
-                    ai_response = f"I'm here to listen and support you. I can sense that you're going through something, and I want you to know that your feelings are valid and important. Would you like to tell me more about what's on your mind? I'm here to help you work through this."
+                ai_response = generate_contextual_response(user_message_lower)
 
         # Get seriousness level and suggestions using the imported modules
         seriousness_level = get_seriousness_level(user_message, qa_chain_for_llm_check=None)
