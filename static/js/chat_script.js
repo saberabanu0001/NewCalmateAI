@@ -48,10 +48,10 @@ document.addEventListener('DOMContentLoaded', () => {
             contentClass = 'bg-[var(--bubble-ai)] text-slate-900';
         }
 
-        messageElement.className = `flex items-start message space-x-3 w-full max-w-[80%] md:max-w-[60%] ${bubbleClass}`;
+        messageElement.className = `flex items-start message space-x-3 w-full max-w-[80%] md:max-w-[60%] fade-in ${bubbleClass}`;
 
         const contentContainer = document.createElement('div');
-        contentContainer.className = `p-4 rounded-2xl shadow-lg break-words ${contentClass}`;
+        contentContainer.className = `bubble break-words ${contentClass}`;
 
         const messageText = document.createElement('p');
         messageText.textContent = text;
@@ -285,6 +285,26 @@ document.addEventListener('DOMContentLoaded', () => {
         await originalSendMessage();
     };
     sendMessage = newSendMessage;
+
+    // Rotating affirmations/tips in sidebar
+    const affirmationsNode = document.getElementById('affirmations');
+    if (affirmationsNode) {
+        const affirmations = [
+            { icon: '🌟', text: 'You are doing your best—and that is enough.' },
+            { icon: '🌿', text: 'Slow down and breathe. You’re safe in this moment.' },
+            { icon: '💫', text: 'Your feelings are valid. You are not alone.' },
+            { icon: '☀️', text: 'One small step today is still progress.' },
+            { icon: '🫶', text: 'Be as kind to yourself as you are to others.' }
+        ];
+        let idx = 0;
+        const renderAffirmation = () => {
+            const item = affirmations[idx % affirmations.length];
+            affirmationsNode.innerHTML = `<div class="card p-3 flex items-center gap-2"><span>${item.icon}</span><span class="text-sm">${item.text}</span></div>`;
+            idx++;
+        };
+        renderAffirmation();
+        setInterval(renderAffirmation, 8000);
+    }
 
     // --- CLEAR CHAT FUNCTIONALITY ---
     function performClearChat() {
