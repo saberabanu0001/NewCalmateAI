@@ -539,8 +539,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Set seriousness level text and apply color class
                 seriousnessOutput.textContent = `Seriousness Level: ${data.seriousness_level}`;
                 
-                // Clear any previous color classes and apply the new one
-                suggestionsOutput.className = 'text-sm text-gray-200 markdown-content';
+                // Clear any previous color classes and apply the new one (use dark text on light card)
+                suggestionsOutput.className = 'text-sm text-slate-800 markdown-content';
                 let colorClass;
                 const level = data.seriousness_level.toLowerCase();
                 if (level.includes('low')) {
