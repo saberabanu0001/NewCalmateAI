@@ -1,5 +1,6 @@
 // Wait for the DOM content to be fully loaded before running the script
 document.addEventListener('DOMContentLoaded', () => {
+    if (window.__chatInited) return; window.__chatInited = true;
     console.log('Chat script loaded successfully!');
 
     // --- DOM ELEMENT SELECTION ---
@@ -386,6 +387,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Wait for the DOM content to be fully loaded before running the script
 document.addEventListener('DOMContentLoaded', () => {
+    if (window.__chatInited) return; window.__chatInited = true;
     console.log('Chat script loaded successfully!');
 
     // --- DOM ELEMENT SELECTION ---
