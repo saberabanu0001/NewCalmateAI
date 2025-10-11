@@ -1,4 +1,308 @@
 {
+    "United States": {
+        "New York": {
+            "helplines": [
+                {
+                    "name": "National Suicide Prevention Lifeline",
+                    "number": "988",
+                    "url": "https://988lifeline.org/"
+                },
+                {
+                    "name": "NYC Well",
+                    "number": "1-888-NYC-WELL",
+                    "url": "https://nycwell.cityofnewyork.us/"
+                },
+                {
+                    "name": "Crisis Text Line",
+                    "number": "Text HOME to 741741",
+                    "url": "https://www.crisistextline.org/"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "NYC Behavioral Health",
+                    "number": "212-555-0100",
+                    "url": "https://www1.nyc.gov/site/doh/health/health-topics/mental-health.page"
+                },
+                {
+                    "name": "Mount Sinai Psychiatry",
+                    "number": "212-659-8752"
+                }
+            ],
+            "domestic_violence": [
+                {
+                    "name": "NYC Domestic Violence Hotline",
+                    "number": "1-800-621-HOPE",
+                    "url": "https://www.nyc.gov/site/ocdv/get-help/domestic-violence-hotline.page"
+                }
+            ],
+            "substance_abuse": [
+                {
+                    "name": "NYC Substance Use Treatment",
+                    "number": "1-888-NYC-WELL",
+                    "url": "https://nycwell.cityofnewyork.us/"
+                }
+            ]
+        },
+        "Los Angeles": {
+            "helplines": [
+                {
+                    "name": "National Suicide Prevention Lifeline",
+                    "number": "988",
+                    "url": "https://988lifeline.org/"
+                },
+                {
+                    "name": "LA County Mental Health",
+                    "number": "1-800-854-7771",
+                    "url": "https://dmh.lacounty.gov/"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "UCLA Neuropsychiatric Hospital",
+                    "number": "310-825-9989"
+                }
+            ]
+        },
+        "Chicago": {
+            "helplines": [
+                {
+                    "name": "National Suicide Prevention Lifeline",
+                    "number": "988",
+                    "url": "https://988lifeline.org/"
+                },
+                {
+                    "name": "Chicago Crisis Line",
+                    "number": "312-744-7000"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "Rush University Medical Center",
+                    "number": "312-942-5000"
+                }
+            ]
+        }
+    },
+    "Canada": {
+        "Toronto": {
+            "helplines": [
+                {
+                    "name": "Crisis Services Canada",
+                    "number": "1-833-456-4566",
+                    "url": "https://www.crisisservicescanada.ca/"
+                },
+                {
+                    "name": "Toronto Distress Centre",
+                    "number": "416-408-4357",
+                    "url": "https://www.torontodistresscentre.com/"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "CAMH (Centre for Addiction and Mental Health)",
+                    "number": "416-535-8501",
+                    "url": "https://www.camh.ca/"
+                }
+            ]
+        },
+        "Vancouver": {
+            "helplines": [
+                {
+                    "name": "Crisis Services Canada",
+                    "number": "1-833-456-4566",
+                    "url": "https://www.crisisservicescanada.ca/"
+                },
+                {
+                    "name": "Vancouver Crisis Centre",
+                    "number": "604-872-3311",
+                    "url": "https://crisiscentre.bc.ca/"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "Vancouver General Hospital",
+                    "number": "604-875-4111"
+                }
+            ]
+        }
+    },
+    "United Kingdom": {
+        "London": {
+            "helplines": [
+                {
+                    "name": "Samaritans",
+                    "number": "116 123",
+                    "url": "https://www.samaritans.org/"
+                },
+                {
+                    "name": "Mind Infoline",
+                    "number": "0300 123 3393",
+                    "url": "https://www.mind.org.uk/"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "NHS Mental Health Services",
+                    "number": "111",
+                    "url": "https://www.nhs.uk/mental-health/"
+                }
+            ]
+        },
+        "Manchester": {
+            "helplines": [
+                {
+                    "name": "Samaritans",
+                    "number": "116 123",
+                    "url": "https://www.samaritans.org/"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "Manchester Mental Health Services",
+                    "number": "0161 271 0500"
+                }
+            ]
+        }
+    },
+    "Australia": {
+        "Sydney": {
+            "helplines": [
+                {
+                    "name": "Lifeline Australia",
+                    "number": "13 11 14",
+                    "url": "https://www.lifeline.org.au/"
+                },
+                {
+                    "name": "Beyond Blue",
+                    "number": "1300 22 4636",
+                    "url": "https://www.beyondblue.org.au/"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "Black Dog Institute",
+                    "number": "02 9382 2991",
+                    "url": "https://www.blackdoginstitute.org.au/"
+                }
+            ]
+        },
+        "Melbourne": {
+            "helplines": [
+                {
+                    "name": "Lifeline Australia",
+                    "number": "13 11 14",
+                    "url": "https://www.lifeline.org.au/"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "Melbourne Health",
+                    "number": "03 8345 6666"
+                }
+            ]
+        }
+    },
+    "Germany": {
+        "Berlin": {
+            "helplines": [
+                {
+                    "name": "Telefonseelsorge",
+                    "number": "0800 111 0 111",
+                    "url": "https://www.telefonseelsorge.de/"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "Charité Psychiatry",
+                    "number": "+49 30 450 517 000"
+                }
+            ]
+        }
+    },
+    "France": {
+        "Paris": {
+            "helplines": [
+                {
+                    "name": "SOS Amitié",
+                    "number": "09 72 39 40 50",
+                    "url": "https://www.sos-amitie.org/"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "Hôpital Sainte-Anne",
+                    "number": "+33 1 45 65 80 00"
+                }
+            ]
+        }
+    },
+    "Japan": {
+        "Tokyo": {
+            "helplines": [
+                {
+                    "name": "Tokyo Mental Health",
+                    "number": "03-5286-9090",
+                    "url": "https://www.tokyomentalhealth.com/"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "Tokyo University Hospital",
+                    "number": "+81-3-3815-5411"
+                }
+            ]
+        }
+    },
+    "India": {
+        "Mumbai": {
+            "helplines": [
+                {
+                    "name": "Vandrevala Foundation",
+                    "number": "1860 2662 345",
+                    "url": "https://www.vandrevalafoundation.com/"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "Tata Institute of Social Sciences",
+                    "number": "+91-22-2552-5000"
+                }
+            ]
+        },
+        "Delhi": {
+            "helplines": [
+                {
+                    "name": "AASRA",
+                    "number": "91-22-2754 6669",
+                    "url": "https://www.aasra.info/"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "All India Institute of Medical Sciences",
+                    "number": "+91-11-2658-8500"
+                }
+            ]
+        }
+    },
+    "Brazil": {
+        "São Paulo": {
+            "helplines": [
+                {
+                    "name": "CVV (Centro de Valorização da Vida)",
+                    "number": "188",
+                    "url": "https://www.cvv.org.br/"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "Hospital das Clínicas",
+                    "number": "+55-11-2661-0000"
+                }
+            ]
+        }
+    },
     "South Korea": {
         "Seoul": {
             "helplines": [
@@ -35,27 +339,6 @@
                 {
                     "name": "Busan Wellness Clinic",
                     "number": "+82-51-123-4567"
-                }
-            ]
-        }
-    },
-    "United States": {
-        "New York": {
-            "helplines": [
-                {
-                    "name": "NYC Well",
-                    "number": "1-888-NYC-WELL"
-                },
-                {
-                    "name": "National Suicide Prevention Lifeline",
-                    "number": "988",
-                    "url": "https://988lifeline.org/"
-                }
-            ],
-            "doctors": [
-                {
-                    "name": "NYC Behavioral Health",
-                    "number": "212-555-0100"
                 }
             ]
         }

@@ -1,5 +1,6 @@
 // Wait for the DOM content to be fully loaded before running the script
 document.addEventListener('DOMContentLoaded', () => {
+    if (window.__chatInited) return; window.__chatInited = true;
     console.log('Chat script loaded successfully!');
 
     // --- DOM ELEMENT SELECTION ---
@@ -48,10 +49,10 @@ document.addEventListener('DOMContentLoaded', () => {
             contentClass = 'bg-[var(--bubble-ai)] text-slate-900';
         }
 
-        messageElement.className = `flex items-start message space-x-3 w-full max-w-[80%] md:max-w-[60%] ${bubbleClass}`;
+        messageElement.className = `flex items-start message space-x-3 w-full max-w-[80%] md:max-w-[60%] fade-in ${bubbleClass}`;
 
         const contentContainer = document.createElement('div');
-        contentContainer.className = `p-4 rounded-2xl shadow-lg break-words ${contentClass}`;
+        contentContainer.className = `bubble break-words ${contentClass}`;
 
         const messageText = document.createElement('p');
         messageText.textContent = text;
@@ -286,6 +287,26 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     sendMessage = newSendMessage;
 
+    // Rotating affirmations/tips in sidebar
+    const affirmationsNode = document.getElementById('affirmations');
+    if (affirmationsNode) {
+        const affirmations = [
+            { icon: '🌟', text: 'You are doing your best—and that is enough.' },
+            { icon: '🌿', text: 'Slow down and breathe. You’re safe in this moment.' },
+            { icon: '💫', text: 'Your feelings are valid. You are not alone.' },
+            { icon: '☀️', text: 'One small step today is still progress.' },
+            { icon: '🫶', text: 'Be as kind to yourself as you are to others.' }
+        ];
+        let idx = 0;
+        const renderAffirmation = () => {
+            const item = affirmations[idx % affirmations.length];
+            affirmationsNode.innerHTML = `<div class="card p-3 flex items-center gap-2"><span>${item.icon}</span><span class="text-sm">${item.text}</span></div>`;
+            idx++;
+        };
+        renderAffirmation();
+        setInterval(renderAffirmation, 8000);
+    }
+
     // --- CLEAR CHAT FUNCTIONALITY ---
     function performClearChat() {
         // Rebuild a fresh welcome message bubble (light theme)
@@ -366,6 +387,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Wait for the DOM content to be fully loaded before running the script
 document.addEventListener('DOMContentLoaded', () => {
+    if (window.__chatInited) return; window.__chatInited = true;
     console.log('Chat script loaded successfully!');
 
     // --- DOM ELEMENT SELECTION ---
@@ -519,8 +541,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Set seriousness level text and apply color class
                 seriousnessOutput.textContent = `Seriousness Level: ${data.seriousness_level}`;
                 
-                // Clear any previous color classes and apply the new one
-                suggestionsOutput.className = 'text-sm text-gray-200 markdown-content';
+                // Clear any previous color classes and apply the new one (use dark text on light card)
+                suggestionsOutput.className = 'text-sm text-slate-800 markdown-content';
                 let colorClass;
                 const level = data.seriousness_level.toLowerCase();
                 if (level.includes('low')) {

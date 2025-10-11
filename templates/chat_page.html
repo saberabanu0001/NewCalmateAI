@@ -28,7 +28,7 @@
         }
         body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);margin:0;height:100vh;overflow:hidden;}
         header{backdrop-filter:saturate(120%) blur(6px);}        
-        .chat-container{height:calc(100vh - 240px);max-height:calc(100vh - 240px);overflow-y:auto;padding:1.25rem;}
+        .chat-container{height:calc(100vh - 280px);max-height:calc(100vh - 280px);overflow-y:auto;padding:1.25rem;}
         .chat-container::-webkit-scrollbar{width:8px}.chat-container::-webkit-scrollbar-thumb{background:#d1d5db;border-radius:9999px}
         .message{margin-bottom:1.25rem}
         .timestamp{font-size:.75rem;color:#94a3b8;margin-top:.375rem}
@@ -39,6 +39,27 @@
         .focus-ring:focus{outline:2px solid var(--accent);outline-offset:2px}
         .sidebar{width:360px}
         .seriousness-low{border-color:#34d399}.seriousness-medium{border-color:#fbbf24}.seriousness-high{border-color:#ef4444}
+        /* Modern chat background */
+        .chat-bg{background:linear-gradient(180deg, rgba(238,242,255,0.7) 0%, rgba(255,255,255,0.9) 100%), radial-gradient(1000px 400px at 10% -10%, #e0e7ff33 0%, #ffffff00 60%), radial-gradient(800px 300px at 90% 0%, #cffafe33 0%, #ffffff00 60%);}
+        /* Input field with embedded button */
+        .input-shell{position:relative;background:#fff;border:1px solid var(--panel-border);border-radius:18px;box-shadow:0 6px 18px rgba(2,6,23,0.06)}
+        .input-field{width:100%;border:none;outline:none;background:transparent;padding:16px 56px 16px 16px;font-size:1rem;color:var(--text)}
+        .send-btn-embedded{position:absolute;right:8px;top:50%;transform:translateY(-50%);background:var(--accent);color:#fff;border:none;border-radius:12px;padding:10px;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 8px 16px rgba(99,102,241,0.25)}
+        .send-btn-embedded:hover{background:#5458e7}
+        .voice-btn-inline{position:absolute;right:52px;top:50%;transform:translateY(-50%);color:#475569}
+        /* Bubbles and animation */
+        .bubble{border-radius:16px;padding:16px;box-shadow:0 1px 2px rgba(0,0,0,0.04)}
+        .fade-in{opacity:0;animation:fadeIn .25s ease-out forwards}
+        @keyframes fadeIn{to{opacity:1}}
+        /* Quick responses scroller */
+        .chips-scroll{display:flex;gap:.5rem;overflow-x:auto;padding:.25rem .25rem .5rem}
+        .chips-scroll::-webkit-scrollbar{height:8px}
+        .chips-scroll::-webkit-scrollbar-thumb{background:#d1d5db;border-radius:9999px}
+        /* Calm mode modal */
+        .calm-overlay{position:fixed;inset:0;z-index:50;display:none;align-items:center;justify-content:center;background:linear-gradient(135deg,#e0f2fe 0%,#e9d5ff 100%)}
+        .calm-overlay.show{display:flex}
+        .breathing-circle{width:160px;height:160px;border-radius:9999px;background:rgba(255,255,255,0.6);box-shadow:0 10px 30px rgba(15,23,42,0.12);animation:breath 6s ease-in-out infinite}
+        @keyframes breath{0%,100%{transform:scale(0.9);opacity:.85}50%{transform:scale(1);opacity:1}}
     </style>
 </head>
 <body>
@@ -74,7 +95,7 @@
         <!-- Main -->
         <div class="flex flex-1 overflow-hidden">
             <!-- Chat area -->
-            <div class="flex-1 px-4">
+            <div class="flex-1 px-4 chat-bg">
                 <div id="chat-messages" class="chat-container">
                     <!-- Welcome -->
                     <div class="flex items-start message space-x-3 w-full max-w-[75%]">
@@ -86,31 +107,16 @@
                     </div>
                 </div>
                 
-                <!-- Quick Responses -->
-                <div id="quick-responses" class="px-4 py-3 bg-transparent">
-                    <p class="text-sm text-[var(--muted)] mb-2">Quick responses:</p>
-                    <div id="quick-response-chips" class="flex flex-wrap gap-2">
-                        <button class="quick-response-btn pill px-3 py-1.5 text-sm" data-message="I'm feeling anxious today">😰 I'm feeling anxious</button>
-                        <button class="quick-response-btn pill px-3 py-1.5 text-sm" data-message="I'm feeling sad and lonely">😢 I'm feeling sad</button>
-                        <button class="quick-response-btn pill px-3 py-1.5 text-sm" data-message="I'm stressed about work/school">😤 I'm stressed</button>
-                        <button class="quick-response-btn pill px-3 py-1.5 text-sm" data-message="I need help with sleep">😴 I need help sleeping</button>
-                        <button class="quick-response-btn pill px-3 py-1.5 text-sm" data-message="I'm having relationship issues">💔 Relationship issues</button>
-                        <button class="quick-response-btn pill px-3 py-1.5 text-sm" data-message="I need coping strategies">🛠️ Need coping strategies</button>
-                    </div>
-                    
-                    <!-- Crisis action buttons -->
-                    <div id="crisis-actions" class="mt-4 flex flex-wrap gap-3" style="margin-bottom: 80px;">
-                        <a href="tel:988" class="px-3 py-2 rounded-xl text-sm border border-rose-200 bg-rose-50 text-rose-700 hover:bg-rose-100 focus-ring">📞 Call 988</a>
-                        <a href="sms:741741&body=HOME" class="px-3 py-2 rounded-xl text-sm border border-indigo-200 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 focus-ring">💬 Text HOME to 741741</a>
-                        <a href="/emergency_contacts" class="px-3 py-2 rounded-xl text-sm border border-emerald-200 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 focus-ring">🌐 Find local help</a>
-                    </div>
-                </div>
+                <!-- (moved quick responses near input) -->
             </div>
             
             <!-- Sidebar -->
             <aside id="seriousness-suggestions-container" class="sidebar hidden lg:block p-4 border-l border-[var(--panel-border)] bg-[var(--panel)]" role="complementary" aria-label="Assessment & resources">
                 <div class="sticky top-4 space-y-3">
                     <h3 class="text-lg font-semibold">Quick Resources</h3>
+                    <div id="affirmations" class="space-y-2">
+                        <div class="card p-3 flex items-center gap-2"><span>🌟</span><span class="text-sm">You are doing your best—and that is enough.</span></div>
+                    </div>
                     <div id="seriousness-output" class="text-sm font-medium card p-3"></div>
                     <div id="suggestions-output" class="text-sm card p-4 border-l-4"></div>
                 </div>
@@ -120,19 +126,43 @@
         <!-- Input -->
         <div class="input-area">
             <div class="chat-input-container">
+                <!-- Quick Responses Row (scrollable) -->
+                <div class="chips-scroll mb-2" id="quick-response-chips">
+                    <button class="quick-response-btn pill px-3 py-1.5 text-sm whitespace-nowrap" data-message="I'm feeling anxious today">😰 I'm feeling anxious</button>
+                    <button class="quick-response-btn pill px-3 py-1.5 text-sm whitespace-nowrap" data-message="I'm feeling sad and lonely">😢 I'm feeling sad</button>
+                    <button class="quick-response-btn pill px-3 py-1.5 text-sm whitespace-nowrap" data-message="I'm stressed about work/school">😤 I'm stressed</button>
+                    <button class="quick-response-btn pill px-3 py-1.5 text-sm whitespace-nowrap" data-message="I need help with sleep">😴 I need help sleeping</button>
+                    <button class="quick-response-btn pill px-3 py-1.5 text-sm whitespace-nowrap" data-message="I'm having relationship issues">💔 Relationship issues</button>
+                    <button class="quick-response-btn pill px-3 py-1.5 text-sm whitespace-nowrap" data-message="I need coping strategies">🛠️ Need coping strategies</button>
+                </div>
                 <form id="chat-form" class="flex items-center gap-3">
-                    <input type="text" id="user-input" class="flex-1 p-4 rounded-xl border border-[var(--panel-border)] bg-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-300" placeholder="Type your message here..." autocomplete="off" aria-label="Your message">
-                    <button type="button" id="voice-btn" class="p-2 text-slate-600 hover:text-slate-900 focus-ring" aria-label="Toggle voice recording">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"></path></svg>
-                    </button>
-                    <button type="submit" id="send-btn" class="bg-indigo-500 hover:bg-indigo-600 text-white p-2.5 rounded-lg focus-ring" aria-label="Send message">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5"></path></svg>
-                    </button>
+                    <div class="flex-1 input-shell">
+                        <input type="text" id="user-input" class="input-field" placeholder="Message CalmMateAI..." autocomplete="off" aria-label="Your message">
+                        <button type="button" id="voice-btn" class="voice-btn-inline focus-ring" aria-label="Toggle voice recording">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14a3 3 0 01-3-3V7a3 3 0 116 0v4a3 3 0 01-3 3zm0 0v4m0 0H9m3 0h3"/></svg>
+                        </button>
+                        <button type="submit" id="send-btn" class="send-btn-embedded focus-ring" aria-label="Send message">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5"></path></svg>
+                        </button>
+                    </div>
                 </form>
                 <div id="voice-status" class="hidden mt-2 text-center">
                     <span class="text-sm text-[var(--muted)]">Recording...</span>
                 </div>
                 <div id="typing-indicator" class="hidden mt-2 text-[var(--muted)] text-sm" aria-live="polite">AI is typing<span id="dots">...</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Calm Mode Modal -->
+    <div id="calm-modal" class="calm-overlay" aria-modal="true" role="dialog">
+        <button id="calm-close" class="absolute top-4 right-4 px-3 py-1.5 rounded-md bg-white/70 hover:bg-white text-slate-700 shadow focus-ring">Return to Chat</button>
+        <div class="text-center px-6">
+            <div class="breathing-circle mx-auto mb-6"></div>
+            <blockquote class="text-xl md:text-2xl font-medium text-slate-700 max-w-xl mx-auto">“Breathe in peace, breathe out tension. You are safe here.”</blockquote>
+            <audio id="calm-audio" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_0a7b5c1b34.mp3?filename=relaxing-music-112199.mp3" loop></audio>
+            <div class="mt-4">
+                <button id="audio-toggle" class="px-3 py-1.5 rounded-md border border-[var(--panel-border)] bg-white/70 hover:bg-white text-slate-700 shadow focus-ring">Play ambient audio</button>
             </div>
         </div>
     </div>
@@ -148,7 +178,15 @@
         const chatRoot=document.documentElement;let baseSize=16;const inc=document.getElementById('font-inc');const dec=document.getElementById('font-dec');function setSize(sz){chatRoot.style.fontSize=sz+'px'}
         if(inc)inc.addEventListener('click',()=>{baseSize=Math.min(22,baseSize+1);setSize(baseSize)});
         if(dec)dec.addEventListener('click',()=>{baseSize=Math.max(14,baseSize-1);setSize(baseSize)});
-        const calmToggle=document.getElementById('calm-toggle');if(calmToggle)calmToggle.addEventListener('click',()=>{document.body.classList.toggle('bg-white')});
+        // Calm Mode controls
+        const calmToggle=document.getElementById('calm-toggle');
+        const calmModal=document.getElementById('calm-modal');
+        const calmClose=document.getElementById('calm-close');
+        const calmAudio=document.getElementById('calm-audio');
+        const audioToggle=document.getElementById('audio-toggle');
+        if(calmToggle&&calmModal){calmToggle.addEventListener('click',()=>{calmModal.classList.add('show')});}
+        if(calmClose&&calmModal){calmClose.addEventListener('click',()=>{calmModal.classList.remove('show');if(!calmAudio.paused){calmAudio.pause();}});}
+        if(audioToggle&&calmAudio){audioToggle.addEventListener('click',()=>{if(calmAudio.paused){calmAudio.play();audioToggle.textContent='Pause ambient audio'}else{calmAudio.pause();audioToggle.textContent='Play ambient audio'}})}
     </script>
 </body>
 </html>
