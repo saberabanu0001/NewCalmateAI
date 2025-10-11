@@ -7,96 +7,437 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+        :root {
+            --bg: #f8fafc;
+            --panel: #ffffff;
+            --panel-border: #e2e8f0;
+            --muted: #64748b;
+            --text: #0f172a;
+            --accent: #3b82f6;
+            --accent-soft: #dbeafe;
+            --danger: #ef4444;
+            --danger-soft: #fef2f2;
+            --success: #10b981;
+            --success-soft: #ecfdf5;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            margin: 0;
+            min-height: 100vh;
+        }
+        
+        .card {
+            background: var(--panel);
+            border: 1px solid var(--panel-border);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+        }
+        
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            border: none;
+            font-weight: 500;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+        
+        .btn-primary:hover {
+            background: #2563eb;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+        
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            border: none;
+            font-weight: 500;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+        
+        .btn-danger:hover {
+            background: #dc2626;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+        }
+        
+        .quick-access-btn {
+            background: var(--panel);
+            border: 2px solid var(--panel-border);
+            padding: 16px 20px;
+            border-radius: 12px;
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+        }
+        
+        .quick-access-btn:hover {
+            border-color: var(--accent);
+            background: var(--accent-soft);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .crisis-card {
+            background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+            border: 2px solid #fecaca;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+        
+        .search-card {
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+            border: 2px solid #bfdbfe;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .spinner {
+            border: 3px solid #f3f4f6;
+            border-top: 3px solid var(--accent);
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 12px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .markdown-content {
+            line-height: 1.6;
+        }
+        
+        .markdown-content h2 {
+            color: var(--text);
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 24px 0 16px 0;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--accent-soft);
+        }
+        
+        .markdown-content h3 {
+            color: var(--text);
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin: 20px 0 12px 0;
+        }
+        
+        .markdown-content p {
+            margin: 12px 0;
+        }
+        
+        .markdown-content strong {
+            color: var(--text);
+            font-weight: 600;
+        }
+        
+        .markdown-content code {
+            background: #f1f5f9;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.9em;
+        }
+        
+        .markdown-content a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .markdown-content a:hover {
+            text-decoration: underline;
+        }
+        
+        .location-detect {
+            background: var(--success-soft);
+            border: 1px solid #86efac;
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin-bottom: 16px;
+            display: none;
+        }
+        
+        .location-detect.show {
+            display: block;
+        }
+    </style>
 </head>
-<body class="bg-gray-100 min-h-screen">
-    <div class="container mx-auto px-4 py-8">
-        <div class="max-w-4xl mx-auto">
-            <div class="bg-white rounded-lg shadow-md p-6">
-                <div class="flex items-center mb-6"><a href="/chat" class="mr-4 text-blue-600 hover:text-blue-800"><i class="fas fa-arrow-left mr-2"></i>Back to Chat</a></div><h1 class="text-3xl font-bold text-gray-800 mb-6">Emergency Contacts</h1>
-                <p class="text-gray-600 mb-8">Find emergency contacts and crisis hotlines in your area.</p>
-                
-                <!-- Emergency Contact Form -->
-                <div class="bg-red-50 border border-red-200 rounded-lg p-6 mb-8">
-                    <h2 class="text-xl font-semibold text-red-800 mb-4">
-                        <i class="fas fa-exclamation-triangle mr-2"></i>
-                        Crisis Hotlines
-                    </h2>
-                    <div class="space-y-4">
-                        <div class="flex items-center">
-                            <i class="fas fa-phone text-red-600 mr-3"></i>
-                            <div>
-                                <p class="font-semibold">National Suicide Prevention Lifeline</p>
-                                <p class="text-gray-700">988 (US) or 1-800-273-8255</p>
+<body>
+    <div class="min-h-screen">
+        <!-- Header -->
+        <header class="bg-white border-b border-gray-200 sticky top-0 z-10">
+            <div class="max-w-6xl mx-auto px-4 py-4">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-4">
+                        <a href="/chat" class="flex items-center gap-2 text-gray-600 hover:text-gray-800 transition-colors">
+                            <i class="fas fa-arrow-left"></i>
+                            <span>Back to Chat</span>
+                        </a>
+                        <div class="w-px h-6 bg-gray-300"></div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-full bg-red-500 text-white flex items-center justify-center font-bold">
+                                <i class="fas fa-phone"></i>
                             </div>
-                        </div>
-                        <div class="flex items-center">
-                            <i class="fas fa-phone text-red-600 mr-3"></i>
                             <div>
-                                <p class="font-semibold">Crisis Text Line</p>
-                                <p class="text-gray-700">Text HOME to 741741</p>
-                            </div>
-                        </div>
-                        <div class="flex items-center">
-                            <i class="fas fa-phone text-red-600 mr-3"></i>
-                            <div>
-                                <p class="font-semibold">Emergency Services</p>
-                                <p class="text-gray-700">911 (US) or your local emergency number</p>
+                                <h1 class="text-2xl font-bold text-gray-900">Emergency Contacts</h1>
+                                <p class="text-sm text-gray-600">Find help when you need it most</p>
                             </div>
                         </div>
                     </div>
-                </div>
-
-                <!-- Location-based Contacts -->
-                <div class="bg-blue-50 border border-blue-200 rounded-lg p-6">
-                    <h2 class="text-xl font-semibold text-blue-800 mb-4">
+                    <button id="location-btn" class="btn-primary">
                         <i class="fas fa-map-marker-alt mr-2"></i>
-                        Find Local Resources
-                    </h2>
-                    <form id="location-form" class="space-y-4">
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Country</label>
-                                <input type="text" id="country" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="e.g., United States">
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">City</label>
-                                <input type="text" id="city" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="e.g., New York">
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Category</label>
-                                <select id="category" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                    <option value="crisis">Crisis Hotlines</option>
-                                    <option value="mental_health">Mental Health</option>
-                                    <option value="domestic_violence">Domestic Violence</option>
-                                    <option value="substance_abuse">Substance Abuse</option>
-                                </select>
-                            </div>
+                        Use My Location
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <div class="max-w-6xl mx-auto px-4 py-8">
+            <!-- Location Detection -->
+            <div id="location-detect" class="location-detect">
+                <div class="flex items-center gap-2">
+                    <i class="fas fa-map-marker-alt text-green-600"></i>
+                    <span class="font-medium">Detected location:</span>
+                    <span id="detected-location" class="font-semibold"></span>
+                    <button id="use-location" class="ml-auto text-green-600 hover:text-green-700 font-medium">
+                        Use this location
+                    </button>
+                </div>
+            </div>
+
+            <!-- Crisis Hotlines - Always Visible -->
+            <div class="crisis-card">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-12 h-12 rounded-full bg-red-100 flex items-center justify-center">
+                        <i class="fas fa-exclamation-triangle text-red-600 text-xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-red-800">Crisis Hotlines</h2>
+                        <p class="text-red-700">Available 24/7 - Call or text immediately if you're in crisis</p>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <a href="tel:988" class="quick-access-btn">
+                        <div class="w-12 h-12 rounded-full bg-red-500 text-white flex items-center justify-center">
+                            <i class="fas fa-phone"></i>
                         </div>
-                        <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition-colors">
+                        <div>
+                            <div class="font-semibold">Suicide Prevention</div>
+                            <div class="text-sm text-gray-600">988 (US) or 1-800-273-8255</div>
+                        </div>
+                    </a>
+                    
+                    <a href="sms:741741&body=HOME" class="quick-access-btn">
+                        <div class="w-12 h-12 rounded-full bg-blue-500 text-white flex items-center justify-center">
+                            <i class="fas fa-comment"></i>
+                        </div>
+                        <div>
+                            <div class="font-semibold">Crisis Text Line</div>
+                            <div class="text-sm text-gray-600">Text HOME to 741741</div>
+                        </div>
+                    </a>
+                    
+                    <a href="tel:911" class="quick-access-btn">
+                        <div class="w-12 h-12 rounded-full bg-orange-500 text-white flex items-center justify-center">
+                            <i class="fas fa-ambulance"></i>
+                        </div>
+                        <div>
+                            <div class="font-semibold">Emergency Services</div>
+                            <div class="text-sm text-gray-600">911 (US) or local emergency</div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Search for Local Resources -->
+            <div class="search-card">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center">
+                        <i class="fas fa-search text-blue-600 text-xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-blue-800">Find Local Resources</h2>
+                        <p class="text-blue-700">Search for mental health professionals and support services in your area</p>
+                    </div>
+                </div>
+                
+                <form id="location-form" class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">
+                                <i class="fas fa-globe mr-1"></i>Country
+                            </label>
+                            <input type="text" id="country" 
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors" 
+                                   placeholder="e.g., United States, Canada, UK">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">
+                                <i class="fas fa-map-marker-alt mr-1"></i>City
+                            </label>
+                            <input type="text" id="city" 
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors" 
+                                   placeholder="e.g., New York, Toronto, London">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">
+                                <i class="fas fa-filter mr-1"></i>Category
+                            </label>
+                            <select id="category" 
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors">
+                                <option value="helplines">Crisis Hotlines</option>
+                                <option value="doctors">Mental Health Professionals</option>
+                                <option value="domestic_violence">Domestic Violence Support</option>
+                                <option value="substance_abuse">Substance Abuse Support</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="flex gap-4">
+                        <button type="submit" class="btn-primary">
                             <i class="fas fa-search mr-2"></i>
                             Find Contacts
                         </button>
-                    </form>
-                </div>
+                        <button type="button" id="search-all" class="btn-primary" style="background: var(--success);">
+                            <i class="fas fa-globe mr-2"></i>
+                            Search All Categories
+                        </button>
+                    </div>
+                </form>
+            </div>
 
-                <!-- Results will be displayed here -->
-                <div id="results" class="mt-8 hidden">
-                    <h3 class="text-lg font-semibold text-gray-800 mb-4">Local Resources</h3>
-                    <div id="contacts-content" class="bg-gray-50 rounded-lg p-4"></div>
+            <!-- Loading Indicator -->
+            <div id="loading" class="loading">
+                <div class="spinner"></div>
+                <p class="text-gray-600">Searching for emergency contacts...</p>
+            </div>
+
+            <!-- Results -->
+            <div id="results" class="hidden">
+                <div class="card p-6">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-xl font-bold text-gray-800">
+                            <i class="fas fa-list mr-2"></i>
+                            Local Resources
+                        </h3>
+                        <button id="clear-results" class="text-gray-500 hover:text-gray-700">
+                            <i class="fas fa-times mr-1"></i>
+                            Clear
+                        </button>
+                    </div>
+                    <div id="contacts-content" class="markdown-content"></div>
+                </div>
+            </div>
+
+            <!-- Global Resources -->
+            <div class="card p-6 mt-8">
+                <h3 class="text-xl font-bold text-gray-800 mb-4">
+                    <i class="fas fa-globe mr-2"></i>
+                    Global Mental Health Resources
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="p-4 bg-gray-50 rounded-lg">
+                        <h4 class="font-semibold text-gray-800 mb-2">International Association for Suicide Prevention</h4>
+                        <p class="text-sm text-gray-600 mb-2">Find crisis centers worldwide</p>
+                        <a href="https://www.iasp.info/resources/Crisis_Centres/" target="_blank" class="text-blue-600 hover:text-blue-800 font-medium">
+                            Visit iasp.info <i class="fas fa-external-link-alt ml-1"></i>
+                        </a>
+                    </div>
+                    <div class="p-4 bg-gray-50 rounded-lg">
+                        <h4 class="font-semibold text-gray-800 mb-2">Befrienders Worldwide</h4>
+                        <p class="text-sm text-gray-600 mb-2">Emotional support in multiple languages</p>
+                        <a href="https://www.befrienders.org/" target="_blank" class="text-blue-600 hover:text-blue-800 font-medium">
+                            Visit befrienders.org <i class="fas fa-external-link-alt ml-1"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        document.getElementById('location-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            const formData = {
-                country: document.getElementById('country').value,
-                city: document.getElementById('city').value,
-                category: document.getElementById('category').value
-            };
+        // Geolocation functionality
+        const locationBtn = document.getElementById('location-btn');
+        const locationDetect = document.getElementById('location-detect');
+        const detectedLocation = document.getElementById('detected-location');
+        const useLocation = document.getElementById('use-location');
+        const countryInput = document.getElementById('country');
+        const cityInput = document.getElementById('city');
+
+        locationBtn.addEventListener('click', () => {
+            if (navigator.geolocation) {
+                locationBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Detecting...';
+                locationBtn.disabled = true;
+                
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        // In a real app, you'd use reverse geocoding API
+                        // For now, we'll show a placeholder
+                        detectedLocation.textContent = 'Location detected (reverse geocoding needed)';
+                        locationDetect.classList.add('show');
+                        locationBtn.innerHTML = '<i class="fas fa-map-marker-alt mr-2"></i>Use My Location';
+                        locationBtn.disabled = false;
+                    },
+                    (error) => {
+                        alert('Unable to detect location. Please enter manually.');
+                        locationBtn.innerHTML = '<i class="fas fa-map-marker-alt mr-2"></i>Use My Location';
+                        locationBtn.disabled = false;
+                    }
+                );
+            } else {
+                alert('Geolocation is not supported by this browser.');
+            }
+        });
+
+        useLocation.addEventListener('click', () => {
+            // In a real app, you'd populate the form with detected location
+            countryInput.value = 'United States';
+            cityInput.value = 'New York';
+            locationDetect.classList.remove('show');
+        });
+
+        // Form submission
+        const locationForm = document.getElementById('location-form');
+        const searchAllBtn = document.getElementById('search-all');
+        const loading = document.getElementById('loading');
+        const results = document.getElementById('results');
+        const contactsContent = document.getElementById('contacts-content');
+        const clearResults = document.getElementById('clear-results');
+
+        async function searchContacts(country, city, category) {
+            loading.style.display = 'block';
+            results.classList.add('hidden');
 
             try {
                 const response = await fetch('/api/contacts', {
@@ -104,24 +445,53 @@
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify(formData)
+                    body: JSON.stringify({ country, city, category })
                 });
 
                 const data = await response.json();
                 
                 if (data.contacts_markdown) {
-                    document.getElementById('contacts-content').innerHTML = data.contacts_markdown;
-                    document.getElementById('results').classList.remove('hidden');
+                    contactsContent.innerHTML = marked.parse(data.contacts_markdown);
+                    results.classList.remove('hidden');
                 } else {
-                    document.getElementById('contacts-content').innerHTML = '<p class="text-gray-600">No contacts found for this location.</p>';
-                    document.getElementById('results').classList.remove('hidden');
+                    contactsContent.innerHTML = '<p class="text-gray-600 text-center py-8">No contacts found for this location. Try searching for a nearby major city.</p>';
+                    results.classList.remove('hidden');
                 }
             } catch (error) {
                 console.error('Error fetching contacts:', error);
-                document.getElementById('contacts-content').innerHTML = '<p class="text-red-600">Error loading contacts. Please try again.</p>';
-                document.getElementById('results').classList.remove('hidden');
+                contactsContent.innerHTML = '<p class="text-red-600 text-center py-8">Error loading contacts. Please try again.</p>';
+                results.classList.remove('hidden');
+            } finally {
+                loading.style.display = 'none';
             }
+        }
+
+        locationForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = {
+                country: document.getElementById('country').value,
+                city: document.getElementById('city').value,
+                category: document.getElementById('category').value
+            };
+            await searchContacts(formData.country, formData.city, formData.category);
         });
+
+        searchAllBtn.addEventListener('click', async () => {
+            const formData = {
+                country: document.getElementById('country').value,
+                city: document.getElementById('city').value,
+                category: 'all'
+            };
+            await searchContacts(formData.country, formData.city, formData.category);
+        });
+
+        clearResults.addEventListener('click', () => {
+            results.classList.add('hidden');
+            contactsContent.innerHTML = '';
+        });
+
+        // Auto-focus on country input
+        document.getElementById('country').focus();
     </script>
 </body>
-</html> 
+</html>

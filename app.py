@@ -51,49 +51,57 @@ if not os.path.exists(app.config['UPLOAD_FOLDER']):
     os.makedirs(app.config['UPLOAD_FOLDER'])
 # --- Helpers ---
 def contains_any_word(text: str, keywords: list[str]) -> bool:
-    """Return True if any keyword is present as a whole word in text."""
+    """Return True if any keyword is present as a whole word in text (case-insensitive)."""
     for kw in keywords:
-        pattern = rf"\\b{re.escape(kw.lower())}\\b"
-        if re.search(pattern, text):
+        pattern = rf"\\b{re.escape(kw)}\\b"
+        if re.search(pattern, text, flags=re.IGNORECASE):
             return True
     return False
 
-def generate_contextual_response(user_message_lower: str) -> str:
+def contains_any_token(text: str, keywords: list[str]) -> bool:
+    """Token-based check to avoid regex edge cases; case-insensitive."""
+    tokens = set(re.findall(r"\w+", text.lower()))
+    for kw in keywords:
+        if kw.lower() in tokens:
+            return True
+    return False
+
+def generate_contextual_response(user_message: str) -> str:
     """Keyword-based compassionate responses when LLM is unavailable."""
-    if contains_any_word(user_message_lower, ['anxious', 'anxiety', 'worried', 'nervous']):
+    if contains_any_word(user_message, ['anxious', 'anxiety', 'worried', 'nervous']) or contains_any_token(user_message, ['anxious', 'anxiety', 'worried', 'nervous']):
         return ("I can hear that you're feeling anxious right now, and that's completely understandable. "
                 "Would you like to try a short grounding exercise with me, or talk about what's triggering it?")
-    if contains_any_word(user_message_lower, ['sad', 'depressed', 'down', 'lonely']):
+    if contains_any_word(user_message, ['sad', 'depressed', 'down', 'lonely']) or contains_any_token(user_message, ['sad', 'depressed', 'down', 'lonely']):
         return ("I'm so sorry you're feeling this way. Your feelings are valid. "
                 "If you'd like, tell me a bit more about what's been hardest lately.")
-    if contains_any_word(user_message_lower, ['stressed', 'stress', 'overwhelmed']):
+    if contains_any_word(user_message, ['stressed', 'stress', 'overwhelmed']) or contains_any_token(user_message, ['stressed', 'stress', 'overwhelmed']):
         return ("Stress can feel heavy. Let's break it down into smaller steps. "
                 "What's the one thing we can focus on for the next 15 minutes?")
-    if contains_any_word(user_message_lower, ['angry', 'anger', 'frustrated', 'mad', 'irritated']):
+    if contains_any_word(user_message, ['angry', 'anger', 'frustrated', 'mad', 'irritated']) or contains_any_token(user_message, ['angry', 'anger', 'frustrated', 'mad', 'irritated']):
         return ("Feeling angry is okay—it's a signal something matters to you. "
                 "Try the 4-7-8 breath (inhale 4, hold 7, exhale 8) for 4 rounds, then we can list the top 1-2 triggers together.")
-    if contains_any_word(user_message_lower, ['calm', 'calming', 'cope', 'coping', 'relax', 'relaxation', 'strategy', 'strategies']):
+    if contains_any_word(user_message, ['calm', 'calming', 'cope', 'coping', 'relax', 'relaxation', 'strategy', 'strategies']) or contains_any_token(user_message, ['calm', 'calming', 'cope', 'coping', 'relax', 'relaxation', 'strategy', 'strategies']):
         return ("Here are a few calming ideas: 1) 4-7-8 breathing ×4 rounds, 2) a 2-minute cold water splash on wrists, "
                 "3) write down the worry and one small next step. Which would you like to try?")
-    if contains_any_word(user_message_lower, ['sleep', 'tired', 'insomnia', 'restless']):
+    if contains_any_word(user_message, ['sleep', 'tired', 'insomnia', 'restless']) or contains_any_token(user_message, ['sleep', 'tired', 'insomnia', 'restless']):
         return ("Sleep struggles are tough. A quick tip: dim lights and slow, deep breathing for 2 minutes. "
                 "Would you like a short wind-down routine?")
-    if contains_any_word(user_message_lower, ['relationship', 'partner', 'boyfriend', 'girlfriend', 'marriage']):
+    if contains_any_word(user_message, ['relationship', 'partner', 'boyfriend', 'girlfriend', 'marriage']) or contains_any_token(user_message, ['relationship', 'partner', 'boyfriend', 'girlfriend', 'marriage']):
         return ("Relationships can be deeply tender and challenging. "
                 "Do you want to unpack what happened, or explore how you'd like to feel in this situation?")
-    if (contains_any_word(user_message_lower, ['periods', 'menstrual', 'cramps', 'pms']) and
-        not contains_any_word(user_message_lower, ['headache', 'migraine'])):
+    if ((contains_any_word(user_message, ['periods', 'menstrual', 'cramps', 'pms']) or contains_any_token(user_message, ['periods', 'menstrual', 'cramps', 'pms'])) and
+        not contains_any_word(user_message, ['headache', 'migraine'])):
         return ("I'm so sorry you're experiencing period pain. A heating pad and gentle stretching can help. "
                 "If pain is severe or disruptive, consider reaching out to a healthcare provider—there are treatments that help.")
-    if (contains_any_word(user_message_lower, ['headache', 'migraine']) and
-        not contains_any_word(user_message_lower, ['periods', 'menstrual'])):
+    if ((contains_any_word(user_message, ['headache', 'migraine']) or contains_any_token(user_message, ['headache', 'migraine'])) and
+        not contains_any_word(user_message, ['periods', 'menstrual'])):
         return ("Headaches can be draining. Try resting in a dim room, hydrate, and slow breathing. "
                 "If it's severe or persistent, consider checking with a healthcare provider.")
-    if contains_any_word(user_message_lower, ['die', 'suicide', 'kill myself', 'end it all', 'want to die']):
+    if contains_any_word(user_message, ['die', 'suicide', 'kill myself', 'end it all', 'want to die']) or contains_any_token(user_message, ['die', 'suicide', 'kill', 'end', 'die']):
         return ("I'm so sorry you're feeling this way. You matter. Please reach out for immediate help: call 988 or "
                 "text HOME to 741741. If you can, let someone nearby know how you're feeling right now.")
     # Place greeting last and with whole-word matching to avoid matching 'hi' in 'this'
-    if contains_any_word(user_message_lower, ['hi', 'hello', 'hey']):
+    if contains_any_word(user_message, ['hi', 'hello', 'hey']) or contains_any_token(user_message, ['hi', 'hello', 'hey']):
         return ("Hello! I'm so glad you're here. How are you feeling today? I'm ready to listen and support you.")
     return ("I'm here to listen and support you. I can sense that you're going through something important. "
             "Would you like to share a bit more so we can figure out a next small step together?")
@@ -233,7 +241,7 @@ def chat_api():
         
         # Treat placeholder keys as not configured
         if (not api_key) or ("your_groq_api_key" in api_key.lower()) or (api_key.lower().startswith("your_")):
-            ai_response = generate_contextual_response(user_message_lower)
+            ai_response = generate_contextual_response(user_message)
         else:
             # Use Groq API
             api_url = "https://api.groq.com/openai/v1/chat/completions"
@@ -262,7 +270,7 @@ def chat_api():
                             ai_response = result['choices'][0]['message']['content']
             except Exception as _e:
                 # Fall back to contextual responses if API call fails
-                ai_response = generate_contextual_response(user_message_lower)
+                ai_response = generate_contextual_response(user_message)
 
         # Get seriousness level and suggestions using the imported modules
         seriousness_level = get_seriousness_level(user_message, qa_chain_for_llm_check=None)
@@ -296,18 +304,57 @@ def contacts_api():
         city = data.get('city')
         category = data.get('category')
         
+        if not country or not city:
+            return jsonify({'error': 'Country and city are required.'}), 400
+        
         # Get the contacts using the imported module
-        contacts = get_emergency_info_by_location(country, city, category)
+        if category == 'all':
+            # Get all categories for the location
+            all_contacts = []
+            categories = ['helplines', 'doctors', 'domestic_violence', 'substance_abuse']
+            for cat in categories:
+                contacts = get_emergency_info_by_location(country, city, cat)
+                for contact in contacts:
+                    contact['category'] = cat
+                all_contacts.extend(contacts)
+        else:
+            all_contacts = get_emergency_info_by_location(country, city, category)
         
         # Format the contacts into a markdown string for display
-        formatted_contacts_markdown = format_contacts_for_display(contacts, f"{city}, {country}")
+        formatted_contacts_markdown = format_contacts_for_display(all_contacts, f"{city}, {country}")
         
         return jsonify({
             'contacts_markdown': formatted_contacts_markdown
         })
     except Exception as e:
         print(f"Error in contacts_api: {e}")
-        if seriousness_level == "Emergency": return jsonify({'error': 'Failed to retrieve contacts.', 'details': str(e)}), 500
+        return jsonify({'error': 'Failed to retrieve contacts.', 'details': str(e)}), 500
+
+@app.route('/api/contacts/search', methods=['POST'])
+def contacts_search_api():
+    """
+    API endpoint to search emergency contacts across all locations.
+    """
+    try:
+        data = request.get_json()
+        query = data.get('query')
+        category = data.get('category')
+        
+        if not query:
+            return jsonify({'error': 'Search query is required.'}), 400
+        
+        # Search contacts using the imported module
+        contacts = search_emergency_contacts(query, category)
+        
+        # Format the contacts into a markdown string for display
+        formatted_contacts_markdown = format_contacts_for_display(contacts, f"Search results for '{query}'")
+        
+        return jsonify({
+            'contacts_markdown': formatted_contacts_markdown
+        })
+    except Exception as e:
+        print(f"Error in contacts_search_api: {e}")
+        return jsonify({'error': 'Failed to search contacts.', 'details': str(e)}), 500
 
 @app.route('/api/university_resources', methods=['POST'])
 def university_resources_api():
