@@ -1,215 +1,109 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat with AI - CalmMateAI</title>
-    <!-- Favicon link -->
-    <link rel="icon" href="https://placehold.co/32x32/1a1a1a/ffffff?text=AI">
-    <!-- Tailwind CSS CDN for styling -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Inter Font -->
+{% extends 'base.html' %}
+{% block title %}Chat with AI - CalmMateAI{% endblock %}
+{% block head %}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Marked.js for Markdown parsing -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #1a1a2e; /* Dark purple/blue background */
-            margin: 0;
-            padding: 0;
-            height: 100vh;
-            overflow: hidden;
-        }
-        .chat-container {
-            height: calc(100vh - 200px); /* Fixed height for chat area */
-            max-height: calc(100vh - 200px);
-            overflow-y: auto;
-            padding: 1rem;
-        }
-        
-        /* Responsive sidebar */
-        @media (max-width: 768px) {
-            #seriousness-suggestions-container {
-                position: fixed;
-                top: 0;
-                right: 0;
-                bottom: 0;
-                width: 100%;
-                z-index: 20;
-                transform: translateX(100%);
-                transition: transform 0.3s ease;
-            }
-            
-            #seriousness-suggestions-container.show {
-                transform: translateX(0);
-            }
-        }
-        .chat-container::-webkit-scrollbar {
-            width: 6px;
-        }
-        .chat-container::-webkit-scrollbar-track {
-            background: #1e1e3e;
-        }
-        .chat-container::-webkit-scrollbar-thumb {
-            background: #5d44b5;
-            border-radius: 3px;
-        }
-        .chat-container::-webkit-scrollbar-thumb:hover {
-            background: #4a3692;
-        }
-        /* Custom styles for the suggestions box */
-        #suggestions-output {
-            background-color: #2a2a4e; /* Darker background for the suggestions box */
-            border-left: 4px solid;
-            padding: 1rem;
-            margin-top: 1rem;
-            border-radius: 0.5rem;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
-        }
-        .seriousness-low { border-color: #34d399; } /* green-400 */
-        .seriousness-medium { border-color: #fcd34d; } /* amber-300 */
-        .seriousness-high { border-color: #f87171; } /* red-400 */
-        .seriousness-critical { border-color: #dc2626; } /* red-600 */
-        
-        /* Fixed bottom input area */
-        .input-area {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: #1a1a2e;
-            padding: 1rem;
-            border-top: 1px solid #2a2a4a;
-            z-index: 10;
-        }
-        
-        /* ChatGPT-style input container */
-        .chat-input-container {
-            max-width: 768px;
-            margin: 0 auto;
-            position: relative;
-        }
-        
-        /* Main chat layout */
-        .chat-layout {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .chat-content {
-            flex: 1;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
-    </style>
-</head>
-<body class="bg-[#1a1a2e] text-white">
-    <div class="chat-layout">
-        <!-- Header -->
-        <header class="w-full flex justify-between items-center py-4 px-4 bg-[#1a1a2e] border-b border-[#2a2a4a]">
-            <h1 class="text-3xl font-bold text-gray-100">CalmMateAI Chat</h1>
-            <button id="clear-chat" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg text-sm transition-colors">
-                <i class="fas fa-trash mr-2"></i>Clear Chat
-            </button>
-        </header>
+{% endblock %}
 
-        <!-- Main chat layout with sidebar -->
-        <div class="flex flex-1 overflow-hidden">
-            <!-- Chat content area -->
-            <div class="chat-content flex-1 ml-4">
-                <!-- Chat messages container -->
-                <div id="chat-messages" class="chat-container">
+{% block header_extra %}
+    <a href="/dashboard" class="text-sm px-3 py-2 rounded-md border border-slate-300 hover:bg-slate-100">Return to Dashboard</a>
+{% endblock %}
+
+{% block content %}
+<div class="chat-layout h-full flex flex-col">
+    <!-- Main chat layout with sidebar inside content area -->
+    <div class="flex flex-1 overflow-hidden">
+        <!-- Chat content area -->
+        <div class="chat-content flex-1 mx-2 md:mx-4 flex flex-col">
+            <!-- Chat container with proper structure -->
+            <div class="chat-container flex-1 flex flex-col bg-white rounded-lg shadow-sm border border-slate-200">
+                <!-- Chat messages container - scrollable area -->
+                <div id="chat-messages" class="chat-messages flex-1 overflow-y-auto p-4" role="log" aria-live="polite" aria-relevant="additions">
                     <!-- Welcome message bubble -->
-                    <div class="flex items-start mb-4 space-x-3 w-full max-w-[80%] md:max-w-[60%]">
-                        <div class="flex-shrink-0 w-8 h-8 rounded-full bg-purple-500 flex items-center justify-center text-sm font-bold text-white">AI</div>
-                        <div class="bg-[#1e1e3e] text-gray-200 p-4 rounded-xl shadow-lg max-w-xs md:max-w-md">
+                    <div class="flex items-start mb-6 space-x-3 w-full max-w-[80%] md:max-w-[60%]">
+                        <div class="flex-shrink-0 w-8 h-8 rounded-full bg-indigo-400 flex items-center justify-center text-sm font-bold text-white">🌿</div>
+                        <div class="bg-gradient-to-br from-indigo-50 to-white text-slate-800 p-4 rounded-2xl shadow-sm border border-slate-200 ai-bubble">
                             <p>Hello! I'm here to listen. How are you feeling today?</p>
+                            <div class="mt-1 text-[10px] text-slate-400">Just now</div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Quick Response Buttons -->
-                <div id="quick-responses" class="p-4 bg-[#1e1e3e] border-t border-[#2a2a4a] block">
-                    <p class="text-sm text-gray-400 mb-3">Quick responses:</p>
+                <!-- Quick Response & Crisis Buttons -->
+                <div id="quick-responses" class="p-4 bg-slate-50 border-t border-slate-200">
+                    <p class="text-sm text-slate-500 mb-3">Quick responses:</p>
                     <div class="flex flex-wrap gap-2">
-                        <button class="quick-response-btn bg-[#3a3a5a] hover:bg-[#4a4a6a] text-white px-3 py-2 rounded-lg text-sm transition-colors" data-message="I'm feeling anxious today">
-                            😰 I'm feeling anxious
-                        </button>
-                        <button class="quick-response-btn bg-[#3a3a5a] hover:bg-[#4a4a6a] text-white px-3 py-2 rounded-lg text-sm transition-colors" data-message="I'm feeling sad and lonely">
-                            😢 I'm feeling sad
-                        </button>
-                        <button class="quick-response-btn bg-[#3a3a5a] hover:bg-[#4a4a6a] text-white px-3 py-2 rounded-lg text-sm transition-colors" data-message="I'm stressed about work/school">
-                            😤 I'm stressed
-                        </button>
-                        <button class="quick-response-btn bg-[#3a3a5a] hover:bg-[#4a4a6a] text-white px-3 py-2 rounded-lg text-sm transition-colors" data-message="I need help with sleep">
-                            😴 I need help sleeping
-                        </button>
-                        <button class="quick-response-btn bg-[#3a3a5a] hover:bg-[#4a4a6a] text-white px-3 py-2 rounded-lg text-sm transition-colors" data-message="I'm having relationship issues">
-                            💔 Relationship issues
-                        </button>
-                        <button class="quick-response-btn bg-[#3a3a5a] hover:bg-[#4a4a6a] text-white px-3 py-2 rounded-lg text-sm transition-colors" data-message="I need coping strategies">
-                            🛠️ Need coping strategies
-                        </button>
+                        <button class="quick-response-btn pill bg-slate-100 hover:bg-slate-200 text-slate-800 px-4 py-2 rounded-full text-sm transition-all shadow-sm hover:shadow-md hover:-translate-y-0.5" data-message="I'm feeling anxious today">😰 I'm feeling anxious</button>
+                        <button class="quick-response-btn pill bg-slate-100 hover:bg-slate-200 text-slate-800 px-4 py-2 rounded-full text-sm transition-all shadow-sm hover:shadow-md hover:-translate-y-0.5" data-message="I'm feeling sad and lonely">😢 I'm feeling sad</button>
+                        <button class="quick-response-btn pill bg-slate-100 hover:bg-slate-200 text-slate-800 px-4 py-2 rounded-full text-sm transition-all shadow-sm hover:shadow-md hover:-translate-y-0.5" data-message="I'm stressed about work/school">😤 I'm stressed</button>
+                        <button class="quick-response-btn pill bg-slate-100 hover:bg-slate-200 text-slate-800 px-4 py-2 rounded-full text-sm transition-all shadow-sm hover:shadow-md hover:-translate-y-0.5" data-message="I need help with sleep">😴 I need help sleeping</button>
+                        <button class="quick-response-btn pill bg-slate-100 hover:bg-slate-200 text-slate-800 px-4 py-2 rounded-full text-sm transition-all shadow-sm hover:shadow-md hover:-translate-y-0.5" data-message="I'm having relationship issues">💔 Relationship issues</button>
+                        <button class="quick-response-btn pill bg-slate-100 hover:bg-slate-200 text-slate-800 px-4 py-2 rounded-full text-sm transition-all shadow-sm hover:shadow-md hover:-translate-y-0.5" data-message="I need coping strategies">🛠️ Need coping strategies</button>
+                    </div>
+                    <div class="mt-4 flex flex-wrap gap-2">
+                        <a href="tel:988" class="px-3 py-2 rounded-lg bg-rose-100 text-rose-700 hover:bg-rose-200 text-sm" aria-label="Call 988">📞 Call 988</a>
+                        <a href="sms:741741&body=HOME" class="px-3 py-2 rounded-lg bg-indigo-100 text-indigo-700 hover:bg-indigo-200 text-sm" aria-label="Text HOME to 741741">💬 Text HOME to 741741</a>
+                        <a href="https://www.opencounseling.com/suicide-hotlines" target="_blank" rel="noopener" class="px-3 py-2 rounded-lg bg-emerald-100 text-emerald-700 hover:bg-emerald-200 text-sm" aria-label="Find local help">🌐 Find local help</a>
                     </div>
                 </div>
-            </div>
 
-            <!-- Right Sidebar for Seriousness Level and Suggestions -->
-            <div id="seriousness-suggestions-container" class="w-80 bg-[#1e1e3e] border-l border-[#2a2a4a] p-4 hidden">
-                <div class="sticky top-4">
-                    <div class="flex justify-between items-center mb-4">
-                        <h3 class="text-lg font-semibold text-white">Assessment & Resources</h3>
-                        <button id="close-sidebar" class="md:hidden text-gray-400 hover:text-white">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                <!-- Input area - fixed at bottom of chat container -->
+                <div class="input-area border-t border-slate-200 bg-white p-4">
+                    <div class="chat-input-container">
+                        <form id="chat-form" class="flex space-x-3 items-center">
+                            <input type="text" id="user-input" class="flex-1 p-4 rounded-xl bg-white text-slate-800 border border-slate-300 focus:outline-none focus:ring-2 focus:ring-indigo-300 placeholder-slate-400" placeholder="Type your message here..." autocomplete="off" aria-label="Message input">
+                        
+                        <!-- Voice Input Button -->
+                        <button type="button" id="voice-btn" class="text-slate-500 hover:text-slate-700 p-2 rounded-lg transition-colors" aria-label="Record voice message">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"></path>
                             </svg>
                         </button>
+                        
+                        <!-- Send Button -->
+                        <button type="submit" id="send-btn" class="bg-indigo-500 hover:bg-indigo-600 text-white p-2.5 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed" aria-label="Send message">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5"></path>
+                            </svg>
+                        </button>
+                    </form>
+                    
+                    <!-- Voice Recording Status -->
+                    <div id="voice-status" class="hidden mt-2 text-center" aria-live="polite">
+                        <div class="inline-flex items-center space-x-2 bg-rose-500 text-white px-4 py-2 rounded-full">
+                            <div class="w-3 h-3 bg-white rounded-full animate-pulse"></div>
+                            <span>Recording... Click to stop</span>
+                        </div>
                     </div>
-                    <div id="seriousness-output" class="text-sm font-semibold mb-4 p-3 rounded-lg bg-[#2a2a4a] text-white"></div>
-                    <div id="suggestions-output" class="text-sm text-gray-200 markdown-content"></div>
+
+                    <div class="mt-3 text-center">
+                        <a href="/dashboard" class="text-sm text-slate-500 hover:text-indigo-600">← Return to Dashboard</a>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Fixed bottom input area -->
-        <div class="input-area">
-            <div class="chat-input-container">
-                <form id="chat-form" class="flex space-x-3 items-center">
-                    <input type="text" id="user-input" class="flex-1 p-4 rounded-xl bg-[#1e1e3e] text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-[#10a37f] placeholder-gray-400" placeholder="Type your message here..." autocomplete="off">
-                
-                <!-- Voice Input Button -->
-                <button type="button" id="voice-btn" class="text-gray-400 hover:text-white p-2 rounded-lg transition-colors">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"></path>
-                    </svg>
-                </button>
-                
-                <!-- Send Button -->
-                <button type="submit" id="send-btn" class="bg-[#10a37f] hover:bg-[#0d8a6d] text-white p-2.5 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5"></path>
-                    </svg>
-                </button>
-            </form>
-            
-            <!-- Voice Recording Status -->
-            <div id="voice-status" class="hidden mt-2 text-center">
-                <div class="inline-flex items-center space-x-2 bg-red-500 text-white px-4 py-2 rounded-full">
-                    <div class="w-3 h-3 bg-white rounded-full animate-pulse"></div>
-                    <span>Recording... Click to stop</span>
+        <!-- Right Sidebar for Seriousness Level and Suggestions -->
+        <div id="seriousness-suggestions-container" class="w-80 bg-white border-l border-slate-200 p-4 hidden">
+            <div class="sticky top-4">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-lg font-semibold text-slate-800">Assessment & Resources</h3>
+                    <button id="close-sidebar" class="md:hidden text-slate-500 hover:text-slate-700" aria-label="Close sidebar">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
                 </div>
+                <div id="emergency-banner" class="hidden mb-3 p-3 rounded-md bg-rose-50 text-rose-700 text-sm">If you are in immediate danger, please call local emergency services or 988.</div>
+                <div id="seriousness-output" class="text-sm font-semibold mb-4 p-3 rounded-lg bg-slate-100 text-slate-800"></div>
+                <div id="suggestions-output" class="text-sm text-slate-700 markdown-content"></div>
             </div>
         </div>
     </div>
+</div>
 
-    <!-- JavaScript file for handling chat logic -->
-    <script src="{{ url_for('static', filename='js/chat_script.js') }}"></script>
-</body>
-</html>
+<!-- JavaScript file for handling chat logic -->
+<script src="{{ url_for('static', filename='js/chat_script.js') }}"></script>
+{% endblock %}

@@ -27,6 +27,7 @@ def get_cities_for_country(country_name):
 def get_emergency_info_by_location(country, city, category):
     """
     Retrieves emergency contact information for a specific country, city, and category.
+    Performs case-insensitive matching for country and city names.
     
     Args:
         country (str): The country name.
@@ -36,8 +37,22 @@ def get_emergency_info_by_location(country, city, category):
     Returns:
         list: A list of dictionaries containing contact info. Returns an empty list if not found.
     """
-    country_data = EMERGENCY_DATA.get(country, {})
-    city_data = country_data.get(city, {})
+    # Normalize input to title case for matching
+    country_normalized = country.title().strip()
+    city_normalized = city.title().strip()
+    
+    # Try exact match first
+    country_data = EMERGENCY_DATA.get(country_normalized, {})
+    city_data = country_data.get(city_normalized, {})
+    
+    # If no exact match, try case-insensitive search
+    if not city_data:
+        for data_country, cities in EMERGENCY_DATA.items():
+            if data_country.lower() == country.lower():
+                for data_city, city_info in cities.items():
+                    if data_city.lower() == city.lower():
+                        return city_info.get(category, [])
+    
     return city_data.get(category, [])
 
 def format_contacts_for_display(contacts, location):

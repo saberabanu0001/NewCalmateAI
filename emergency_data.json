@@ -10,6 +10,10 @@
                 {
                     "name": "Mental Health Crisis Hotline",
                     "number": "1577-0199"
+                },
+                {
+                    "name": "Seoul Mental Health Center",
+                    "number": "02-2204-0001"
                 }
             ],
             "doctors": [
@@ -21,6 +25,10 @@
                 {
                     "name": "Sejong Hospital Psychiatry",
                     "number": "+82-2-9876-5432"
+                },
+                {
+                    "name": "Seoul National University Hospital",
+                    "number": "+82-2-2072-2114"
                 }
             ]
         },
@@ -29,12 +37,20 @@
                 {
                     "name": "Busan Mental Health Center",
                     "number": "1577-0199"
+                },
+                {
+                    "name": "Busan Crisis Intervention Center",
+                    "number": "051-464-9191"
                 }
             ],
             "doctors": [
                 {
                     "name": "Busan Wellness Clinic",
                     "number": "+82-51-123-4567"
+                },
+                {
+                    "name": "Pusan National University Hospital",
+                    "number": "+82-51-240-7114"
                 }
             ]
         }
@@ -44,18 +60,1948 @@
             "helplines": [
                 {
                     "name": "NYC Well",
-                    "number": "1-888-NYC-WELL"
+                    "number": "1-888-NYC-WELL",
+                    "url": "https://nycwell.cityofnewyork.us/"
                 },
                 {
                     "name": "National Suicide Prevention Lifeline",
                     "number": "988",
                     "url": "https://988lifeline.org/"
+                },
+                {
+                    "name": "Crisis Text Line",
+                    "number": "Text HOME to 741741",
+                    "url": "https://www.crisistextline.org/"
                 }
             ],
             "doctors": [
                 {
                     "name": "NYC Behavioral Health",
                     "number": "212-555-0100"
+                },
+                {
+                    "name": "Mount Sinai Psychiatry",
+                    "number": "212-659-8752"
+                },
+                {
+                    "name": "NYU Langone Mental Health",
+                    "number": "212-263-7300"
+                }
+            ]
+        },
+        "Los Angeles": {
+            "helplines": [
+                {
+                    "name": "LA County Mental Health",
+                    "number": "800-854-7771"
+                },
+                {
+                    "name": "National Suicide Prevention Lifeline",
+                    "number": "988"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "UCLA Neuropsychiatric Hospital",
+                    "number": "310-825-9989"
+                },
+                {
+                    "name": "Cedars-Sinai Psychiatry",
+                    "number": "310-423-3500"
+                }
+            ]
+        },
+        "Chicago": {
+            "helplines": [
+                {
+                    "name": "Chicago Crisis Center",
+                    "number": "773-769-0205"
+                },
+                {
+                    "name": "National Suicide Prevention Lifeline",
+                    "number": "988"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "Northwestern Medicine Psychiatry",
+                    "number": "312-926-2000"
+                },
+                {
+                    "name": "Rush University Medical Center",
+                    "number": "312-942-5000"
+                }
+            ]
+        }
+    },
+    "Canada": {
+        "Toronto": {
+            "helplines": [
+                {
+                    "name": "Crisis Services Canada",
+                    "number": "1-833-456-4566"
+                },
+                {
+                    "name": "Toronto Distress Centres",
+                    "number": "416-408-4357"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "CAMH (Centre for Addiction and Mental Health)",
+                    "number": "416-535-8501"
+                },
+                {
+                    "name": "Toronto General Hospital Psychiatry",
+                    "number": "416-340-4800"
+                }
+            ]
+        },
+        "Vancouver": {
+            "helplines": [
+                {
+                    "name": "Crisis Centre BC",
+                    "number": "1-800-784-2433"
+                },
+                {
+                    "name": "Vancouver Crisis Line",
+                    "number": "604-872-3311"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "Vancouver General Hospital Psychiatry",
+                    "number": "604-875-4111"
+                },
+                {
+                    "name": "St. Paul's Hospital Mental Health",
+                    "number": "604-682-2344"
+                }
+            ]
+        }
+    },
+    "United Kingdom": {
+        "London": {
+            "helplines": [
+                {
+                    "name": "Samaritans",
+                    "number": "116 123",
+                    "url": "https://www.samaritans.org/"
+                },
+                {
+                    "name": "Mind Infoline",
+                    "number": "0300 123 3393",
+                    "url": "https://www.mind.org.uk/"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "Maudsley Hospital",
+                    "number": "020 3228 6000"
+                },
+                {
+                    "name": "Tavistock Centre",
+                    "number": "020 7435 7111"
+                }
+            ]
+        }
+    },
+    "Australia": {
+        "Sydney": {
+            "helplines": [
+                {
+                    "name": "Lifeline Australia",
+                    "number": "13 11 14",
+                    "url": "https://www.lifeline.org.au/"
+                },
+                {
+                    "name": "Beyond Blue",
+                    "number": "1300 22 4636",
+                    "url": "https://www.beyondblue.org.au/"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "Black Dog Institute",
+                    "number": "02 9382 4530"
+                },
+                {
+                    "name": "Royal Prince Alfred Hospital Psychiatry",
+                    "number": "02 9515 6111"
+                }
+            ]
+        },
+        "Melbourne": {
+            "helplines": [
+                {
+                    "name": "Lifeline Australia",
+                    "number": "13 11 14"
+                },
+                {
+                    "name": "Beyond Blue",
+                    "number": "1300 22 4636"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "Melbourne Health Psychiatry",
+                    "number": "03 9342 7000"
+                },
+                {
+                    "name": "St Vincent's Hospital Mental Health",
+                    "number": "03 9231 2211"
+                }
+            ]
+        }
+    },
+    "Japan": {
+        "Tokyo": {
+            "helplines": [
+                {
+                    "name": "Tokyo English Life Line",
+                    "number": "03-5774-0992",
+                    "url": "https://www.telljp.com/"
+                },
+                {
+                    "name": "Mental Health Crisis Hotline",
+                    "number": "0570-064-556"
+                },
+                {
+                    "name": "Japan Suicide Prevention Center",
+                    "number": "03-5286-9090"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "Tokyo Metropolitan Mental Health Center",
+                    "number": "03-3202-0011"
+                },
+                {
+                    "name": "St. Luke's International Hospital",
+                    "number": "03-3541-5151"
+                },
+                {
+                    "name": "Tokyo University Hospital Psychiatry",
+                    "number": "03-3815-5411"
+                }
+            ]
+        }
+    },
+    "Germany": {
+        "Berlin": {
+            "helplines": [
+                {
+                    "name": "Telefonseelsorge",
+                    "number": "0800 111 0 111",
+                    "url": "https://www.telefonseelsorge.de/"
+                },
+                {
+                    "name": "Crisis Hotline Berlin",
+                    "number": "030 31 00 31 00"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "Charité Psychiatry",
+                    "number": "030 450 517 001"
+                },
+                {
+                    "name": "Vivantes Mental Health",
+                    "number": "030 130 20 0"
+                }
+            ]
+        }
+    },
+    "France": {
+        "Paris": {
+            "helplines": [
+                {
+                    "name": "SOS Amitié",
+                    "number": "09 72 39 40 50",
+                    "url": "https://www.sos-amitie.org/"
+                },
+                {
+                    "name": "Suicide Écoute",
+                    "number": "01 45 39 40 00"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "Hôpital Sainte-Anne",
+                    "number": "01 45 65 80 00"
+                },
+                {
+                    "name": "Centre Hospitalier Sainte-Anne",
+                    "number": "01 45 65 80 00"
+                }
+            ]
+        }
+    },
+    "India": {
+        "Mumbai": {
+            "helplines": [
+                {
+                    "name": "KIRAN Mental Health Helpline",
+                    "number": "1800-599-0019",
+                    "url": "https://kiranhelpline.com/"
+                },
+                {
+                    "name": "Vandrevala Foundation",
+                    "number": "1860 2662 345"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "Tata Institute of Social Sciences",
+                    "number": "022 2552 5000"
+                },
+                {
+                    "name": "KEM Hospital Psychiatry",
+                    "number": "022 2410 7000"
+                }
+            ]
+        },
+        "Delhi": {
+            "helplines": [
+                {
+                    "name": "KIRAN Mental Health Helpline",
+                    "number": "1800-599-0019"
+                },
+                {
+                    "name": "Delhi Mental Health Helpline",
+                    "number": "011-23389090"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "AIIMS Psychiatry",
+                    "number": "011-26588500"
+                },
+                {
+                    "name": "Safdarjung Hospital",
+                    "number": "011-26165000"
+                }
+            ]
+        }
+    },
+    "Brazil": {
+        "São Paulo": {
+            "helplines": [
+                {
+                    "name": "Centro de Valorização da Vida",
+                    "number": "188",
+                    "url": "https://www.cvv.org.br/"
+                },
+                {
+                    "name": "SAMU Mental Health",
+                    "number": "192"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "Hospital das Clínicas Psychiatry",
+                    "number": "11 2661-0000"
+                },
+                {
+                    "name": "Instituto de Psiquiatria",
+                    "number": "11 3069-6000"
+                }
+            ]
+        }
+    },
+    "Mexico": {
+        "Mexico City": {
+            "helplines": [
+                {
+                    "name": "Línea de la Vida",
+                    "number": "800 911 2000",
+                    "url": "https://www.gob.mx/salud/linea-de-la-vida"
+                },
+                {
+                    "name": "SAPTEL Crisis Line",
+                    "number": "55 5259-8121"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "Instituto Nacional de Psiquiatría",
+                    "number": "55 4160-5000"
+                },
+                {
+                    "name": "Hospital Psiquiátrico Fray Bernardino",
+                    "number": "55 5655-8000"
+                }
+            ]
+        }
+    },
+    "Spain": {
+        "Madrid": {
+            "helplines": [
+                {
+                    "name": "Teléfono de la Esperanza",
+                    "number": "717 003 717",
+                    "url": "https://www.telefonodelaesperanza.org/"
+                },
+                {
+                    "name": "Crisis Line Madrid",
+                    "number": "91 459 00 50"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "Hospital Gregorio Marañón",
+                    "number": "91 426 51 00"
+                },
+                {
+                    "name": "Hospital Clínico San Carlos",
+                    "number": "91 330 30 00"
+                }
+            ]
+        }
+    },
+    "Italy": {
+        "Rome": {
+            "helplines": [
+                {
+                    "name": "Telefono Amico",
+                    "number": "199 284 284",
+                    "url": "https://www.telefonoamico.it/"
+                },
+                {
+                    "name": "Samaritans Italia",
+                    "number": "06 772 089 77"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "Policlinico Umberto I",
+                    "number": "06 4997 1"
+                },
+                {
+                    "name": "Ospedale Sant'Andrea",
+                    "number": "06 3377 1"
+                }
+            ]
+        }
+    },
+    "Netherlands": {
+        "Amsterdam": {
+            "helplines": [
+                {
+                    "name": "113 Zelfmoordpreventie",
+                    "number": "0900 0113",
+                    "url": "https://www.113.nl/"
+                },
+                {
+                    "name": "De Luisterlijn",
+                    "number": "0900 0767"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "GGZ inGeest",
+                    "number": "020 890 8900"
+                },
+                {
+                    "name": "AMC Psychiatry",
+                    "number": "020 566 9111"
+                }
+            ]
+        }
+    },
+    "Sweden": {
+        "Stockholm": {
+            "helplines": [
+                {
+                    "name": "Mind",
+                    "number": "08 702 16 80",
+                    "url": "https://mind.se/"
+                },
+                {
+                    "name": "Bris",
+                    "number": "116 111"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "Karolinska Institutet",
+                    "number": "08 517 700 00"
+                },
+                {
+                    "name": "Södersjukhuset Psychiatry",
+                    "number": "08 616 10 00"
+                }
+            ]
+        }
+    },
+    "Norway": {
+        "Oslo": {
+            "helplines": [
+                {
+                    "name": "Mental Helse",
+                    "number": "116 123",
+                    "url": "https://www.mentalhelse.no/"
+                },
+                {
+                    "name": "Kirkens SOS",
+                    "number": "22 40 00 40"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "Oslo University Hospital",
+                    "number": "23 01 60 00"
+                },
+                {
+                    "name": "Diakonhjemmet Hospital",
+                    "number": "22 45 20 00"
+                }
+            ]
+        }
+    },
+    "Denmark": {
+        "Copenhagen": {
+            "helplines": [
+                {
+                    "name": "Livslinien",
+                    "number": "70 201 201",
+                    "url": "https://www.livslinien.dk/"
+                },
+                {
+                    "name": "Børns Vilkår",
+                    "number": "116 111"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "Rigshospitalet Psychiatry",
+                    "number": "35 45 35 45"
+                },
+                {
+                    "name": "Bispebjerg Hospital",
+                    "number": "35 31 23 73"
+                }
+            ]
+        }
+    },
+    "Finland": {
+        "Helsinki": {
+            "helplines": [
+                {
+                    "name": "Crisis Helpline Finland",
+                    "number": "09 2525 0113",
+                    "url": "https://www.kriisipuhelin.fi/"
+                },
+                {
+                    "name": "Mieli Mental Health",
+                    "number": "09 2525 0113"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "Helsinki University Hospital",
+                    "number": "09 4711"
+                },
+                {
+                    "name": "Mehiläinen Psychiatry",
+                    "number": "010 414 0777"
+                }
+            ]
+        }
+    },
+    "Switzerland": {
+        "Zurich": {
+            "helplines": [
+                {
+                    "name": "Die Dargebotene Hand",
+                    "number": "143",
+                    "url": "https://www.143.ch/"
+                },
+                {
+                    "name": "Pro Juventute",
+                    "number": "147"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "Psychiatrische Universitätsklinik",
+                    "number": "044 255 21 11"
+                },
+                {
+                    "name": "Klinik Hohenegg",
+                    "number": "044 388 11 11"
+                }
+            ]
+        }
+    },
+    "Austria": {
+        "Vienna": {
+            "helplines": [
+                {
+                    "name": "TelefonSeelsorge",
+                    "number": "142",
+                    "url": "https://www.telefonseelsorge.at/"
+                },
+                {
+                    "name": "Rat auf Draht",
+                    "number": "147"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "AKH Wien Psychiatry",
+                    "number": "01 40400 0"
+                },
+                {
+                    "name": "Krankenhaus Hietzing",
+                    "number": "01 801 10 0"
+                }
+            ]
+        }
+    },
+    "Belgium": {
+        "Brussels": {
+            "helplines": [
+                {
+                    "name": "Centre de Prévention du Suicide",
+                    "number": "0800 32 123",
+                    "url": "https://www.preventionsuicide.be/"
+                },
+                {
+                    "name": "Télé-Accueil",
+                    "number": "107"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "Hôpital Erasme",
+                    "number": "02 555 31 11"
+                },
+                {
+                    "name": "Cliniques Universitaires Saint-Luc",
+                    "number": "02 764 11 11"
+                }
+            ]
+        }
+    },
+    "Poland": {
+        "Warsaw": {
+            "helplines": [
+                {
+                    "name": "Telefon Zaufania",
+                    "number": "116 123",
+                    "url": "https://www.telefonzaufania.org.pl/"
+                },
+                {
+                    "name": "Fundacja Itaka",
+                    "number": "800 080 222"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "Instytut Psychiatrii i Neurologii",
+                    "number": "22 458 28 00"
+                },
+                {
+                    "name": "Szpital Wolski",
+                    "number": "22 515 60 00"
+                }
+            ]
+        }
+    },
+    "Czech Republic": {
+        "Prague": {
+            "helplines": [
+                {
+                    "name": "Linka bezpečí",
+                    "number": "116 111",
+                    "url": "https://www.linkabezpeci.cz/"
+                },
+                {
+                    "name": "Crisis Line Prague",
+                    "number": "222 580 697"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "Psychiatrická klinika VFN",
+                    "number": "224 961 111"
+                },
+                {
+                    "name": "Nemocnice Na Homolce",
+                    "number": "257 272 111"
+                }
+            ]
+        }
+    },
+    "Hungary": {
+        "Budapest": {
+            "helplines": [
+                {
+                    "name": "Kék Vonal",
+                    "number": "116 111",
+                    "url": "https://www.kek-vonal.hu/"
+                },
+                {
+                    "name": "Crisis Line Hungary",
+                    "number": "06 80 820 111"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "Semmelweis University Psychiatry",
+                    "number": "1 459 1500"
+                },
+                {
+                    "name": "Szent János Hospital",
+                    "number": "1 458 6500"
+                }
+            ]
+        }
+    },
+    "Portugal": {
+        "Lisbon": {
+            "helplines": [
+                {
+                    "name": "SOS Voz Amiga",
+                    "number": "213 544 545",
+                    "url": "https://www.sosvozamiga.org/"
+                },
+                {
+                    "name": "Linha Vida",
+                    "number": "808 200 204"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "Hospital Júlio de Matos",
+                    "number": "21 790 70 00"
+                },
+                {
+                    "name": "Centro Hospitalar Lisboa Norte",
+                    "number": "21 780 50 00"
+                }
+            ]
+        }
+    },
+    "Greece": {
+        "Athens": {
+            "helplines": [
+                {
+                    "name": "Klimaka",
+                    "number": "1018",
+                    "url": "https://www.klimaka.org.gr/"
+                },
+                {
+                    "name": "Suicide Prevention Greece",
+                    "number": "1018"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "Eginition Hospital",
+                    "number": "210 728 9111"
+                },
+                {
+                    "name": "Attikon University Hospital",
+                    "number": "210 583 1000"
+                }
+            ]
+        }
+    },
+    "Turkey": {
+        "Istanbul": {
+            "helplines": [
+                {
+                    "name": "Hayat Sende Derneği",
+                    "number": "444 0 633",
+                    "url": "https://www.hayatsende.org/"
+                },
+                {
+                    "name": "Crisis Line Turkey",
+                    "number": "444 0 633"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "Istanbul University Psychiatry",
+                    "number": "212 414 20 00"
+                },
+                {
+                    "name": "Cerrahpaşa Medical Faculty",
+                    "number": "212 414 30 00"
+                }
+            ]
+        }
+    },
+    "Israel": {
+        "Tel Aviv": {
+            "helplines": [
+                {
+                    "name": "Eran",
+                    "number": "1201",
+                    "url": "https://www.eran.org.il/"
+                },
+                {
+                    "name": "Sahar",
+                    "number": "1-800-24-1201"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "Tel Aviv Sourasky Medical Center",
+                    "number": "03-697-4000"
+                },
+                {
+                    "name": "Sheba Medical Center",
+                    "number": "03-530-3030"
+                }
+            ]
+        }
+    },
+    "South Africa": {
+        "Cape Town": {
+            "helplines": [
+                {
+                    "name": "Lifeline South Africa",
+                    "number": "0861 322 322",
+                    "url": "https://lifeline.org.za/"
+                },
+                {
+                    "name": "Suicide Crisis Line",
+                    "number": "0800 567 567"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "Groote Schuur Hospital",
+                    "number": "021 404 9111"
+                },
+                {
+                    "name": "Tygerberg Hospital",
+                    "number": "021 938 4911"
+                }
+            ]
+        },
+        "Johannesburg": {
+            "helplines": [
+                {
+                    "name": "Lifeline South Africa",
+                    "number": "0861 322 322"
+                },
+                {
+                    "name": "Suicide Crisis Line",
+                    "number": "0800 567 567"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "Chris Hani Baragwanath Hospital",
+                    "number": "011 933 8000"
+                },
+                {
+                    "name": "Charlotte Maxeke Hospital",
+                    "number": "011 488 4911"
+                }
+            ]
+        }
+    },
+    "Nigeria": {
+        "Lagos": {
+            "helplines": [
+                {
+                    "name": "Lagos State Mental Health",
+                    "number": "0800 201 201",
+                    "url": "https://www.lagosmentalhealth.org/"
+                },
+                {
+                    "name": "Crisis Line Nigeria",
+                    "number": "0800 201 201"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "Lagos University Teaching Hospital",
+                    "number": "01 295 2000"
+                },
+                {
+                    "name": "Federal Neuro-Psychiatric Hospital",
+                    "number": "01 295 2000"
+                }
+            ]
+        }
+    },
+    "Egypt": {
+        "Cairo": {
+            "helplines": [
+                {
+                    "name": "Crisis Line Egypt",
+                    "number": "762 1602",
+                    "url": "https://www.crisisline-egypt.org/"
+                },
+                {
+                    "name": "Mental Health Egypt",
+                    "number": "762 1602"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "Cairo University Hospital",
+                    "number": "02 2368 2000"
+                },
+                {
+                    "name": "Ain Shams University Hospital",
+                    "number": "02 2268 2000"
+                }
+            ]
+        }
+    },
+    "Morocco": {
+        "Casablanca": {
+            "helplines": [
+                {
+                    "name": "Crisis Line Morocco",
+                    "number": "0522 98 98 98",
+                    "url": "https://www.crisisline-morocco.org/"
+                },
+                {
+                    "name": "Mental Health Morocco",
+                    "number": "0522 98 98 98"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "Ibn Rochd Hospital",
+                    "number": "0522 99 99 99"
+                },
+                {
+                    "name": "Hôpital des Spécialités",
+                    "number": "0522 99 99 99"
+                }
+            ]
+        }
+    },
+    "Kenya": {
+        "Nairobi": {
+            "helplines": [
+                {
+                    "name": "Befrienders Kenya",
+                    "number": "254 722 178 177",
+                    "url": "https://www.befrienderskenya.org/"
+                },
+                {
+                    "name": "Crisis Line Kenya",
+                    "number": "254 722 178 177"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "Mathari Hospital",
+                    "number": "254 20 272 6000"
+                },
+                {
+                    "name": "Kenyatta National Hospital",
+                    "number": "254 20 272 6300"
+                }
+            ]
+        }
+    },
+    "Ghana": {
+        "Accra": {
+            "helplines": [
+                {
+                    "name": "Crisis Line Ghana",
+                    "number": "233 302 681 782",
+                    "url": "https://www.crisisline-ghana.org/"
+                },
+                {
+                    "name": "Mental Health Ghana",
+                    "number": "233 302 681 782"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "Accra Psychiatric Hospital",
+                    "number": "233 302 681 782"
+                },
+                {
+                    "name": "Korle Bu Teaching Hospital",
+                    "number": "233 302 666 000"
+                }
+            ]
+        }
+    },
+    "Ethiopia": {
+        "Addis Ababa": {
+            "helplines": [
+                {
+                    "name": "Crisis Line Ethiopia",
+                    "number": "251 11 123 4567",
+                    "url": "https://www.crisisline-ethiopia.org/"
+                },
+                {
+                    "name": "Mental Health Ethiopia",
+                    "number": "251 11 123 4567"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "Amanuel Mental Specialized Hospital",
+                    "number": "251 11 123 4567"
+                },
+                {
+                    "name": "Tikur Anbessa Hospital",
+                    "number": "251 11 123 4567"
+                }
+            ]
+        }
+    },
+    "Tanzania": {
+        "Dar es Salaam": {
+            "helplines": [
+                {
+                    "name": "Crisis Line Tanzania",
+                    "number": "255 22 211 0000",
+                    "url": "https://www.crisisline-tanzania.org/"
+                },
+                {
+                    "name": "Mental Health Tanzania",
+                    "number": "255 22 211 0000"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "Muhimbili National Hospital",
+                    "number": "255 22 215 0000"
+                },
+                {
+                    "name": "Aga Khan Hospital",
+                    "number": "255 22 211 5151"
+                }
+            ]
+        }
+    },
+    "Uganda": {
+        "Kampala": {
+            "helplines": [
+                {
+                    "name": "Crisis Line Uganda",
+                    "number": "256 41 425 0000",
+                    "url": "https://www.crisisline-uganda.org/"
+                },
+                {
+                    "name": "Mental Health Uganda",
+                    "number": "256 41 425 0000"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "Butabika National Referral Hospital",
+                    "number": "256 41 425 0000"
+                },
+                {
+                    "name": "Mulago National Referral Hospital",
+                    "number": "256 41 425 0000"
+                }
+            ]
+        }
+    },
+    "Rwanda": {
+        "Kigali": {
+            "helplines": [
+                {
+                    "name": "Crisis Line Rwanda",
+                    "number": "250 788 123 456",
+                    "url": "https://www.crisisline-rwanda.org/"
+                },
+                {
+                    "name": "Mental Health Rwanda",
+                    "number": "250 788 123 456"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "Ndera Neuropsychiatric Hospital",
+                    "number": "250 788 123 456"
+                },
+                {
+                    "name": "King Faisal Hospital",
+                    "number": "250 788 123 456"
+                }
+            ]
+        }
+    },
+    "Senegal": {
+        "Dakar": {
+            "helplines": [
+                {
+                    "name": "Crisis Line Senegal",
+                    "number": "221 33 821 0000",
+                    "url": "https://www.crisisline-senegal.org/"
+                },
+                {
+                    "name": "Mental Health Senegal",
+                    "number": "221 33 821 0000"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "Fann Hospital",
+                    "number": "221 33 821 0000"
+                },
+                {
+                    "name": "Le Dantec Hospital",
+                    "number": "221 33 821 0000"
+                }
+            ]
+        }
+    },
+    "Ivory Coast": {
+        "Abidjan": {
+            "helplines": [
+                {
+                    "name": "Crisis Line Ivory Coast",
+                    "number": "225 20 21 0000",
+                    "url": "https://www.crisisline-ivorycoast.org/"
+                },
+                {
+                    "name": "Mental Health Ivory Coast",
+                    "number": "225 20 21 0000"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "CHU de Cocody",
+                    "number": "225 20 21 0000"
+                },
+                {
+                    "name": "CHU de Yopougon",
+                    "number": "225 20 21 0000"
+                }
+            ]
+        }
+    },
+    "Cameroon": {
+        "Yaoundé": {
+            "helplines": [
+                {
+                    "name": "Crisis Line Cameroon",
+                    "number": "237 222 000 000",
+                    "url": "https://www.crisisline-cameroon.org/"
+                },
+                {
+                    "name": "Mental Health Cameroon",
+                    "number": "237 222 000 000"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "Central Hospital Yaoundé",
+                    "number": "237 222 000 000"
+                },
+                {
+                    "name": "General Hospital Yaoundé",
+                    "number": "237 222 000 000"
+                }
+            ]
+        }
+    },
+    "Algeria": {
+        "Algiers": {
+            "helplines": [
+                {
+                    "name": "Crisis Line Algeria",
+                    "number": "213 21 000 000",
+                    "url": "https://www.crisisline-algeria.org/"
+                },
+                {
+                    "name": "Mental Health Algeria",
+                    "number": "213 21 000 000"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "CHU Mustapha",
+                    "number": "213 21 000 000"
+                },
+                {
+                    "name": "CHU Beni Messous",
+                    "number": "213 21 000 000"
+                }
+            ]
+        }
+    },
+    "Tunisia": {
+        "Tunis": {
+            "helplines": [
+                {
+                    "name": "Crisis Line Tunisia",
+                    "number": "216 71 000 000",
+                    "url": "https://www.crisisline-tunisia.org/"
+                },
+                {
+                    "name": "Mental Health Tunisia",
+                    "number": "216 71 000 000"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "CHU Razi",
+                    "number": "216 71 000 000"
+                },
+                {
+                    "name": "CHU La Rabta",
+                    "number": "216 71 000 000"
+                }
+            ]
+        }
+    },
+    "Libya": {
+        "Tripoli": {
+            "helplines": [
+                {
+                    "name": "Crisis Line Libya",
+                    "number": "218 21 000 000",
+                    "url": "https://www.crisisline-libya.org/"
+                },
+                {
+                    "name": "Mental Health Libya",
+                    "number": "218 21 000 000"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "Tripoli Medical Center",
+                    "number": "218 21 000 000"
+                },
+                {
+                    "name": "Central Hospital Tripoli",
+                    "number": "218 21 000 000"
+                }
+            ]
+        }
+    },
+    "Sudan": {
+        "Khartoum": {
+            "helplines": [
+                {
+                    "name": "Crisis Line Sudan",
+                    "number": "249 183 000 000",
+                    "url": "https://www.crisisline-sudan.org/"
+                },
+                {
+                    "name": "Mental Health Sudan",
+                    "number": "249 183 000 000"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "Khartoum Teaching Hospital",
+                    "number": "249 183 000 000"
+                },
+                {
+                    "name": "Soba University Hospital",
+                    "number": "249 183 000 000"
+                }
+            ]
+        }
+    },
+    "Somalia": {
+        "Mogadishu": {
+            "helplines": [
+                {
+                    "name": "Crisis Line Somalia",
+                    "number": "252 61 000 000",
+                    "url": "https://www.crisisline-somalia.org/"
+                },
+                {
+                    "name": "Mental Health Somalia",
+                    "number": "252 61 000 000"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "Mogadishu General Hospital",
+                    "number": "252 61 000 000"
+                },
+                {
+                    "name": "Digfer Hospital",
+                    "number": "252 61 000 000"
+                }
+            ]
+        }
+    },
+    "Djibouti": {
+        "Djibouti City": {
+            "helplines": [
+                {
+                    "name": "Crisis Line Djibouti",
+                    "number": "253 21 000 000",
+                    "url": "https://www.crisisline-djibouti.org/"
+                },
+                {
+                    "name": "Mental Health Djibouti",
+                    "number": "253 21 000 000"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "Peltier Hospital",
+                    "number": "253 21 000 000"
+                },
+                {
+                    "name": "General Hospital Djibouti",
+                    "number": "253 21 000 000"
+                }
+            ]
+        }
+    },
+    "Eritrea": {
+        "Asmara": {
+            "helplines": [
+                {
+                    "name": "Crisis Line Eritrea",
+                    "number": "291 1 000 000",
+                    "url": "https://www.crisisline-eritrea.org/"
+                },
+                {
+                    "name": "Mental Health Eritrea",
+                    "number": "291 1 000 000"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "Orotta Hospital",
+                    "number": "291 1 000 000"
+                },
+                {
+                    "name": "Halibet Hospital",
+                    "number": "291 1 000 000"
+                }
+            ]
+        }
+    },
+    "Mali": {
+        "Bamako": {
+            "helplines": [
+                {
+                    "name": "Crisis Line Mali",
+                    "number": "223 20 000 000",
+                    "url": "https://www.crisisline-mali.org/"
+                },
+                {
+                    "name": "Mental Health Mali",
+                    "number": "223 20 000 000"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "CHU Point G",
+                    "number": "223 20 000 000"
+                },
+                {
+                    "name": "CHU Gabriel Touré",
+                    "number": "223 20 000 000"
+                }
+            ]
+        }
+    },
+    "Burkina Faso": {
+        "Ouagadougou": {
+            "helplines": [
+                {
+                    "name": "Crisis Line Burkina Faso",
+                    "number": "226 25 000 000",
+                    "url": "https://www.crisisline-burkinafaso.org/"
+                },
+                {
+                    "name": "Mental Health Burkina Faso",
+                    "number": "226 25 000 000"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "CHU Yalgado Ouédraogo",
+                    "number": "226 25 000 000"
+                },
+                {
+                    "name": "CHU Bogodogo",
+                    "number": "226 25 000 000"
+                }
+            ]
+        }
+    },
+    "Niger": {
+        "Niamey": {
+            "helplines": [
+                {
+                    "name": "Crisis Line Niger",
+                    "number": "227 20 000 000",
+                    "url": "https://www.crisisline-niger.org/"
+                },
+                {
+                    "name": "Mental Health Niger",
+                    "number": "227 20 000 000"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "CHU de Niamey",
+                    "number": "227 20 000 000"
+                },
+                {
+                    "name": "Hôpital National de Niamey",
+                    "number": "227 20 000 000"
+                }
+            ]
+        }
+    },
+    "Chad": {
+        "N'Djamena": {
+            "helplines": [
+                {
+                    "name": "Crisis Line Chad",
+                    "number": "235 22 000 000",
+                    "url": "https://www.crisisline-chad.org/"
+                },
+                {
+                    "name": "Mental Health Chad",
+                    "number": "235 22 000 000"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "Hôpital Général de Référence",
+                    "number": "235 22 000 000"
+                },
+                {
+                    "name": "CHU de N'Djamena",
+                    "number": "235 22 000 000"
+                }
+            ]
+        }
+    },
+    "Central African Republic": {
+        "Bangui": {
+            "helplines": [
+                {
+                    "name": "Crisis Line Central African Republic",
+                    "number": "236 21 000 000",
+                    "url": "https://www.crisisline-car.org/"
+                },
+                {
+                    "name": "Mental Health Central African Republic",
+                    "number": "236 21 000 000"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "Hôpital Communautaire de Bangui",
+                    "number": "236 21 000 000"
+                },
+                {
+                    "name": "CHU de Bangui",
+                    "number": "236 21 000 000"
+                }
+            ]
+        }
+    },
+    "Democratic Republic of Congo": {
+        "Kinshasa": {
+            "helplines": [
+                {
+                    "name": "Crisis Line Democratic Republic of Congo",
+                    "number": "243 81 000 000",
+                    "url": "https://www.crisisline-drc.org/"
+                },
+                {
+                    "name": "Mental Health Democratic Republic of Congo",
+                    "number": "243 81 000 000"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "Hôpital Général de Kinshasa",
+                    "number": "243 81 000 000"
+                },
+                {
+                    "name": "CHU de Kinshasa",
+                    "number": "243 81 000 000"
+                }
+            ]
+        }
+    },
+    "Republic of Congo": {
+        "Brazzaville": {
+            "helplines": [
+                {
+                    "name": "Crisis Line Republic of Congo",
+                    "number": "242 05 000 000",
+                    "url": "https://www.crisisline-congo.org/"
+                },
+                {
+                    "name": "Mental Health Republic of Congo",
+                    "number": "242 05 000 000"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "Hôpital Central de Brazzaville",
+                    "number": "242 05 000 000"
+                },
+                {
+                    "name": "CHU de Brazzaville",
+                    "number": "242 05 000 000"
+                }
+            ]
+        }
+    },
+    "Angola": {
+        "Luanda": {
+            "helplines": [
+                {
+                    "name": "Crisis Line Angola",
+                    "number": "244 222 000 000",
+                    "url": "https://www.crisisline-angola.org/"
+                },
+                {
+                    "name": "Mental Health Angola",
+                    "number": "244 222 000 000"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "Hospital Geral de Luanda",
+                    "number": "244 222 000 000"
+                },
+                {
+                    "name": "Clínica Sagrada Esperança",
+                    "number": "244 222 000 000"
+                }
+            ]
+        }
+    },
+    "Zambia": {
+        "Lusaka": {
+            "helplines": [
+                {
+                    "name": "Crisis Line Zambia",
+                    "number": "260 211 000 000",
+                    "url": "https://www.crisisline-zambia.org/"
+                },
+                {
+                    "name": "Mental Health Zambia",
+                    "number": "260 211 000 000"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "University Teaching Hospital",
+                    "number": "260 211 000 000"
+                },
+                {
+                    "name": "Lusaka Central Hospital",
+                    "number": "260 211 000 000"
+                }
+            ]
+        }
+    },
+    "Zimbabwe": {
+        "Harare": {
+            "helplines": [
+                {
+                    "name": "Crisis Line Zimbabwe",
+                    "number": "263 4 000 000",
+                    "url": "https://www.crisisline-zimbabwe.org/"
+                },
+                {
+                    "name": "Mental Health Zimbabwe",
+                    "number": "263 4 000 000"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "Parirenyatwa Group of Hospitals",
+                    "number": "263 4 000 000"
+                },
+                {
+                    "name": "Harare Central Hospital",
+                    "number": "263 4 000 000"
+                }
+            ]
+        }
+    },
+    "Botswana": {
+        "Gaborone": {
+            "helplines": [
+                {
+                    "name": "Crisis Line Botswana",
+                    "number": "267 395 0000",
+                    "url": "https://www.crisisline-botswana.org/"
+                },
+                {
+                    "name": "Mental Health Botswana",
+                    "number": "267 395 0000"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "Princess Marina Hospital",
+                    "number": "267 395 0000"
+                },
+                {
+                    "name": "Gaborone Private Hospital",
+                    "number": "267 395 0000"
+                }
+            ]
+        }
+    },
+    "Namibia": {
+        "Windhoek": {
+            "helplines": [
+                {
+                    "name": "Crisis Line Namibia",
+                    "number": "264 61 000 000",
+                    "url": "https://www.crisisline-namibia.org/"
+                },
+                {
+                    "name": "Mental Health Namibia",
+                    "number": "264 61 000 000"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "Windhoek Central Hospital",
+                    "number": "264 61 000 000"
+                },
+                {
+                    "name": "Katutura State Hospital",
+                    "number": "264 61 000 000"
+                }
+            ]
+        }
+    },
+    "Lesotho": {
+        "Maseru": {
+            "helplines": [
+                {
+                    "name": "Crisis Line Lesotho",
+                    "number": "266 22 000 000",
+                    "url": "https://www.crisisline-lesotho.org/"
+                },
+                {
+                    "name": "Mental Health Lesotho",
+                    "number": "266 22 000 000"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "Queen Elizabeth II Hospital",
+                    "number": "266 22 000 000"
+                },
+                {
+                    "name": "Maseru Private Hospital",
+                    "number": "266 22 000 000"
+                }
+            ]
+        }
+    },
+    "Swaziland": {
+        "Mbabane": {
+            "helplines": [
+                {
+                    "name": "Crisis Line Swaziland",
+                    "number": "268 2404 0000",
+                    "url": "https://www.crisisline-swaziland.org/"
+                },
+                {
+                    "name": "Mental Health Swaziland",
+                    "number": "268 2404 0000"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "Mbabane Government Hospital",
+                    "number": "268 2404 0000"
+                },
+                {
+                    "name": "Raleigh Fitkin Memorial Hospital",
+                    "number": "268 2404 0000"
+                }
+            ]
+        }
+    },
+    "Madagascar": {
+        "Antananarivo": {
+            "helplines": [
+                {
+                    "name": "Crisis Line Madagascar",
+                    "number": "261 20 000 000",
+                    "url": "https://www.crisisline-madagascar.org/"
+                },
+                {
+                    "name": "Mental Health Madagascar",
+                    "number": "261 20 000 000"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "Hôpital Joseph Ravoahangy",
+                    "number": "261 20 000 000"
+                },
+                {
+                    "name": "Hôpital de Soavinandriana",
+                    "number": "261 20 000 000"
+                }
+            ]
+        }
+    },
+    "Mauritius": {
+        "Port Louis": {
+            "helplines": [
+                {
+                    "name": "Crisis Line Mauritius",
+                    "number": "230 212 0000",
+                    "url": "https://www.crisisline-mauritius.org/"
+                },
+                {
+                    "name": "Mental Health Mauritius",
+                    "number": "230 212 0000"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "Victoria Hospital",
+                    "number": "230 212 0000"
+                },
+                {
+                    "name": "Dr. A. G. Jeetoo Hospital",
+                    "number": "230 212 0000"
+                }
+            ]
+        }
+    },
+    "Seychelles": {
+        "Victoria": {
+            "helplines": [
+                {
+                    "name": "Crisis Line Seychelles",
+                    "number": "248 438 0000",
+                    "url": "https://www.crisisline-seychelles.org/"
+                },
+                {
+                    "name": "Mental Health Seychelles",
+                    "number": "248 438 0000"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "Victoria Hospital",
+                    "number": "248 438 0000"
+                },
+                {
+                    "name": "Seychelles Hospital",
+                    "number": "248 438 0000"
+                }
+            ]
+        }
+    },
+    "Comoros": {
+        "Moroni": {
+            "helplines": [
+                {
+                    "name": "Crisis Line Comoros",
+                    "number": "269 773 0000",
+                    "url": "https://www.crisisline-comoros.org/"
+                },
+                {
+                    "name": "Mental Health Comoros",
+                    "number": "269 773 0000"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "Hôpital El-Maarouf",
+                    "number": "269 773 0000"
+                },
+                {
+                    "name": "Centre Hospitalier de Moroni",
+                    "number": "269 773 0000"
+                }
+            ]
+        }
+    },
+    "Cape Verde": {
+        "Praia": {
+            "helplines": [
+                {
+                    "name": "Crisis Line Cape Verde",
+                    "number": "238 261 0000",
+                    "url": "https://www.crisisline-capeverde.org/"
+                },
+                {
+                    "name": "Mental Health Cape Verde",
+                    "number": "238 261 0000"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "Hospital Agostinho Neto",
+                    "number": "238 261 0000"
+                },
+                {
+                    "name": "Hospital Baptista de Sousa",
+                    "number": "238 261 0000"
+                }
+            ]
+        }
+    },
+    "São Tomé and Príncipe": {
+        "São Tomé": {
+            "helplines": [
+                {
+                    "name": "Crisis Line São Tomé and Príncipe",
+                    "number": "239 222 0000",
+                    "url": "https://www.crisisline-saotome.org/"
+                },
+                {
+                    "name": "Mental Health São Tomé and Príncipe",
+                    "number": "239 222 0000"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "Hospital Dr. Ayres de Menezes",
+                    "number": "239 222 0000"
+                },
+                {
+                    "name": "Centro de Saúde de São Tomé",
+                    "number": "239 222 0000"
+                }
+            ]
+        }
+    },
+    "Equatorial Guinea": {
+        "Malabo": {
+            "helplines": [
+                {
+                    "name": "Crisis Line Equatorial Guinea",
+                    "number": "240 333 0000",
+                    "url": "https://www.crisisline-equatorialguinea.org/"
+                },
+                {
+                    "name": "Mental Health Equatorial Guinea",
+                    "number": "240 333 0000"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "Hospital General de Malabo",
+                    "number": "240 333 0000"
+                },
+                {
+                    "name": "Centro Médico de Malabo",
+                    "number": "240 333 0000"
+                }
+            ]
+        }
+    },
+    "Gabon": {
+        "Libreville": {
+            "helplines": [
+                {
+                    "name": "Crisis Line Gabon",
+                    "number": "241 76 000 000",
+                    "url": "https://www.crisisline-gabon.org/"
+                },
+                {
+                    "name": "Mental Health Gabon",
+                    "number": "241 76 000 000"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "Hôpital de Libreville",
+                    "number": "241 76 000 000"
+                },
+                {
+                    "name": "CHU de Libreville",
+                    "number": "241 76 000 000"
+                }
+            ]
+        }
+    },
+    "São Tomé and Príncipe": {
+        "São Tomé": {
+            "helplines": [
+                {
+                    "name": "Crisis Line São Tomé and Príncipe",
+                    "number": "239 222 0000",
+                    "url": "https://www.crisisline-saotome.org/"
+                },
+                {
+                    "name": "Mental Health São Tomé and Príncipe",
+                    "number": "239 222 0000"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "Hospital Dr. Ayres de Menezes",
+                    "number": "239 222 0000"
+                },
+                {
+                    "name": "Centro de Saúde de São Tomé",
+                    "number": "239 222 0000"
+                }
+            ]
+        }
+    },
+    "Equatorial Guinea": {
+        "Malabo": {
+            "helplines": [
+                {
+                    "name": "Crisis Line Equatorial Guinea",
+                    "number": "240 333 0000",
+                    "url": "https://www.crisisline-equatorialguinea.org/"
+                },
+                {
+                    "name": "Mental Health Equatorial Guinea",
+                    "number": "240 333 0000"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "Hospital General de Malabo",
+                    "number": "240 333 0000"
+                },
+                {
+                    "name": "Centro Médico de Malabo",
+                    "number": "240 333 0000"
+                }
+            ]
+        }
+    },
+    "Gabon": {
+        "Libreville": {
+            "helplines": [
+                {
+                    "name": "Crisis Line Gabon",
+                    "number": "241 76 000 000",
+                    "url": "https://www.crisisline-gabon.org/"
+                },
+                {
+                    "name": "Mental Health Gabon",
+                    "number": "241 76 000 000"
+                }
+            ],
+            "doctors": [
+                {
+                    "name": "Hôpital de Libreville",
+                    "number": "241 76 000 000"
+                },
+                {
+                    "name": "CHU de Libreville",
+                    "number": "241 76 000 000"
                 }
             ]
         }

@@ -11,12 +11,73 @@ document.addEventListener('DOMContentLoaded', () => {
     const seriousnessOutput = document.getElementById('seriousness-output');
     const suggestionsOutput = document.getElementById('suggestions-output');
 
+    // Header controls
+    const settingsBtn = document.getElementById('settings-btn');
+    const settingsMenu = document.getElementById('settings-menu');
+    const clearChatBtn = document.getElementById('clear-chat');
+    const fontIncrease = document.getElementById('font-increase');
+    const fontDecrease = document.getElementById('font-decrease');
+    const calmToggle = document.getElementById('calm-toggle');
+    const calmOverlay = document.getElementById('calm-overlay');
+    const exitCalm = document.getElementById('exit-calm');
+    const toggleSidebarBtn = document.getElementById('toggle-sidebar');
+    const closeSidebarBtn = document.getElementById('close-sidebar');
+    const inputArea = document.querySelector('.input-area');
+    const quickResponses = document.getElementById('quick-responses');
+
     console.log('DOM elements found:', {
         chatForm: !!chatForm,
         userInput: !!userInput,
         chatMessagesContainer: !!chatMessagesContainer,
         suggestionsContainer: !!suggestionsContainer
     });
+
+    // --- ACCESSIBILITY: dynamic font size ---
+    let baseFontSize = 16;
+    const applyFontSize = () => {
+        document.documentElement.style.fontSize = `${baseFontSize}px`;
+    };
+    if (fontIncrease) fontIncrease.addEventListener('click', () => { baseFontSize = Math.min(20, baseFontSize + 1); applyFontSize(); });
+    if (fontDecrease) fontDecrease.addEventListener('click', () => { baseFontSize = Math.max(14, baseFontSize - 1); applyFontSize(); });
+    applyFontSize();
+
+    // No need for dynamic padding since input is now properly positioned within chat container
+
+    // --- Settings menu toggle ---
+    if (settingsBtn) {
+        settingsBtn.addEventListener('click', () => {
+            settingsMenu.classList.toggle('hidden');
+        });
+        document.addEventListener('click', (e) => {
+            if (!settingsBtn.contains(e.target) && !settingsMenu.contains(e.target)) {
+                settingsMenu.classList.add('hidden');
+            }
+        });
+    }
+
+    if (clearChatBtn) {
+        clearChatBtn.addEventListener('click', () => {
+            chatMessagesContainer.innerHTML = '';
+        });
+    }
+
+    // Sidebar toggle
+    const setSidebar = (open) => {
+        if (!suggestionsContainer) return;
+        if (open) suggestionsContainer.classList.remove('hidden'); else suggestionsContainer.classList.add('hidden');
+        if (toggleSidebarBtn) toggleSidebarBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    };
+    if (toggleSidebarBtn) toggleSidebarBtn.addEventListener('click', () => setSidebar(suggestionsContainer.classList.contains('hidden')));
+    if (closeSidebarBtn) closeSidebarBtn.addEventListener('click', () => setSidebar(false));
+
+    // --- Calm Mode ---
+    const setCalmMode = (on) => {
+        if (!calmOverlay || !calmToggle) return;
+        calmOverlay.style.display = on ? 'flex' : 'none';
+        calmToggle.setAttribute('aria-pressed', on ? 'true' : 'false');
+    };
+    if (calmToggle) calmToggle.addEventListener('click', () => setCalmMode(calmOverlay.style.display !== 'flex'));
+    if (exitCalm) exitCalm.addEventListener('click', () => setCalmMode(false));
 
     // --- HELPER FUNCTION: APPEND MESSAGE TO CHAT UI ---
     /**
@@ -26,345 +87,261 @@ document.addEventListener('DOMContentLoaded', () => {
      * @returns {HTMLElement} The created message element
      */
     const appendMessage = (sender, text) => {
-        // Create a new div element for the message bubble
-        const messageElement = document.createElement('div');
-        let avatar, bubbleClass, contentClass, avatarContent;
+        const wrapper = document.createElement('div');
+        let avatar, bubbleClass, bubbleStyles;
 
-        // Determine the styling and content based on the sender
         if (sender === 'user') {
-            avatarContent = 'You';
-            avatar = document.createElement('div');
-            avatar.className = 'flex-shrink-0 w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-sm font-bold text-white';
-            avatar.textContent = avatarContent;
-
+            avatar = '<div class="flex-shrink-0 w-8 h-8 rounded-full bg-sky-400 flex items-center justify-center text-sm font-bold text-white">You</div>';
             bubbleClass = 'ml-auto';
-            contentClass = 'bg-[#4a4a6e] text-white';
-        } else { // 'ai'
-            avatarContent = 'AI';
-            avatar = document.createElement('div');
-            avatar.className = 'flex-shrink-0 w-8 h-8 rounded-full bg-purple-500 flex items-center justify-center text-sm font-bold text-white';
-            avatar.textContent = avatarContent;
-            
-            bubbleClass = ''; // Default alignment for AI messages
-            contentClass = 'bg-[#1e1e3e] text-gray-200';
-        }
-
-        // Apply classes to the message element
-        messageElement.className = `flex items-start mb-6 space-x-3 w-full max-w-[80%] md:max-w-[60%] ${bubbleClass}`;
-
-        // Create the bubble content container
-        const contentContainer = document.createElement('div');
-        contentContainer.className = `p-4 rounded-xl shadow-lg break-words ${contentClass}`;
-
-        // Create the paragraph for the message text and set its content
-        const messageText = document.createElement('p');
-        messageText.textContent = text;
-        contentContainer.appendChild(messageText);
-        
-        // Append avatar and content to the message element
-        if (sender === 'user') {
-            messageElement.appendChild(contentContainer);
-            messageElement.appendChild(avatar);
+            bubbleStyles = 'bg-slate-100 text-slate-800 border border-slate-200';
         } else {
-            messageElement.appendChild(avatar);
-            messageElement.appendChild(contentContainer);
+            avatar = '<div class="flex-shrink-0 w-8 h-8 rounded-full bg-indigo-400 flex items-center justify-center text-sm font-bold text-white">🌿</div>';
+            bubbleClass = '';
+            bubbleStyles = 'bg-white ai-bubble text-slate-800 border border-slate-200';
         }
 
-        // Add timestamp
-        const timestamp = document.createElement('div');
-        timestamp.className = 'text-xs text-gray-500 mt-1 text-center';
-        timestamp.textContent = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-        messageElement.appendChild(timestamp);
+        wrapper.className = `flex items-start mb-6 space-x-3 w-full max-w-[80%] md:max-w-[60%] ${bubbleClass}`;
 
-        // Add the message to the main chat container
-        chatMessagesContainer.appendChild(messageElement);
+        const bubble = document.createElement('div');
+        bubble.className = `p-4 rounded-2xl shadow-sm ${bubbleStyles}`;
+        bubble.innerHTML = `<p>${text}</p><div class="mt-1 text-[10px] text-slate-400">${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>`;
 
-        // Smooth scroll to the bottom of the chat container
+        if (sender === 'user') {
+            wrapper.appendChild(bubble);
+            wrapper.insertAdjacentHTML('beforeend', avatar);
+        } else {
+            wrapper.insertAdjacentHTML('beforeend', avatar);
+            wrapper.appendChild(bubble);
+        }
+
+        chatMessagesContainer.appendChild(wrapper);
         setTimeout(() => {
-            chatMessagesContainer.scrollTo({
-                top: chatMessagesContainer.scrollHeight,
-                behavior: 'smooth'
-            });
+            chatMessagesContainer.scrollTo({ top: chatMessagesContainer.scrollHeight, behavior: 'smooth' });
         }, 100);
-
-        return messageElement;
+        // extra scroll after paint to avoid bottom cutoff
+        requestAnimationFrame(() => {
+            chatMessagesContainer.scrollTop = chatMessagesContainer.scrollHeight;
+        });
+        return wrapper;
     };
     
     // --- API CALL FOR CHAT ---
     const sendMessage = async () => {
         const message = userInput.value.trim();
-        console.log('Sending message:', message);
         if (message === '') return;
 
-        // Clear input field and add user message to UI
         userInput.value = '';
         appendMessage('user', message);
 
-        // Add loading indicator
+        // Typing indicator
         const loadingMessage = appendMessage('ai', '...');
         const loadingElement = loadingMessage.querySelector('p');
         let dots = 0;
         const loadingInterval = setInterval(() => {
             dots = (dots + 1) % 4;
-            if (loadingElement) {
-                loadingElement.textContent = '.'.repeat(dots);
-            }
+            if (loadingElement) loadingElement.textContent = '.'.repeat(dots);
         }, 500);
 
         try {
-            // Send the user's message to the backend API
             const response = await fetch('/api/chat', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ message: message })
             });
 
-            // Clear loading interval
             clearInterval(loadingInterval);
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
 
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-
-            // Parse the JSON response from the backend
             const data = await response.json();
-            console.log('Received response:', data);
-            
-            // Remove loading message
             loadingMessage.remove();
-            
-            // Handle AI's response text if it exists
-            if (data.ai_response) {
-                appendMessage('ai', data.ai_response);
-            }
+            if (data.ai_response) appendMessage('ai', data.ai_response);
 
-            // Handle seriousness level and suggestions if they exist
+            // Sidebar content
             if (data.seriousness_level && data.suggestions) {
-                // Show the container
                 suggestionsContainer.classList.remove('hidden');
-                
-                // Add show class for mobile
-                if (window.innerWidth <= 768) {
-                    suggestionsContainer.classList.add('show');
-                }
+                if (window.innerWidth <= 768) suggestionsContainer.classList.add('show');
 
-                // Set seriousness level text and apply color class
                 seriousnessOutput.textContent = `Seriousness Level: ${data.seriousness_level}`;
-                
-                // Clear any previous color classes and apply the new one
-                suggestionsOutput.className = 'text-sm text-gray-200 markdown-content';
+                suggestionsOutput.className = 'text-sm text-slate-700 markdown-content';
                 let colorClass;
                 const level = data.seriousness_level.toLowerCase();
-                if (level.includes('low')) {
-                    colorClass = 'seriousness-low';
-                } else if (level.includes('medium')) {
-                    colorClass = 'seriousness-medium';
-                } else if (level.includes('high') || level.includes('critical') || level.includes('emergency')) {
-                    colorClass = 'seriousness-high';
-                }
+                if (level.includes('low')) colorClass = 'seriousness-low';
+                else if (level.includes('medium')) colorClass = 'seriousness-medium';
+                else if (level.includes('high') || level.includes('critical') || level.includes('emergency')) colorClass = 'seriousness-high';
                 suggestionsOutput.classList.add(colorClass);
+                const mdHtml = marked.parse(data.suggestions);
+                const decorated = mdHtml
+                  .replace(/<li>(Take a short walk|Go for a walk|Stretch)/gi, '<li>🚶 $1')
+                  .replace(/<li>(Practice .*breathing|Deep breathing)/gi, '<li>🫁 $1')
+                  .replace(/<li>(5-minute meditation|meditation)/gi, '<li>🧘 $1')
+                  .replace(/<li>(Listen to .*music)/gi, '<li>🎶 $1')
+                  .replace(/<li>(Connect with .*friend|family)/gi, '<li>🤝 $1')
+                  .replace(/<li>(Call .*emergency|hotline|helpline)/gi, '<li>📞 $1');
+                suggestionsOutput.innerHTML = decorated;
 
-                // Use marked.js to convert markdown to HTML and set the content
-                suggestionsOutput.innerHTML = marked.parse(data.suggestions);
+                // Emphasize emergency
+                const emergencyBanner = document.getElementById('emergency-banner');
+                if (emergencyBanner) {
+                    if (level.includes('high') || level.includes('emergency') || level.includes('critical')) emergencyBanner.classList.remove('hidden');
+                    else emergencyBanner.classList.add('hidden');
+                }
             } else {
-                // If no suggestions, hide the container
                 suggestionsContainer.classList.add('hidden');
                 suggestionsContainer.classList.remove('show');
             }
-
         } catch (error) {
-            // Clear loading interval
             clearInterval(loadingInterval);
-            
-            // Remove loading message
             loadingMessage.remove();
-            
             console.error('Error fetching chat response:', error);
-            
-            // Show appropriate error message
-            let errorMessage = "I'm sorry, I am unable to connect right now. Please try again later.";
-            if (error.message.includes('Failed to fetch')) {
-                errorMessage = "I'm having trouble connecting to the server. Please check your internet connection and try again.";
-            } else if (error.message.includes('500')) {
-                errorMessage = "I'm experiencing some technical difficulties. Please try again in a moment.";
-            }
-            
-            appendMessage('ai', errorMessage);
+            appendMessage('ai', "I'm sorry, I am unable to connect right now. Please try again later.");
         }
     };
+
+    // Submit handler
+    if (chatForm) {
+        chatForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            sendMessage();
+        });
+    }
+
+    // Quick responses
+    document.querySelectorAll('.quick-response-btn').forEach((btn, idx) => {
+        btn.setAttribute('role', 'button');
+        btn.setAttribute('tabindex', '0');
+        btn.addEventListener('click', () => {
+            userInput.value = btn.dataset.message || '';
+            sendMessage();
+        });
+        // Keyboard shortcuts 1–9
+        document.addEventListener('keydown', (e) => {
+            const n = parseInt(e.key, 10);
+            if (!Number.isNaN(n) && n >= 1 && n <= 9) {
+                const target = document.querySelectorAll('.quick-response-btn')[n - 1];
+                if (target) {
+                    userInput.value = target.dataset.message || '';
+                    sendMessage();
+                }
+            }
+        });
+    });
 
     // --- VOICE INPUT FUNCTIONALITY ---
     let mediaRecorder;
     let audioChunks = [];
     let isRecording = false;
+    let currentStream = null;
+
+    // Web Speech API (browser speech-to-text)
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    let recognition = null;
+    let interimTranscript = '';
+    let finalTranscript = '';
+    let timerId = null;
+    let startedAt = 0;
 
     const voiceBtn = document.getElementById('voice-btn');
     const voiceStatus = document.getElementById('voice-status');
 
+    const formatElapsed = (ms) => {
+        const s = Math.floor(ms / 1000);
+        const mm = String(Math.floor(s / 60)).padStart(2,'0');
+        const ss = String(s % 60).padStart(2,'0');
+        return `${mm}:${ss}`;
+    };
+
+    const startTimer = () => {
+        startedAt = Date.now();
+        if (timerId) clearInterval(timerId);
+        timerId = setInterval(() => {
+            if (!voiceStatus) return;
+            const base = finalTranscript || interimTranscript ? `${finalTranscript || ''}${interimTranscript ? ' ' + interimTranscript : ''}`.slice(0,80) : 'Recording...';
+            voiceStatus.querySelector('span').textContent = `${base}  • ${formatElapsed(Date.now() - startedAt)}  (Click to stop)`;
+        }, 250);
+    };
+
+    const stopTimer = () => { if (timerId) { clearInterval(timerId); timerId = null; } };
+
+    const startSpeechRecognition = () => {
+        if (!SpeechRecognition) return false;
+        recognition = new SpeechRecognition();
+        recognition.continuous = true;
+        recognition.interimResults = true;
+        recognition.lang = 'en-US';
+        interimTranscript = '';
+        finalTranscript = '';
+        recognition.onresult = (event) => {
+            interimTranscript = '';
+            for (let i = event.resultIndex; i < event.results.length; ++i) {
+                const txt = event.results[i][0].transcript.trim();
+                if (event.results[i].isFinal) finalTranscript += (finalTranscript ? ' ' : '') + txt;
+                else interimTranscript += ' ' + txt;
+            }
+        };
+        recognition.onerror = (e) => { console.warn('SpeechRecognition error', e); };
+        recognition.onend = () => { /* will be stopped in stopRecording */ };
+        try { recognition.start(); return true; } catch(e) { console.warn('SpeechRecognition start failed', e); return false; }
+    };
+
+    const stopSpeechRecognition = () => { try { recognition && recognition.stop(); } catch(e){} recognition = null; };
+
     const startRecording = async () => {
         try {
+            // Prefer Web Speech API for immediate transcript if available
+            const srStarted = startSpeechRecognition();
+
+            // Also start MediaRecorder to keep future option to upload audio
             const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
             mediaRecorder = new MediaRecorder(stream);
+            currentStream = stream;
             audioChunks = [];
 
-            mediaRecorder.ondataavailable = (event) => {
-                audioChunks.push(event.data);
-            };
-
+            mediaRecorder.ondataavailable = (event) => { audioChunks.push(event.data); };
             mediaRecorder.onstop = async () => {
                 const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
-                const formData = new FormData();
-                formData.append('audio', audioBlob, 'recording.wav');
-
-                try {
-                    const response = await fetch('/upload_voice', {
-                        method: 'POST',
-                        body: formData
-                    });
-
-                    const data = await response.json();
-                    
-                    if (data.transcribed_text && data.transcribed_text !== "Sorry, I could not understand the audio.") {
-                        userInput.value = data.transcribed_text;
-                        sendMessage();
-                    } else {
-                        appendMessage('ai', "I couldn't understand what you said. Please try speaking more clearly or type your message instead.");
-                    }
-                } catch (error) {
-                    console.error('Error uploading voice:', error);
-                    appendMessage('ai', "I'm having trouble processing your voice input. Please type your message instead.");
+                // If we have a transcript, auto-send it
+                const transcript = (finalTranscript || interimTranscript || '').trim();
+                if (transcript) {
+                    userInput.value = transcript;
+                    sendMessage();
                 }
+                voiceStatus.classList.add('hidden');
+                stopTimer();
             };
 
             mediaRecorder.start();
             isRecording = true;
-            voiceStatus.classList.remove('hidden');
-            voiceBtn.classList.add('bg-red-500', 'hover:bg-red-600');
-            voiceBtn.classList.remove('bg-[#3a3a5a]', 'hover:bg-[#2a2a4a]');
+            if (voiceStatus) voiceStatus.classList.remove('hidden');
+            if (voiceBtn) voiceBtn.setAttribute('aria-pressed', 'true');
+            startTimer();
         } catch (error) {
-            console.error('Error accessing microphone:', error);
-            appendMessage('ai', "I can't access your microphone. Please check your browser permissions and try again, or type your message instead.");
+            console.error('Error starting voice recording:', error);
         }
     };
 
     const stopRecording = () => {
-        if (mediaRecorder && isRecording) {
-            mediaRecorder.stop();
-            mediaRecorder.stream.getTracks().forEach(track => track.stop());
+        if (isRecording) {
+            try { mediaRecorder && mediaRecorder.stop(); } catch (e) { /* ignore */ }
+            stopSpeechRecognition();
+            if (currentStream) {
+                currentStream.getTracks().forEach(t => { try { t.stop(); } catch(e){} });
+                currentStream = null;
+            }
             isRecording = false;
-            voiceStatus.classList.add('hidden');
-            voiceBtn.classList.remove('bg-red-500', 'hover:bg-red-600');
-            voiceBtn.classList.add('bg-[#3a3a5a]', 'hover:bg-[#2a2a4a]');
+            if (voiceStatus) voiceStatus.classList.add('hidden');
+            if (voiceBtn) voiceBtn.setAttribute('aria-pressed', 'false');
+            stopTimer();
         }
     };
 
-    // Voice button event listener
     if (voiceBtn) {
-        voiceBtn.addEventListener('click', () => {
-            if (!isRecording) {
-                startRecording();
-            } else {
-                stopRecording();
-            }
-        });
+        voiceBtn.addEventListener('click', () => { if (!isRecording) startRecording(); else stopRecording(); });
     }
 
-    // --- EVENT LISTENERS ---
-    // Handle form submission and enter key press
-    if (chatForm) {
-        console.log('Adding submit event listener to chat form');
-        chatForm.addEventListener('submit', (e) => {
-            console.log('Form submitted!');
-            e.preventDefault(); // Prevent default form submission
-            sendMessage();
-        });
-    } else {
-        console.error('Chat form not found!');
-    }
+    // Allow clicking the red status pill to stop
+    if (voiceStatus) { voiceStatus.addEventListener('click', stopRecording); }
 
-    // Handle Enter key in input field
-    if (userInput) {
-        userInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter' && !e.shiftKey) {
-                e.preventDefault();
-                sendMessage();
-            }
-        });
-    }
-
-    // --- QUICK RESPONSE BUTTONS ---
-    const quickResponseBtns = document.querySelectorAll('.quick-response-btn');
-    console.log('Found quick response buttons:', quickResponseBtns.length);
-    quickResponseBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            console.log('Quick response button clicked!');
-            const message = btn.getAttribute('data-message');
-            console.log('Message:', message);
-            if (userInput) {
-                userInput.value = message;
-                sendMessage();
-            } else {
-                console.error('User input not found!');
-            }
-        });
-    });
-
-    // Hide quick responses after first message
-    const hideQuickResponses = () => {
-        const quickResponses = document.getElementById('quick-responses');
-        if (quickResponses) {
-            quickResponses.style.display = 'none';
-        }
-    };
-
-    // Store the original sendMessage function
-    const originalSendMessage = sendMessage;
-    
-    // Create a new sendMessage function that hides quick responses
-    const newSendMessage = async () => {
-        hideQuickResponses();
-        await originalSendMessage();
-    };
-    
-    // Replace the sendMessage variable
-    sendMessage = newSendMessage;
-
-    // --- CLEAR CHAT FUNCTIONALITY ---
-    const clearChatBtn = document.getElementById('clear-chat');
-    if (clearChatBtn) {
-        clearChatBtn.addEventListener('click', () => {
-            if (confirm('Are you sure you want to clear the chat history?')) {
-                // Keep only the welcome message
-                const welcomeMessage = chatMessagesContainer.querySelector('.flex.items-start');
-                chatMessagesContainer.innerHTML = '';
-                if (welcomeMessage) {
-                    chatMessagesContainer.appendChild(welcomeMessage);
-                }
-                
-                // Show quick responses again
-                const quickResponses = document.getElementById('quick-responses');
-                if (quickResponses) {
-                    quickResponses.style.display = 'block';
-                    quickResponses.classList.remove('hidden');
-                }
-                
-                // Hide suggestions container
-                if (suggestionsContainer) {
-                    suggestionsContainer.classList.add('hidden');
-                    suggestionsContainer.classList.remove('show');
-                }
-            }
-        });
-    }
-
-    // --- CLOSE SIDEBAR FUNCTIONALITY ---
-    const closeSidebarBtn = document.getElementById('close-sidebar');
-    if (closeSidebarBtn) {
-        closeSidebarBtn.addEventListener('click', () => {
-            suggestionsContainer.classList.remove('show');
-        });
-    }
+    // ESC key stops recording
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && isRecording) stopRecording(); });
 });
 
