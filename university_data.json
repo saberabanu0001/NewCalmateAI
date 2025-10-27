@@ -10,5 +10,47 @@
         "emergency_contact": "Campus Security: (02) 880-0112",
         "wellness_programs": "Free therapy sessions, academic stress seminars, and peer support groups.",
         "website": "http://counseling.snu.ac.kr"
+    },
+    "Stanford University": {
+        "counseling_center": "Vaden Health Center - Counseling and Psychological Services (CAPS), (650) 723-3785",
+        "emergency_contact": "Campus Security: (650) 723-9633, Crisis Text Line: Text HOME to 741741",
+        "wellness_programs": "Free individual and group therapy, stress management workshops, mindfulness meditation sessions, and peer counseling programs.",
+        "website": "https://vaden.stanford.edu/caps"
+    },
+    "Harvard University": {
+        "counseling_center": "Counseling and Mental Health Services (CAMHS), (617) 495-2042",
+        "emergency_contact": "Harvard University Police: (617) 495-1212, Crisis Text Line: Text HOME to 741741",
+        "wellness_programs": "Individual therapy, group therapy, psychiatric services, wellness workshops, and 24/7 crisis support.",
+        "website": "https://huhs.harvard.edu/counseling-and-mental-health-services"
+    },
+    "MIT": {
+        "counseling_center": "Student Mental Health and Counseling Services, (617) 253-2916",
+        "emergency_contact": "MIT Police: (617) 253-1212, Crisis Text Line: Text HOME to 741741",
+        "wellness_programs": "Individual counseling, group therapy, psychiatric services, stress management workshops, and peer support groups.",
+        "website": "https://studentlife.mit.edu/mental-health"
+    },
+    "UC Berkeley": {
+        "counseling_center": "University Health Services - Counseling and Psychological Services, (510) 642-9494",
+        "emergency_contact": "UC Berkeley Police: (510) 642-3333, Crisis Text Line: Text HOME to 741741",
+        "wellness_programs": "Individual therapy, group counseling, psychiatric services, wellness workshops, and crisis intervention.",
+        "website": "https://uhs.berkeley.edu/counseling"
+    },
+    "University of Toronto": {
+        "counseling_center": "Health & Wellness Centre - Counselling Services, (416) 978-8030",
+        "emergency_contact": "Campus Safety: (416) 978-2222, Crisis Text Line: Text HOME to 741741",
+        "wellness_programs": "Individual counseling, group therapy, psychiatric services, wellness workshops, and peer support programs.",
+        "website": "https://studentlife.utoronto.ca/hwc/counselling-services"
+    },
+    "University of Oxford": {
+        "counseling_center": "University Counselling Service, +44 (0)1865 270300",
+        "emergency_contact": "University Security: +44 (0)1865 272944, Samaritans: 116 123",
+        "wellness_programs": "Individual counseling, group therapy, workshops on stress management, mindfulness, and academic support.",
+        "website": "https://www.ox.ac.uk/students/welfare/counselling"
+    },
+    "University of Cambridge": {
+        "counseling_center": "University Counselling Service, +44 (0)1223 332865",
+        "emergency_contact": "University Security: +44 (0)1223 333333, Samaritans: 116 123",
+        "wellness_programs": "Individual counseling, group therapy, workshops, mindfulness sessions, and peer support groups.",
+        "website": "https://www.counselling.cam.ac.uk"
     }
 }

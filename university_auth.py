@@ -8,15 +8,20 @@ UNIVERSITY_DATA_FILE = os.path.join(os.path.dirname(__file__), 'university_data.
 UNIVERSITY_STUDENTS_FILE = os.path.join(os.path.dirname(__file__), 'university_students.json')
 
 # Load the data once when the module is imported
-try:
-    with open(UNIVERSITY_DATA_FILE, 'r') as f:
-        UNIVERSITY_RESOURCES = json.load(f)
-    with open(UNIVERSITY_STUDENTS_FILE, 'r') as f:
-        UNIVERSITY_STUDENTS = json.load(f)
-except FileNotFoundError as e:
-    print(f"Error: A university data file was not found. Please create {e.filename}")
-    UNIVERSITY_RESOURCES = {}
-    UNIVERSITY_STUDENTS = {}
+def load_university_data():
+    """Load university data from JSON files."""
+    try:
+        with open(UNIVERSITY_DATA_FILE, 'r') as f:
+            university_resources = json.load(f)
+        with open(UNIVERSITY_STUDENTS_FILE, 'r') as f:
+            university_students = json.load(f)
+        return university_resources, university_students
+    except FileNotFoundError as e:
+        print(f"Error: A university data file was not found. Please create {e.filename}")
+        return {}, {}
+
+# Load initial data
+UNIVERSITY_RESOURCES, UNIVERSITY_STUDENTS = load_university_data()
 
 def authenticate_student(university_name, student_id, password):
     """
@@ -53,4 +58,6 @@ def get_university_resources(university_name):
     Returns:
         dict: A dictionary of resources. Returns an empty dict if not found.
     """
-    return UNIVERSITY_RESOURCES.get(university_name, {})
+    # Reload data to get latest changes
+    university_resources, _ = load_university_data()
+    return university_resources.get(university_name, {})

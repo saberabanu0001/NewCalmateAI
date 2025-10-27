@@ -1,0 +1,18 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Run CalmMateAI Flask App",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/app.py",
+            "console": "integratedTerminal",
+            "env": {
+                "FLASK_ENV": "development",
+                "PORT": "5001"
+            },
+            "python": "${workspaceFolder}/venv/bin/python",
+            "cwd": "${workspaceFolder}"
+        }
+    ]
+}

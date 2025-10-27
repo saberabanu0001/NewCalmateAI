@@ -22,5 +22,89 @@
                 "email": "john_smith@snu.ac.kr"
             }
         }
+    },
+    "Stanford University": {
+        "students": {
+            "stanford_student": {
+                "password": "stanford2024",
+                "email": "student@stanford.edu"
+            },
+            "alex_chen": {
+                "password": "cardinal123",
+                "email": "alex.chen@stanford.edu"
+            }
+        }
+    },
+    "Harvard University": {
+        "students": {
+            "harvard_student": {
+                "password": "crimson2024",
+                "email": "student@harvard.edu"
+            },
+            "sarah_wilson": {
+                "password": "harvard123",
+                "email": "sarah.wilson@harvard.edu"
+            }
+        }
+    },
+    "MIT": {
+        "students": {
+            "mit_student": {
+                "password": "engineer2024",
+                "email": "student@mit.edu"
+            },
+            "mike_rodriguez": {
+                "password": "mit123",
+                "email": "mike.rodriguez@mit.edu"
+            }
+        }
+    },
+    "UC Berkeley": {
+        "students": {
+            "berkeley_student": {
+                "password": "golden2024",
+                "email": "student@berkeley.edu"
+            },
+            "lisa_patel": {
+                "password": "berkeley123",
+                "email": "lisa.patel@berkeley.edu"
+            }
+        }
+    },
+    "University of Toronto": {
+        "students": {
+            "uoft_student": {
+                "password": "toronto2024",
+                "email": "student@utoronto.ca"
+            },
+            "david_kim": {
+                "password": "uoft123",
+                "email": "david.kim@utoronto.ca"
+            }
+        }
+    },
+    "University of Oxford": {
+        "students": {
+            "oxford_student": {
+                "password": "oxford2024",
+                "email": "student@ox.ac.uk"
+            },
+            "emma_thompson": {
+                "password": "oxford123",
+                "email": "emma.thompson@ox.ac.uk"
+            }
+        }
+    },
+    "University of Cambridge": {
+        "students": {
+            "cambridge_student": {
+                "password": "cambridge2024",
+                "email": "student@cam.ac.uk"
+            },
+            "james_brown": {
+                "password": "cambridge123",
+                "email": "james.brown@cam.ac.uk"
+            }
+        }
     }
 }
