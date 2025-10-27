@@ -183,6 +183,44 @@ def wellbeing_resources():
     """Render the wellbeing resources page."""
     return render_template('wellbeing_resources.html')
 
+@app.route('/profile')
+def profile():
+    """Render the profile page."""
+    user_email = session.get('user_email')
+    if not user_email:
+        return redirect(url_for('login_page'))
+    user_name = get_user_name(user_email)
+    return render_template('profile.html', user_name=user_name, user_email=user_email)
+
+@app.route('/profile_update', methods=['POST'])
+def profile_update():
+    """Handle profile update form submission."""
+    user_email = session.get('user_email')
+    if not user_email:
+        return jsonify({'success': False, 'message': 'Not logged in'}), 401
+    
+    data = request.get_json()
+    new_name = data.get('name')
+    new_password = data.get('password')
+    
+    if not new_name:
+        return jsonify({'success': False, 'message': 'Name is required'}), 400
+    
+    users = get_registered_users()
+    if user_email not in users:
+        return jsonify({'success': False, 'message': 'User not found'}), 404
+    
+    # Update user data
+    users[user_email]['name'] = new_name
+    if new_password:
+        users[user_email]['password'] = new_password
+    
+    # Save updated data
+    with open('users.json', 'w') as f:
+        json.dump(users, f)
+    
+    return jsonify({'success': True, 'message': 'Profile updated successfully'})
+
 @app.route('/logout')
 def logout():
     """Logout user and clear session."""

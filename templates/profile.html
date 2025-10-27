@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile & Settings - CalmMateAI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+</head>
+<body class="bg-gray-100 flex h-screen overflow-hidden">
+    <!-- Sidebar -->
+    <aside class="bg-white text-gray-800 w-64 p-4 shadow-xl flex flex-col justify-between">
+        <nav class="flex-grow">
+            <div class="text-xl font-bold mb-8 text-indigo-600">CalmMateAI</div>
+            <ul>
+                <li class="mb-2">
+                    <a href="/dashboard" class="flex items-center p-3 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors duration-200">
+                        <i class="fas fa-home mr-3 text-indigo-500"></i> Dashboard Home
+                    </a>
+                </li>
+                <li class="mb-2">
+                    <a href="/chat" class="flex items-center p-3 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors duration-200">
+                        <i class="fas fa-comment-dots mr-3 text-indigo-500"></i> Chat with AI
+                    </a>
+                </li>
+                <li class="mb-2">
+                    <a href="/emergency_contacts" class="flex items-center p-3 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors duration-200">
+                        <i class="fas fa-phone mr-3 text-indigo-500"></i> Emergency Contacts
+                    </a>
+                </li>
+                <li class="mb-2">
+                    <a href="/university_access" class="flex items-center p-3 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors duration-200">
+                        <i class="fas fa-university mr-3 text-indigo-500"></i> University Access
+                    </a>
+                </li>
+                <li class="mb-2">
+                    <a href="/wellbeing_resources" class="flex items-center p-3 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors duration-200">
+                        <i class="fas fa-book-reader mr-3 text-indigo-500"></i> Well-being Resources
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <div class="mt-8">
+            <a href="/profile" class="flex items-center p-3 rounded-lg text-indigo-600 bg-indigo-50 transition-colors duration-200 mb-2">
+                <i class="fas fa-user-circle mr-3 text-indigo-500"></i> Profile & Settings
+            </a>
+            <a href="/logout" class="flex items-center p-3 rounded-lg text-red-600 hover:bg-red-50 transition-colors duration-200">
+                <i class="fas fa-sign-out-alt mr-3 text-red-500"></i> Logout
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-8 overflow-y-auto">
+        <div class="max-w-4xl mx-auto">
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <div class="flex items-center justify-between mb-6">
+                    <div class="flex items-center space-x-4">
+                        <i class="fas fa-user-circle text-4xl text-indigo-500"></i>
+                        <h1 class="text-3xl font-bold text-gray-800">Profile & Settings</h1>
+                    </div>
+                </div>
+                <p class="text-gray-600 mb-8">Manage your account information and preferences.</p>
+
+                <!-- Profile Information -->
+                <div class="bg-gray-50 rounded-lg p-6 mb-8">
+                    <h2 class="text-xl font-semibold text-gray-800 mb-4">
+                        <i class="fas fa-user mr-2"></i>
+                        Account Information
+                    </h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
+                            <p class="text-gray-900 font-medium">{{ user_name }}</p>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
+                            <p class="text-gray-900 font-medium">{{ user_email }}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Update Profile Form -->
+                <div class="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-8">
+                    <h2 class="text-xl font-semibold text-blue-800 mb-4">
+                        <i class="fas fa-edit mr-2"></i>
+                        Update Profile
+                    </h2>
+                    <form id="profile-form" class="space-y-4">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
+                            <input type="text" id="name" name="name" value="{{ user_name }}" 
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" 
+                                   required>
+                        </div>
+                        <div>
+                            <label for="password" class="block text-sm font-medium text-gray-700 mb-2">New Password (leave blank to keep current)</label>
+                            <input type="password" id="password" name="password" 
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" 
+                                   placeholder="Enter new password">
+                        </div>
+                        <div>
+                            <label for="confirm_password" class="block text-sm font-medium text-gray-700 mb-2">Confirm New Password</label>
+                            <input type="password" id="confirm_password" name="confirm_password" 
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" 
+                                   placeholder="Confirm new password">
+                        </div>
+                        <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition-colors">
+                            <i class="fas fa-save mr-2"></i>
+                            Update Profile
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Account Statistics -->
+                <div class="bg-green-50 border border-green-200 rounded-lg p-6 mb-8">
+                    <h2 class="text-xl font-semibold text-green-800 mb-4">
+                        <i class="fas fa-chart-line mr-2"></i>
+                        Account Statistics
+                    </h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-green-600">Active</div>
+                            <div class="text-sm text-gray-600">Account Status</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-green-600">Premium</div>
+                            <div class="text-sm text-gray-600">Access Level</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-green-600">24/7</div>
+                            <div class="text-sm text-gray-600">Support Available</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Privacy & Security -->
+                <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-6">
+                    <h2 class="text-xl font-semibold text-yellow-800 mb-4">
+                        <i class="fas fa-shield-alt mr-2"></i>
+                        Privacy & Security
+                    </h2>
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 class="font-medium text-gray-800">Data Encryption</h3>
+                                <p class="text-sm text-gray-600">All your data is encrypted and secure</p>
+                            </div>
+                            <span class="text-green-600 font-medium">✓ Enabled</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 class="font-medium text-gray-800">Session Security</h3>
+                                <p class="text-sm text-gray-600">Secure session management</p>
+                            </div>
+                            <span class="text-green-600 font-medium">✓ Active</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 class="font-medium text-gray-800">Privacy Policy</h3>
+                                <p class="text-sm text-gray-600">Your privacy is our priority</p>
+                            </div>
+                            <a href="#" class="text-blue-600 hover:underline">View Policy</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.getElementById('profile-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const formData = {
+                name: document.getElementById('name').value,
+                password: document.getElementById('password').value,
+                confirm_password: document.getElementById('confirm_password').value
+            };
+
+            // Validate password confirmation
+            if (formData.password && formData.password !== formData.confirm_password) {
+                alert('Passwords do not match!');
+                return;
+            }
+
+            try {
+                const response = await fetch('/profile_update', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        name: formData.name,
+                        password: formData.password || null
+                    })
+                });
+
+                const data = await response.json();
+                
+                if (data.success) {
+                    alert('Profile updated successfully!');
+                    // Reload the page to show updated information
+                    window.location.reload();
+                } else {
+                    alert('Error: ' + data.message);
+                }
+            } catch (error) {
+                console.error('Error updating profile:', error);
+                alert('Error updating profile. Please try again.');
+            }
+        });
+    </script>
+</body>
+</html>
