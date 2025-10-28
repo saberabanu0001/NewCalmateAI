@@ -54,6 +54,8 @@ Step 4: Install Dependencies
 
 Step 5: Configure Environment Variables
 
+
+
 Create a .env file in the root directory and add:
 - FLASK_SECRET_KEY='your_secret_key'
 - GROQ_API_KEY='your_groq_api_key'
