@@ -12,15 +12,15 @@
 {% endblock %}
 
 {% block content %}
-<div class="chat-layout h-full flex flex-col">
+<div class="chat-layout h-full flex flex-col min-h-0">
     <!-- Main chat layout with sidebar inside content area -->
-    <div class="flex flex-1 overflow-hidden">
+    <div class="flex flex-1 overflow-hidden min-h-0">
         <!-- Chat content area -->
-        <div class="chat-content flex-1 mx-2 md:mx-4 flex flex-col">
+        <div class="chat-content flex-1 mx-2 md:mx-4 flex flex-col min-h-0 h-full">
             <!-- Chat container with proper structure -->
-            <div class="chat-container flex-1 flex flex-col bg-white rounded-lg shadow-sm border border-slate-200">
+            <div class="chat-container flex-1 flex flex-col bg-white rounded-lg shadow-sm border border-slate-200 min-h-0 h-[calc(100vh-140px)]">
                 <!-- Chat messages container - scrollable area -->
-                <div id="chat-messages" class="chat-messages flex-1 overflow-y-auto p-4" role="log" aria-live="polite" aria-relevant="additions">
+                <div id="chat-messages" class="chat-messages flex-1 overflow-y-auto p-4 pb-44 min-h-0 z-0" role="log" aria-live="polite" aria-relevant="additions">
                     <!-- Welcome message bubble -->
                     <div class="flex items-start mb-6 space-x-3 w-full max-w-[80%] md:max-w-[60%]">
                         <div class="flex-shrink-0 w-8 h-8 rounded-full bg-indigo-400 flex items-center justify-center text-sm font-bold text-white">🌿</div>
@@ -32,7 +32,7 @@
                 </div>
 
                 <!-- Quick Response & Crisis Buttons -->
-                <div id="quick-responses" class="p-4 bg-slate-50 border-t border-slate-200">
+                <div id="quick-responses" class="p-4 bg-slate-50 border-t border-slate-200 z-10">
                     <p class="text-sm text-slate-500 mb-3">Quick responses:</p>
                     <div class="flex flex-wrap gap-2">
                         <button class="quick-response-btn pill bg-slate-100 hover:bg-slate-200 text-slate-800 px-4 py-2 rounded-full text-sm transition-all shadow-sm hover:shadow-md hover:-translate-y-0.5" data-message="I'm feeling anxious today">😰 I'm feeling anxious</button>
@@ -50,7 +50,7 @@
                 </div>
 
                 <!-- Input area - fixed at bottom of chat container -->
-                <div class="input-area border-t border-slate-200 bg-white p-4">
+                <div class="input-area border-t border-slate-200 bg-white p-4 z-10">
                     <div class="chat-input-container">
                         <form id="chat-form" class="flex space-x-3 items-center">
                             <input type="text" id="user-input" class="flex-1 p-4 rounded-xl bg-white text-slate-800 border border-slate-300 focus:outline-none focus:ring-2 focus:ring-indigo-300 placeholder-slate-400" placeholder="Type your message here..." autocomplete="off" aria-label="Message input">
