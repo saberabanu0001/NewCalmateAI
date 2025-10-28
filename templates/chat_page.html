@@ -38,7 +38,7 @@
                 </div>
 
                 <!-- Chat messages container - scrollable area -->
-                <div id="chat-messages" class="chat-messages flex-1 overflow-y-auto p-4 pb-44 min-h-0" role="log" aria-live="polite" aria-relevant="additions">
+                <div id="chat-messages" class="chat-messages flex-1 overflow-y-auto p-4 pb-44 min-h-0 md:pr-96" role="log" aria-live="polite" aria-relevant="additions">
                     <!-- Welcome message bubble -->
                     <div class="flex items-start mb-6 space-x-3 w-full max-w-[80%] md:max-w-[60%]">
                         <div class="flex-shrink-0 w-8 h-8 rounded-full bg-indigo-400 flex items-center justify-center text-sm font-bold text-white">🌿</div>
@@ -85,19 +85,14 @@
             </div>
         </div>
 
-        <!-- Right Sidebar for Seriousness Level and Suggestions -->
-        <div id="seriousness-suggestions-container" class="w-80 bg-white border-l border-slate-200 p-4 hidden">
-            <div class="sticky top-4">
-                <div class="flex justify-between items-center mb-4">
-                    <h3 class="text-lg font-semibold text-slate-800">Assessment & Resources</h3>
-                    <button id="close-sidebar" class="md:hidden text-slate-500 hover:text-slate-700" aria-label="Close sidebar">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                        </svg>
-                    </button>
+        <!-- Floating Assessment panel (top-right on desktop) -->
+        <div id="seriousness-suggestions-container" class="hidden md:block fixed top-28 right-8 w-80 z-20">
+            <div class="bg-white border border-slate-200 rounded-lg shadow-lg p-4">
+                <div class="flex justify-between items-center mb-3">
+                    <h3 class="text-base font-semibold text-slate-800">Assessment & Resources</h3>
                 </div>
                 <div id="emergency-banner" class="hidden mb-3 p-3 rounded-md bg-rose-50 text-rose-700 text-sm">If you are in immediate danger, please call local emergency services or 988.</div>
-                <div id="seriousness-output" class="text-sm font-semibold mb-4 p-3 rounded-lg bg-slate-100 text-slate-800"></div>
+                <div id="seriousness-output" class="text-sm font-semibold mb-3 p-3 rounded-lg bg-slate-100 text-slate-800"></div>
                 <div id="suggestions-output" class="text-sm text-slate-700 markdown-content"></div>
             </div>
         </div>
