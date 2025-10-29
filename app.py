@@ -273,12 +273,14 @@ def chat_api():
 
         # Check for API key first
         api_key = os.getenv("GROQ_API_KEY") # Using Groq API key
+        print(f"API Key loaded: {api_key[:10] if api_key else 'None'}...")  # Debug log
         
         # Use contextual fallback responses when API key is not configured
         user_message_lower = user_message.lower()
         
         # Treat placeholder keys as not configured
         if (not api_key) or ("your_groq_api_key" in api_key.lower()) or (api_key.lower().startswith("your_")):
+            print("Using fallback responses - API key not configured properly")
             ai_response = generate_contextual_response(user_message)
         else:
             # Use Groq API
@@ -302,11 +304,15 @@ def chat_api():
             }
             
             try:
-                            response = requests.post(api_url, headers=headers, data=json.dumps(payload))
-                            response.raise_for_status() # Raise an exception for bad status codes
-                            result = response.json()
-                            ai_response = result['choices'][0]['message']['content']
-            except Exception as _e:
+                response = requests.post(api_url, headers=headers, data=json.dumps(payload))
+                response.raise_for_status() # Raise an exception for bad status codes
+                result = response.json()
+                ai_response = result['choices'][0]['message']['content']
+                print(f"Groq API Success: {ai_response[:100]}...")  # Debug log
+            except Exception as e:
+                print(f"Groq API Error: {str(e)}")  # Debug log
+                print(f"Response status: {response.status_code if 'response' in locals() else 'No response'}")
+                print(f"Response text: {response.text if 'response' in locals() else 'No response'}")
                 # Fall back to contextual responses if API call fails
                 ai_response = generate_contextual_response(user_message)
 

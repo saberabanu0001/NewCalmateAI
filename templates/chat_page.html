@@ -87,9 +87,13 @@
 
         <!-- Floating Assessment panel (top-right on desktop) -->
         <div id="seriousness-suggestions-container" class="hidden md:block fixed top-28 right-8 w-80 z-20">
-            <div class="bg-white border border-slate-200 rounded-lg shadow-lg p-4">
+            <div class="bg-white border border-slate-200 rounded-lg shadow-lg p-4 cursor-move" id="draggable-panel">
                 <div class="flex justify-between items-center mb-3">
                     <h3 class="text-base font-semibold text-slate-800">Assessment & Resources</h3>
+                    <div class="flex space-x-2">
+                        <button id="minimize-panel" class="text-slate-400 hover:text-slate-600 text-sm">−</button>
+                        <button id="close-panel" class="text-slate-400 hover:text-slate-600 text-sm">×</button>
+                    </div>
                 </div>
                 <div id="emergency-banner" class="hidden mb-3 p-3 rounded-md bg-rose-50 text-rose-700 text-sm">If you are in immediate danger, please call local emergency services or 988.</div>
                 <div id="seriousness-output" class="text-sm font-semibold mb-3 p-3 rounded-lg bg-slate-100 text-slate-800"></div>
@@ -101,4 +105,135 @@
 
 <!-- JavaScript file for handling chat logic -->
 <script src="{{ url_for('static', filename='js/chat_script.js') }}"></script>
+
+<script>
+// Draggable panel functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const panel = document.getElementById('seriousness-suggestions-container');
+    const draggablePanel = document.getElementById('draggable-panel');
+    const minimizeBtn = document.getElementById('minimize-panel');
+    const closeBtn = document.getElementById('close-panel');
+    
+    let isDragging = false;
+    let currentX;
+    let currentY;
+    let initialX;
+    let initialY;
+    let xOffset = 0;
+    let yOffset = 0;
+    let isMinimized = false;
+    
+    // Initialize position
+    panel.style.position = 'fixed';
+    panel.style.top = '7rem';
+    panel.style.right = '2rem';
+    
+    // Drag functionality
+    draggablePanel.addEventListener('mousedown', dragStart);
+    document.addEventListener('mousemove', drag);
+    document.addEventListener('mouseup', dragEnd);
+    
+    // Minimize/Close functionality
+    minimizeBtn.addEventListener('click', function() {
+        const content = panel.querySelector('.bg-white > div:not(:first-child)');
+        if (isMinimized) {
+            content.style.display = 'block';
+            minimizeBtn.textContent = '−';
+            isMinimized = false;
+        } else {
+            content.style.display = 'none';
+            minimizeBtn.textContent = '+';
+            isMinimized = true;
+        }
+    });
+    
+    closeBtn.addEventListener('click', function() {
+        panel.style.display = 'none';
+    });
+    
+    function dragStart(e) {
+        initialX = e.clientX - xOffset;
+        initialY = e.clientY - yOffset;
+        
+        if (e.target === draggablePanel || draggablePanel.contains(e.target)) {
+            isDragging = true;
+            draggablePanel.style.cursor = 'grabbing';
+        }
+    }
+    
+    function drag(e) {
+        if (isDragging) {
+            e.preventDefault();
+            
+            currentX = e.clientX - initialX;
+            currentY = e.clientY - initialY;
+            
+            xOffset = currentX;
+            yOffset = currentY;
+            
+            // Keep panel within viewport bounds
+            const rect = panel.getBoundingClientRect();
+            const maxX = window.innerWidth - rect.width;
+            const maxY = window.innerHeight - rect.height;
+            
+            currentX = Math.max(0, Math.min(currentX, maxX));
+            currentY = Math.max(0, Math.min(currentY, maxY));
+            
+            panel.style.left = currentX + 'px';
+            panel.style.top = currentY + 'px';
+            panel.style.right = 'auto';
+        }
+    }
+    
+    function dragEnd(e) {
+        initialX = currentX;
+        initialY = currentY;
+        
+        isDragging = false;
+        draggablePanel.style.cursor = 'move';
+    }
+    
+    // Touch support for mobile
+    draggablePanel.addEventListener('touchstart', function(e) {
+        if (e.touches.length === 1) {
+            const touch = e.touches[0];
+            initialX = touch.clientX - xOffset;
+            initialY = touch.clientY - yOffset;
+            isDragging = true;
+        }
+    });
+    
+    document.addEventListener('touchmove', function(e) {
+        if (isDragging && e.touches.length === 1) {
+            e.preventDefault();
+            const touch = e.touches[0];
+            currentX = touch.clientX - initialX;
+            currentY = touch.clientY - initialY;
+            
+            xOffset = currentX;
+            yOffset = currentY;
+            
+            // Keep panel within viewport bounds
+            const rect = panel.getBoundingClientRect();
+            const maxX = window.innerWidth - rect.width;
+            const maxY = window.innerHeight - rect.height;
+            
+            currentX = Math.max(0, Math.min(currentX, maxX));
+            currentY = Math.max(0, Math.min(currentY, maxY));
+            
+            panel.style.left = currentX + 'px';
+            panel.style.top = currentY + 'px';
+            panel.style.right = 'auto';
+        }
+    });
+    
+    document.addEventListener('touchend', function(e) {
+        if (isDragging) {
+            initialX = currentX;
+            initialY = currentY;
+            isDragging = false;
+        }
+    });
+});
+</script>
 {% endblock %}
