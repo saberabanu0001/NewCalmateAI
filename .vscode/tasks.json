@@ -2,10 +2,13 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Start CalmMateAI Server",
+            "label": "Start CalmMateAI Flask App",
             "type": "shell",
-            "command": "source venv/bin/activate && FLASK_ENV=development PORT=5001 python app.py",
-            "group": "build",
+            "command": "source venv/bin/activate && export FLASK_ENV=development && export PORT=5001 && python app.py",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
             "presentation": {
                 "echo": true,
                 "reveal": "always",
@@ -24,8 +27,7 @@
                 "reveal": "always",
                 "focus": false,
                 "panel": "new"
-            },
-            "problemMatcher": []
+            }
         }
     ]
 }
