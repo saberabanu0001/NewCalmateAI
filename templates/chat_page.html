@@ -38,7 +38,13 @@
                 </div>
 
                 <!-- Chat messages container - scrollable area -->
-                <div id="chat-messages" class="chat-messages flex-1 overflow-y-auto p-4 pb-44 min-h-0 md:pr-96" role="log" aria-live="polite" aria-relevant="additions">
+                <div id="chat-messages" class="chat-messages flex-1 overflow-y-auto p-4 pb-20 min-h-0 md:pr-96 relative" role="log" aria-live="polite" aria-relevant="additions">
+                    <!-- Scroll to bottom button -->
+                    <button id="scroll-to-bottom" class="fixed bottom-24 right-8 bg-indigo-500 hover:bg-indigo-600 text-white rounded-full p-3 shadow-lg transition-all duration-300 opacity-0 pointer-events-none z-10" aria-label="Scroll to bottom">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+                        </svg>
+                    </button>
                     <!-- Welcome message bubble -->
                     <div class="flex items-start mb-6 space-x-3 w-full max-w-[80%] md:max-w-[60%]">
                         <div class="flex-shrink-0 w-8 h-8 rounded-full bg-indigo-400 flex items-center justify-center text-sm font-bold text-white">🌿</div>

@@ -32,6 +32,50 @@ document.addEventListener('DOMContentLoaded', () => {
         suggestionsContainer: !!suggestionsContainer
     });
 
+    // Ensure chat scrolls to bottom on page load
+    const scrollToBottom = () => {
+        if (chatMessagesContainer) {
+            chatMessagesContainer.scrollTop = chatMessagesContainer.scrollHeight;
+        }
+    };
+    
+    // Scroll to bottom when page loads
+    scrollToBottom();
+    setTimeout(scrollToBottom, 100);
+
+    // Scroll to bottom button functionality
+    const scrollToBottomBtn = document.getElementById('scroll-to-bottom');
+    let isAtBottom = true;
+    
+    const checkScrollPosition = () => {
+        if (!chatMessagesContainer) return;
+        const threshold = 100;
+        const isNearBottom = chatMessagesContainer.scrollTop + chatMessagesContainer.clientHeight >= chatMessagesContainer.scrollHeight - threshold;
+        
+        if (isNearBottom !== isAtBottom) {
+            isAtBottom = isNearBottom;
+            if (scrollToBottomBtn) {
+                if (isAtBottom) {
+                    scrollToBottomBtn.style.opacity = '0';
+                    scrollToBottomBtn.style.pointerEvents = 'none';
+                } else {
+                    scrollToBottomBtn.style.opacity = '1';
+                    scrollToBottomBtn.style.pointerEvents = 'auto';
+                }
+            }
+        }
+    };
+    
+    if (chatMessagesContainer) {
+        chatMessagesContainer.addEventListener('scroll', checkScrollPosition);
+    }
+    
+    if (scrollToBottomBtn) {
+        scrollToBottomBtn.addEventListener('click', () => {
+            scrollToBottom();
+        });
+    }
+
     // --- ACCESSIBILITY: dynamic font size ---
     let baseFontSize = 16;
     const applyFontSize = () => {
@@ -115,13 +159,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         chatMessagesContainer.appendChild(wrapper);
-        setTimeout(() => {
-            chatMessagesContainer.scrollTo({ top: chatMessagesContainer.scrollHeight, behavior: 'smooth' });
-        }, 100);
-        // extra scroll after paint to avoid bottom cutoff
-        requestAnimationFrame(() => {
-            chatMessagesContainer.scrollTop = chatMessagesContainer.scrollHeight;
-        });
+        
+        // Force scroll to bottom immediately and smoothly
+        scrollToBottom();
+        setTimeout(scrollToBottom, 50);
+        setTimeout(scrollToBottom, 100);
+        requestAnimationFrame(scrollToBottom);
+        
         return wrapper;
     };
     
@@ -154,7 +198,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const data = await response.json();
             loadingMessage.remove();
-            if (data.ai_response) appendMessage('ai', data.ai_response);
+            if (data.ai_response) {
+                appendMessage('ai', data.ai_response);
+                // Ensure scroll after AI response
+                setTimeout(scrollToBottom, 100);
+            }
 
             // Sidebar content
             if (data.seriousness_level && data.suggestions) {
