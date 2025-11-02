@@ -37,8 +37,24 @@ def get_emergency_info_by_location(country, city, category):
     Returns:
         list: A list of dictionaries containing contact info. Returns an empty list if not found.
     """
-    # Normalize input to title case for matching
-    country_normalized = country.title().strip()
+    # Common country name variations
+    country_variations = {
+        'korea': 'South Korea',
+        'south korea': 'South Korea',
+        's. korea': 'South Korea',
+        'usa': 'United States',
+        'u.s.a': 'United States',
+        'us': 'United States',
+        'united states': 'United States',
+        'uk': 'United Kingdom',
+        'u.k.': 'United Kingdom',
+        'united kingdom': 'United Kingdom',
+        'canada': 'Canada',
+    }
+    
+    # Normalize country name
+    country_lower = country.lower().strip()
+    country_normalized = country_variations.get(country_lower, country).title().strip()
     city_normalized = city.title().strip()
     
     # Try exact match first
@@ -48,7 +64,7 @@ def get_emergency_info_by_location(country, city, category):
     # If no exact match, try case-insensitive search
     if not city_data:
         for data_country, cities in EMERGENCY_DATA.items():
-            if data_country.lower() == country.lower():
+            if data_country.lower() == country_normalized.lower():
                 for data_city, city_info in cities.items():
                     if data_city.lower() == city.lower():
                         return city_info.get(category, [])
