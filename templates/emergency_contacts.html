@@ -128,6 +128,19 @@
 </div>
 
 <script>
+        // Auto-submit when category changes (if form already has results)
+        let hasResults = false;
+        
+        document.getElementById('category').addEventListener('change', function() {
+            const country = document.getElementById('country').value.trim();
+            const city = document.getElementById('city').value.trim();
+            
+            // Only auto-submit if we have both country and city filled
+            if (country && city) {
+                document.getElementById('location-form').dispatchEvent(new Event('submit'));
+            }
+        });
+        
         // Add loading state and better error handling
         document.getElementById('location-form').addEventListener('submit', async (e) => {
             e.preventDefault();
