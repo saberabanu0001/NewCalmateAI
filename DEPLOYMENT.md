@@ -19,7 +19,7 @@
 - **Branch**: main
 - **Root Directory**: (leave empty)
 - **Build Command**: `pip install -r requirements.txt`
-- **Start Command**: (leave empty - Render will use the Procfile)
+- **Start Command**: `gunicorn app:app` (Render requires this field)
 
 ### Step 4: Set Environment Variables
 In the **Environment** section, add these variables:
