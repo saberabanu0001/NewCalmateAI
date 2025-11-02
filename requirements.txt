@@ -1,8 +1,10 @@
 python-dotenv
 Flask
+gunicorn
 langchain
 langchain-community
 langchain-groq
 nltk
 SpeechRecognition
 pydub
+requests
