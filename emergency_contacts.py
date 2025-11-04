@@ -101,4 +101,4 @@ def format_contacts_for_display(contacts, location):
     return formatted_text
 
 # You'll also need the emergency_data.json file.
-# We'll create a sample version for you.
+
